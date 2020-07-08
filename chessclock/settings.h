@@ -32,7 +32,7 @@ typedef enum _gameType {SIMPLE, INCREMENT, SIMPLE_DELAY, BRONSTEIN_DELAY} gameTy
 #define TEN_SECONDS 4
 #define SECONDS 5
 
-typedef uint8_t gameTime[6];
+typedef int8_t gameTime[6];
 
 
 volatile gameTime playerATime, playerBTime, bronsteinTime, delayTime, *currentPlayerTime;

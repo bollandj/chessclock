@@ -42,47 +42,52 @@ void init_timer(void)
 }
 
 /* increments baseTime by incTime (ignoring ticks) */
-void add_time(volatile gameTime * baseTime, gameTime incTime)
+void add_time(volatile gameTime *baseTime, gameTime incTime)
 {
-	baseTime->seconds += incTime.seconds;
-	if (baseTime->seconds > 9) 
+	(*baseTime)[SECONDS] += incTime[SECONDS];
+	if ((*baseTime)[SECONDS] > 9) 
 	{
-		baseTime->seconds = 0;
-		baseTime->tenSeconds++;
+		(*baseTime)[SECONDS] = 0;
+		(*baseTime)[TEN_SECONDS]++;
 	}
 	
-	baseTime->tenSeconds += incTime.tenSeconds;
-	if (baseTime->tenSeconds > 5)
+	(*baseTime)[TEN_SECONDS] += incTime[TEN_SECONDS];
+	if ((*baseTime)[TEN_SECONDS] > 5)
 	{
-		baseTime->tenSeconds = 0;
-		baseTime->minutes++;
+		(*baseTime)[TEN_SECONDS] = 0;
+		(*baseTime)[MINUTES]++;
 	}
 	
-	baseTime->minutes += incTime.minutes;
-	if (baseTime->minutes > 9)
+	(*baseTime)[MINUTES] += incTime[MINUTES];
+	if ((*baseTime)[MINUTES] > 9)
 	{
-		baseTime->minutes = 0;
-		baseTime->tenMinutes++;
+		(*baseTime)[MINUTES] = 0;
+		(*baseTime)[TEN_MINUTES]++;
 	}
 	
-	baseTime->tenMinutes += incTime.tenMinutes;
-	if (baseTime->tenMinutes > 5)
+	(*baseTime)[TEN_MINUTES] += incTime[TEN_MINUTES];
+	if ((*baseTime)[TEN_MINUTES] > 5)
 	{
-		baseTime->tenMinutes = 0;
-		baseTime->hours++;
+		(*baseTime)[TEN_MINUTES] = 0;
+		(*baseTime)[HOURS]++;
 	}
 	
-	baseTime->hours += incTime.hours;
-	if (baseTime->hours > 9)
+	(*baseTime)[HOURS] += incTime[HOURS];
+	if ((*baseTime)[HOURS] > 9)
 	{
-		baseTime->hours = 0;
-		baseTime->tenHours++;
+		(*baseTime)[HOURS] = 0;
+		(*baseTime)[TEN_HOURS]++;
 	}
 	
-	baseTime->tenHours += incTime.tenHours;
-	if (baseTime->tenHours > 9)
+	(*baseTime)[TEN_HOURS] += incTime[TEN_HOURS];
+	if ((*baseTime)[TEN_HOURS] > 9)
 	{
-		baseTime->hours = 9;
+		(*baseTime)[TEN_HOURS]   = 0;
+		(*baseTime)[HOURS]       = 0;
+		(*baseTime)[TEN_MINUTES] = 0;
+		(*baseTime)[MINUTES]     = 0;
+		(*baseTime)[TEN_SECONDS] = 0;
+		(*baseTime)[SECONDS]     = 0;
 	}
 }
 
@@ -92,9 +97,12 @@ void add_time(volatile gameTime * baseTime, gameTime incTime)
 void reset(void)
 {
 	/* reset time */
-	memcpy(playerATime, gameConfig.initialTime, 6);
-	memcpy(playerBTime, gameConfig.initialTime, 6);
-	memcpy(bronsteinTime, gameConfig.initialTime, 6);
+	for (uint8_t i = 0; i < 6; i++)
+	{
+		uint8_t initialTimeComponent = gameConfig.initialTime[i];
+		playerATime[i] = initialTimeComponent;
+		playerBTime[i] = initialTimeComponent;
+	}
 
 	/* reset ticks */
 	playerATicks = 0;
@@ -109,7 +117,7 @@ void write_time(void)
 {	
 	for (uint8_t i = 0; i < 4; i++)
 	{
-		displayBuffer[i]   = playerATime[i+2];
+		displayBuffer[i] = playerATime[i+2];
 		displayBuffer[i+4] = playerBTime[i+2];
 	}
 }
@@ -225,10 +233,11 @@ ISR(INT0_vect)
 			switch (gameConfig.gameMode)
 			{
 				case SIMPLE:
+				
 				break;
 				
 				case INCREMENT:
-				add_time(&playerATime, gameConfig.delay);
+					add_time(currentPlayerTime, gameConfig.delay);
 				break;
 				
 				case SIMPLE_DELAY:
@@ -236,7 +245,7 @@ ISR(INT0_vect)
 				break;
 				
 				case BRONSTEIN_DELAY:
-				bronsteinTime = playerBTime; // remember player B's initial time for Bronstein-type delay
+				
 				break;
 			}				
 		}
@@ -246,7 +255,8 @@ ISR(INT0_vect)
 		break;
 	}
 	
-	currentPlayerTime = &playerBTime; // start decrementing other player's time instead
+	currentPlayerTime  = &playerBTime; // start decrementing other player's time instead
+	currentPlayerTicks = &playerBTicks;
 		
 	PORTB |= 1<<PB0;
 	PORTB &= ~(1<<PB1);	
@@ -263,10 +273,11 @@ ISR(INT1_vect)
 			switch (gameConfig.gameMode)
 			{
 				case SIMPLE:
+				
 				break;
 			
 				case INCREMENT:
-				add_time(&playerBTime, gameConfig.delay);
+					add_time(currentPlayerTime, gameConfig.delay);
 				break;
 			
 				case SIMPLE_DELAY:
@@ -274,7 +285,7 @@ ISR(INT1_vect)
 				break;
 			
 				case BRONSTEIN_DELAY:
-				bronsteinTime = playerATime;      // remember player B's initial time for Bronstein-type delay
+				
 				break;
 			}			
 		}
@@ -284,7 +295,8 @@ ISR(INT1_vect)
 		break;
 	}
 	
-	currentPlayerTime = &playerATime; // start decrementing other player's time instead	
+	currentPlayerTime  = &playerATime; // start decrementing other player's time instead	
+	currentPlayerTicks = &playerATicks;
 		
 	PORTB |= 1<<PB1;
 	PORTB &= ~(1<<PB0);
@@ -293,38 +305,38 @@ ISR(INT1_vect)
 /* TODO: implement simple/Bronstein delay by decrementing delay time in addition to/as well as current player time */
 ISR(TIMER2_OVF_vect)
 {	
-	if (++(currentPlayerTime->ticks) > 127)
+	if (++(*currentPlayerTicks) > 127)
 	{
-		currentPlayerTime->ticks = 0;
+		*currentPlayerTicks = 0;
 		
-		if (--(currentPlayerTime->seconds) < 0)
+		if (--(*currentPlayerTime)[SECONDS] < 0)
 		{
-			currentPlayerTime->seconds = 9;
+			(*currentPlayerTime)[SECONDS] = 9;
 		
-			if (--(currentPlayerTime->tenSeconds) < 0)
+			if (--(*currentPlayerTime)[TEN_SECONDS] < 0)
 			{
-				currentPlayerTime->tenSeconds = 5;
+				(*currentPlayerTime)[TEN_SECONDS] = 5;
 			
-				if (--(currentPlayerTime->minutes) < 0)
+				if (--(*currentPlayerTime)[MINUTES] < 0)
 				{
-					currentPlayerTime->minutes = 9;
+					(*currentPlayerTime)[MINUTES] = 9;
 				
-					if (--(currentPlayerTime->tenMinutes) < 0)
+					if (--(*currentPlayerTime)[TEN_MINUTES] < 0)
 					{					
-						currentPlayerTime->tenMinutes = 5;
+						(*currentPlayerTime)[TEN_MINUTES] = 5;
 					
-						if (--(currentPlayerTime->hours) < 0)
+						if (--(*currentPlayerTime)[HOURS] < 0)
 						{
-							currentPlayerTime->hours = 9;
+							(*currentPlayerTime)[HOURS] = 9;
 						
-							if(--(currentPlayerTime->tenHours) < 0)
+							if(--(*currentPlayerTime)[TEN_HOURS] < 0)
 							{
-								currentPlayerTime->tenHours = 0;
-								currentPlayerTime->hours = 0;
-								currentPlayerTime->tenMinutes = 0;
-								currentPlayerTime->minutes = 0;
-								currentPlayerTime->tenSeconds = 0;
-								currentPlayerTime->seconds = 0;	
+								(*currentPlayerTime)[TEN_HOURS]   = 0;
+								(*currentPlayerTime)[HOURS]       = 0;
+								(*currentPlayerTime)[TEN_MINUTES] = 0;
+								(*currentPlayerTime)[MINUTES]     = 0;
+								(*currentPlayerTime)[TEN_SECONDS] = 0;
+								(*currentPlayerTime)[SECONDS]     = 0;	
 								
 								TIMSK2 = 0x00; // disable further ticks
 								state = GAME_FINISHED;
