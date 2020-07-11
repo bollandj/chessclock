@@ -130,8 +130,8 @@ int main(void)
 	currentPlayerData = &playerAData;
 	
 	DDRD |= 1<<PD0 | 1<<PD1;
-	PORTD &= ~(1<<PD0);
-	PORTD |= 1<<PD1;
+	PORTD &= ~(1<<PD1);
+	PORTD |= 1<<PD0;
 	
 	gameConfig = blitz3plus2Config;
 	
@@ -189,27 +189,30 @@ int main(void)
 				
 				blinkMask[timeEditCursor] = 0xFF;
 				blinkMask[timeEditCursor+4] = 0xFF;
-				
-				state = IDLE;
 			}
-			else if (keyPressed & UP_KEY)
+			else if (keyPressed & (UP_KEY | DOWN_KEY))
 			{
-				uint8_t timeComponent = ++playerATime[timeEditCursor+2];
+				int8_t timeComponent;
 				
 				uint8_t limit = 5;                    // 9 for units, 5 for seconds
 				if (timeEditCursor & 0x01) limit = 9; // even = units, odd = tens
 				
-				if (timeComponent > limit) timeComponent = 0;
+				if (keyPressed & UP_KEY)
+				{
+					timeComponent = ++playerATime[timeEditCursor+2];
+					if (timeComponent > limit) timeComponent = 0;
+				}
+				else
+				{
+					timeComponent = --playerATime[timeEditCursor+2];
+					if (timeComponent < 0) timeComponent = limit;
+				}
 				
 				playerATime[timeEditCursor+2] = timeComponent;
 				playerBTime[timeEditCursor+2] = timeComponent;	
 				
 				displayBuffer[timeEditCursor] = timeComponent;
 				displayBuffer[timeEditCursor+4] = timeComponent;	
-			}
-			else if (keyPressed & DOWN_KEY)
-			{
-				
 			}
 			break;
 			

@@ -243,7 +243,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x786
+.text           0x00000000      0x7ae
  *(.vectors)
  .vectors       0x00000000       0x68 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -353,25 +353,25 @@ END GROUP
  .text.write_time
                 0x00000346       0x34 main.o
                 0x00000346                write_time
- .text.main     0x0000037a      0x1e4 main.o
+ .text.main     0x0000037a      0x20c main.o
                 0x0000037a                main
  .text.__vector_1
-                0x0000055e       0xae main.o
-                0x0000055e                __vector_1
+                0x00000586       0xae main.o
+                0x00000586                __vector_1
  .text.__vector_2
-                0x0000060c       0x8a main.o
-                0x0000060c                __vector_2
+                0x00000634       0x8a main.o
+                0x00000634                __vector_2
  .text.__vector_9
-                0x00000696       0xd6 main.o
-                0x00000696                __vector_9
+                0x000006be       0xd6 main.o
+                0x000006be                __vector_9
  .text.init_sound
-                0x0000076c       0x16 sound.o
-                0x0000076c                init_sound
-                0x00000782                . = ALIGN (0x2)
+                0x00000794       0x16 sound.o
+                0x00000794                init_sound
+                0x000007aa                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000782        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x00000782                _exit
-                0x00000782                exit
+ .fini9         0x000007aa        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x000007aa                _exit
+                0x000007aa                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -390,11 +390,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000782        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x000007aa        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000786                _etext = .
+                0x000007ae                _etext = .
 
-.data           0x00800100        0xe load address 0x00000786
+.data           0x00800100        0xe load address 0x000007ae
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -444,8 +444,8 @@ END GROUP
                 0x0080014c                currentPlayerTicks
                 0x0080014e                gameConfig
                 0x0080015b                PROVIDE (__bss_end, .)
-                0x00000786                __data_load_start = LOADADDR (.data)
-                0x00000794                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000007ae                __data_load_start = LOADADDR (.data)
+                0x000007bc                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0080015b        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -549,13 +549,13 @@ END GROUP
  .debug_abbrev  0x00000755      0x241 main.o
  .debug_abbrev  0x00000996       0x51 sound.o
 
-.debug_line     0x00000000      0xa8e
+.debug_line     0x00000000      0xaa7
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x133 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_line    0x00000133      0x205 display.o
  .debug_line    0x00000338       0xf1 keys.o
- .debug_line    0x00000429      0x58b main.o
- .debug_line    0x000009b4       0xda sound.o
+ .debug_line    0x00000429      0x5a4 main.o
+ .debug_line    0x000009cd       0xda sound.o
 
 .debug_frame    0x00000000      0x258
  *(.debug_frame)
@@ -576,11 +576,11 @@ END GROUP
  .debug_str     0x000006a2       0x20 sound.o
                                 0x18a (size before relaxing)
 
-.debug_loc      0x00000000      0x44d
+.debug_loc      0x00000000      0x459
  *(.debug_loc)
  .debug_loc     0x00000000      0x146 display.o
  .debug_loc     0x00000146       0x28 keys.o
- .debug_loc     0x0000016e      0x2df main.o
+ .debug_loc     0x0000016e      0x2eb main.o
 
 .debug_macinfo
  *(.debug_macinfo)
