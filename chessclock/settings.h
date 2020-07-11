@@ -34,8 +34,7 @@ typedef enum _gameType {SIMPLE, INCREMENT, SIMPLE_DELAY, BRONSTEIN_DELAY} gameTy
 
 typedef int8_t gameTime[6];
 
-
-volatile gameTime playerATime, playerBTime, bronsteinTime, delayTime, *currentPlayerTime;
+volatile gameTime playerATime, playerBTime, delayTime, *currentPlayerTime;
 volatile uint8_t playerATicks, playerBTicks, *currentPlayerTicks;
 
 typedef struct

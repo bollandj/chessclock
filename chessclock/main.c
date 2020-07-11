@@ -15,10 +15,9 @@
 #include "display.h"
 #include "keys.h"
 #include "settings.h"
+#include "sound.h"
 
-uint8_t blink=0x00;
-uint8_t blinkTimer=0;
-const uint8_t blinkThreshold=30;
+uint8_t timeEditCursor=0;
 
 enum _state {IDLE, EDIT_TIME, EDIT_SETTINGS, GAME_ACTIVE, GAME_PAUSED, GAME_FINISHED} state;
 
@@ -47,35 +46,35 @@ void add_time(volatile gameTime *baseTime, gameTime incTime)
 	(*baseTime)[SECONDS] += incTime[SECONDS];
 	if ((*baseTime)[SECONDS] > 9) 
 	{
-		(*baseTime)[SECONDS] = 0;
+		(*baseTime)[SECONDS] -= 10;
 		(*baseTime)[TEN_SECONDS]++;
 	}
 	
 	(*baseTime)[TEN_SECONDS] += incTime[TEN_SECONDS];
 	if ((*baseTime)[TEN_SECONDS] > 5)
 	{
-		(*baseTime)[TEN_SECONDS] = 0;
+		(*baseTime)[TEN_SECONDS] -= 6;
 		(*baseTime)[MINUTES]++;
 	}
 	
 	(*baseTime)[MINUTES] += incTime[MINUTES];
 	if ((*baseTime)[MINUTES] > 9)
 	{
-		(*baseTime)[MINUTES] = 0;
+		(*baseTime)[MINUTES] -= 10;
 		(*baseTime)[TEN_MINUTES]++;
 	}
 	
 	(*baseTime)[TEN_MINUTES] += incTime[TEN_MINUTES];
 	if ((*baseTime)[TEN_MINUTES] > 5)
 	{
-		(*baseTime)[TEN_MINUTES] = 0;
+		(*baseTime)[TEN_MINUTES] -= 6;
 		(*baseTime)[HOURS]++;
 	}
 	
 	(*baseTime)[HOURS] += incTime[HOURS];
 	if ((*baseTime)[HOURS] > 9)
 	{
-		(*baseTime)[HOURS] = 0;
+		(*baseTime)[HOURS] -= 10;
 		(*baseTime)[TEN_HOURS]++;
 	}
 	
@@ -99,9 +98,8 @@ void reset(void)
 	/* reset time */
 	for (uint8_t i = 0; i < 6; i++)
 	{
-		uint8_t initialTimeComponent = gameConfig.initialTime[i];
-		playerATime[i] = initialTimeComponent;
-		playerBTime[i] = initialTimeComponent;
+		playerATime[i] = gameConfig.initialTime[i];
+		playerBTime[i] = gameConfig.initialTime[i];
 	}
 
 	/* reset ticks */
@@ -131,19 +129,22 @@ int main(void)
 	currentPlayerTime = &playerATime;
 	currentPlayerData = &playerAData;
 	
-	DDRB |= 1<<PB0 | 1<<PB1;
-	PORTB &= ~(1<<PB1);
-	PORTB |= 1<<PB0;
+	DDRD |= 1<<PD0 | 1<<PD1;
+	PORTD &= ~(1<<PD0);
+	PORTD |= 1<<PD1;
 	
-	gameConfig = blitz5plus3Config;
+	gameConfig = blitz3plus2Config;
 	
 	reset();
 	
 	init_display();
-	init_timer();
 	init_keys();
-	
+	init_sound();
+	init_timer();
+
 	sei();
+	
+	//sound_on();
 	
     while (1) 
     {
@@ -155,10 +156,15 @@ int main(void)
 			if (keyPressed & START_KEY)
 			{
 				TIMSK2 = 1<<TOIE2;
+				
 				state = GAME_ACTIVE;
 			}
 			else if (keyPressed & TIME_KEY)
 			{
+				timeEditCursor = 0;
+				blinkMask[0] = 0xFF;
+				blinkMask[4] = 0xFF;
+								
 				state = EDIT_TIME;
 			}
 			
@@ -168,7 +174,42 @@ int main(void)
 			case EDIT_TIME:
 			if (keyPressed & START_KEY)
 			{
+				blinkMask[timeEditCursor] = 0x00;
+				blinkMask[timeEditCursor+4] = 0x00;
+				
 				state = IDLE;	
+			}
+			else if (keyPressed & TIME_KEY)
+			{
+				blinkMask[timeEditCursor] = 0x00;
+				blinkMask[timeEditCursor+4] = 0x00;
+				
+				timeEditCursor++;
+				timeEditCursor &= 0x03;
+				
+				blinkMask[timeEditCursor] = 0xFF;
+				blinkMask[timeEditCursor+4] = 0xFF;
+				
+				state = IDLE;
+			}
+			else if (keyPressed & UP_KEY)
+			{
+				uint8_t timeComponent = ++playerATime[timeEditCursor+2];
+				
+				uint8_t limit = 5;                    // 9 for units, 5 for seconds
+				if (timeEditCursor & 0x01) limit = 9; // even = units, odd = tens
+				
+				if (timeComponent > limit) timeComponent = 0;
+				
+				playerATime[timeEditCursor+2] = timeComponent;
+				playerBTime[timeEditCursor+2] = timeComponent;	
+				
+				displayBuffer[timeEditCursor] = timeComponent;
+				displayBuffer[timeEditCursor+4] = timeComponent;	
+			}
+			else if (keyPressed & DOWN_KEY)
+			{
+				
 			}
 			break;
 			
@@ -210,14 +251,8 @@ int main(void)
 			break;
 		}
 		
+		do_blink();
 		
-		
-		blinkTimer++;
-		if (blinkTimer > blinkThreshold)
-		{
-			blinkTimer = 0;
-			blink ^= 0x0F;
-		}		
 		_delay_ms(15);	
     }
 }
@@ -237,7 +272,7 @@ ISR(INT0_vect)
 				break;
 				
 				case INCREMENT:
-					add_time(currentPlayerTime, gameConfig.delay);
+				add_time(currentPlayerTime, gameConfig.delay);
 				break;
 				
 				case SIMPLE_DELAY:
@@ -245,7 +280,11 @@ ISR(INT0_vect)
 				break;
 				
 				case BRONSTEIN_DELAY:
-				
+				for (uint8_t i = 0; i < 6; i++)
+				{
+					delayTime[i] = playerBTime[i];
+					
+				}
 				break;
 			}				
 		}
@@ -258,8 +297,8 @@ ISR(INT0_vect)
 	currentPlayerTime  = &playerBTime; // start decrementing other player's time instead
 	currentPlayerTicks = &playerBTicks;
 		
-	PORTB |= 1<<PB0;
-	PORTB &= ~(1<<PB1);	
+	PORTD |= 1<<PD1;
+	PORTD &= ~(1<<PD0);	
 }
 
 /* Player B's button */
@@ -277,7 +316,7 @@ ISR(INT1_vect)
 				break;
 			
 				case INCREMENT:
-					add_time(currentPlayerTime, gameConfig.delay);
+				add_time(currentPlayerTime, gameConfig.delay);
 				break;
 			
 				case SIMPLE_DELAY:
@@ -285,7 +324,7 @@ ISR(INT1_vect)
 				break;
 			
 				case BRONSTEIN_DELAY:
-				
+					
 				break;
 			}			
 		}
@@ -298,8 +337,8 @@ ISR(INT1_vect)
 	currentPlayerTime  = &playerATime; // start decrementing other player's time instead	
 	currentPlayerTicks = &playerATicks;
 		
-	PORTB |= 1<<PB1;
-	PORTB &= ~(1<<PB0);
+	PORTD |= 1<<PD0;
+	PORTD &= ~(1<<PD1);
 }
 
 /* TODO: implement simple/Bronstein delay by decrementing delay time in addition to/as well as current player time */

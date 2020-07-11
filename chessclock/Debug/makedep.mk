@@ -10,3 +10,5 @@ main.c
 
 settings.c
 
+sound.c
+

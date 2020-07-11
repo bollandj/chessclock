@@ -11,6 +11,7 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <avr/pgmspace.h>
 
 #define SPI_DDR  DDRB
 #define SPI_PORT PORTB
@@ -21,9 +22,11 @@
 
 extern volatile uint8_t displayBuffer[8];
 
-extern uint8_t sevenSeg[37];
+extern volatile uint8_t blinkOsc[8];
+extern volatile uint8_t blinkMask[8];
 
 void init_display(void);
+void do_blink(void);
 
 
 #endif /* DISPLAY_H_ */

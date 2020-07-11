@@ -40,7 +40,8 @@ C_SRCS +=  \
 ../display.c \
 ../keys.c \
 ../main.c \
-../settings.c
+../settings.c \
+../sound.c
 
 
 PREPROCESSING_SRCS += 
@@ -53,25 +54,29 @@ OBJS +=  \
 display.o \
 keys.o \
 main.o \
-settings.o
+settings.o \
+sound.o
 
 OBJS_AS_ARGS +=  \
 display.o \
 keys.o \
 main.o \
-settings.o
+settings.o \
+sound.o
 
 C_DEPS +=  \
 display.d \
 keys.d \
 main.d \
-settings.d
+settings.d \
+sound.d
 
 C_DEPS_AS_ARGS +=  \
 display.d \
 keys.d \
 main.d \
-settings.d
+settings.d \
+sound.d
 
 OUTPUT_FILE_PATH +=chessclock.elf
 
@@ -87,6 +92,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 
