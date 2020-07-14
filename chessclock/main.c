@@ -19,7 +19,7 @@
 
 uint8_t timeEditCursor=0;
 
-enum _state {IDLE, EDIT_TIME, EDIT_SETTINGS, GAME_ACTIVE, GAME_PAUSED, GAME_FINISHED} state;
+enum _state {IDLE, EDIT_TIME, EDIT_MODE, EDIT_DELAY, GAME_ACTIVE, GAME_PAUSED, GAME_FINISHED} state;
 
 typedef struct 
 {
@@ -133,25 +133,28 @@ int main(void)
 	PORTD &= ~(1<<PD1);
 	PORTD |= 1<<PD0;
 	
-	gameConfig = blitz3plus2Config;
+	load_config();
+	//gameConfig = blitz3plus2Config;
 	
 	reset();
 	
 	init_display();
 	init_keys();
-	init_sound();
 	init_timer();
-
-	sei();
 	
-	//sound_on();
+	sei();
 	
     while (1) 
     {
+		_delay_ms(15);
+		
 		scan_keys();
+		do_blink();
 		
 		switch (state)
 		{
+			/* Idle */
+			/* Ready to start a game */
 			case IDLE:
 			if (keyPressed & START_KEY)
 			{
@@ -171,11 +174,17 @@ int main(void)
 			write_time();
 			break;
 			
+			/* Time edit mode */
+			/* Edit initial time for one or both players */
 			case EDIT_TIME:
 			if (keyPressed & START_KEY)
 			{
+				/* stop blinking */
 				blinkMask[timeEditCursor] = 0x00;
 				blinkMask[timeEditCursor+4] = 0x00;
+				
+				/* save settings */
+				store_config();
 				
 				state = IDLE;	
 			}
@@ -208,21 +217,54 @@ int main(void)
 					if (timeComponent < 0) timeComponent = limit;
 				}
 				
-				playerATime[timeEditCursor+2] = timeComponent;
-				playerBTime[timeEditCursor+2] = timeComponent;	
+				gameConfig.initialTime[timeEditCursor+2] = timeComponent;
 				
-				displayBuffer[timeEditCursor] = timeComponent;
-				displayBuffer[timeEditCursor+4] = timeComponent;	
+				playerATime[timeEditCursor+2] = timeComponent;
+				playerBTime[timeEditCursor+2] = timeComponent;
+								
+				//displayBuffer[timeEditCursor] = timeComponent;
+				//displayBuffer[timeEditCursor+4] = timeComponent;	
 			}
+			
+			write_time();
 			break;
 			
-			case EDIT_SETTINGS:
+			/* Edit game mode */
+			/* Select between different clock modes */
+			case EDIT_MODE:			
 			if (keyPressed & START_KEY)
 			{
+				/* save settings */
+				store_config();
+				
 				state = IDLE;
+			}
+			else if (keyPressed & MODE_KEY)
+			{
+				
+				state = EDIT_DELAY;
 			}
 			break;
 			
+			/* Edit time increment/delay */
+			/* Change increment or delay (simple/Bronstein modes) time */
+			case EDIT_DELAY:
+			if (keyPressed & START_KEY)
+			{
+				/* save settings */
+				store_config();
+				
+				state = IDLE;
+			}
+			else if (keyPressed & MODE_KEY)
+			{
+				
+				state = EDIT_MODE;
+			}
+			break;
+			
+			/* Game active */
+			/* Clock is currently counting down */
 			case GAME_ACTIVE:
 			if (keyPressed & START_KEY)
 			{
@@ -233,8 +275,15 @@ int main(void)
 			write_time();
 			break;
 			
+			/* Game paused */
+			/* Clock countdown for both players is paused */
 			case GAME_PAUSED:
-			if (keyPressed & START_KEY)
+			if (holdTimer >= holdTimerThreshold)
+			{				
+				reset();
+				state = IDLE;	
+			}
+			else if (keyPressed & START_KEY)
 			{
 				TIMSK2 = 1<<TOIE2;
 				state = GAME_ACTIVE;
@@ -243,6 +292,8 @@ int main(void)
 			write_time();
 			break;
 			
+			/* Game finished */
+			/* One player's time has run out */
 			case GAME_FINISHED:
 			if (keyPressed & START_KEY)
 			{
@@ -252,11 +303,7 @@ int main(void)
 			
 			write_time();
 			break;
-		}
-		
-		do_blink();
-		
-		_delay_ms(15);	
+		}				
     }
 }
 

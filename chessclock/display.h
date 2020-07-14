@@ -25,6 +25,9 @@ extern volatile uint8_t displayBuffer[8];
 extern volatile uint8_t blinkOsc[8];
 extern volatile uint8_t blinkMask[8];
 
+extern uint8_t blinkTimer;
+extern const uint8_t blinkThreshold;
+
 void init_display(void);
 void do_blink(void);
 

@@ -22,6 +22,10 @@
 
 #define KEY_MASK (MODE_KEY | TIME_KEY | START_KEY | DOWN_KEY | UP_KEY)
 
+/* detect long presses of start/pause key */
+extern uint8_t holdTimer;
+extern const uint8_t holdTimerThreshold;
+
 uint8_t keyState;
 uint8_t lastKeyState;
 uint8_t keyPressed;

@@ -7,6 +7,9 @@
 
 #include "keys.h"
 
+uint8_t holdTimer;
+const uint8_t holdTimerThreshold=60;
+
 void init_keys(void)
 {
 	EICRA = 1<<ISC11 | 1<<ISC01; // falling edge
@@ -27,4 +30,14 @@ void scan_keys(void)
 	
 	keyPressed = keyDiff & ~keyState;	
 	keyReleased = keyDiff & keyState;
+	
+	if (~keyState & START_KEY)
+	{
+		if (holdTimer < holdTimerThreshold) holdTimer++;		
+	}
+	else
+	{
+		holdTimer = 0;
+	}
+
 }

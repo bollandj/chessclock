@@ -10,9 +10,13 @@
 #define SETTINGS_H_
 
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include <avr/pgmspace.h>
+#include <avr/eeprom.h>
 
+#define NUM_MODES 2
 typedef enum _gameType {SIMPLE, INCREMENT, SIMPLE_DELAY, BRONSTEIN_DELAY} gameType;
+extern const char *gameTypeNames[NUM_MODES];
 
 // typedef struct
 // {
@@ -46,33 +50,13 @@ typedef struct
 
 gameConfiguration gameConfig; 
 
-const gameConfiguration blitz3plus0Config =
-{
-	{0, 0, 0, 3, 0, 0},
-	SIMPLE,
-	{0, 0, 0, 0, 0, 0}
-};
+extern const gameConfiguration blitz3plus0Config;
+extern const gameConfiguration blitz3plus2Config;
+extern const gameConfiguration blitz5plus0Config;
+extern const gameConfiguration blitz5plus3Config;
 
-const gameConfiguration blitz3plus2Config =
-{
-	{0, 0, 0, 3, 0, 0},
-	INCREMENT,
-	{0, 0, 0, 0, 0, 2}
-};
+void store_config(); // 512 bytes of EEPROM space
 
-const gameConfiguration blitz5plus0Config =
-{
-	{0, 0, 0, 5, 0, 0},
-	SIMPLE,
-	{0, 0, 0, 0, 0, 0}
-};
-
-const gameConfiguration blitz5plus3Config =
-{
-	{0, 0, 0, 5, 0, 0},
-	INCREMENT,
-	{0, 0, 0, 0, 0, 3}
-};
-
+void load_config();
 
 #endif /* SETTINGS_H_ */

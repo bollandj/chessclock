@@ -3,1460 +3,1640 @@ chessclock.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         0000000e  00800100  000007ae  00000842  2**0
+  0 .data         00000002  00800100  00000878  0000090c  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000007ae  00000000  00000000  00000094  2**1
+  1 .text         00000878  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          0000004d  0080010e  0080010e  00000850  2**0
+  2 .bss          0000004e  00800102  00800102  0000090e  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  00000850  2**0
+  3 .comment      00000030  00000000  00000000  0000090e  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000880  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000940  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 000000e8  00000000  00000000  000008c0  2**0
+  5 .debug_aranges 00000140  00000000  00000000  00000980  2**3
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   000010b1  00000000  00000000  000009a8  2**0
+  6 .debug_info   0000151b  00000000  00000000  00000ac0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000009e7  00000000  00000000  00001a59  2**0
+  7 .debug_abbrev 00000aab  00000000  00000000  00001fdb  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000aa7  00000000  00000000  00002440  2**0
+  8 .debug_line   00000d8d  00000000  00000000  00002a86  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000258  00000000  00000000  00002ee8  2**2
+  9 .debug_frame  00000248  00000000  00000000  00003814  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000006c2  00000000  00000000  00003140  2**0
+ 10 .debug_str    00000718  00000000  00000000  00003a5c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000459  00000000  00000000  00003802  2**0
+ 11 .debug_loc    000004a1  00000000  00000000  00004174  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000000c0  00000000  00000000  00003c5b  2**0
+ 12 .debug_ranges 000000b8  00000000  00000000  00004615  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
 
 00000000 <__vectors>:
-   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
-   4:	0c 94 c3 02 	jmp	0x586	; 0x586 <__vector_1>
-   8:	0c 94 1a 03 	jmp	0x634	; 0x634 <__vector_2>
-   c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  10:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  14:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  18:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  1c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  20:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  24:	0c 94 5f 03 	jmp	0x6be	; 0x6be <__vector_9>
-  28:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  2c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  30:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  34:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  38:	0c 94 b5 00 	jmp	0x16a	; 0x16a <__vector_14>
-  3c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  40:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  44:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  48:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  4c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  50:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  54:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  58:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  5c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  60:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
-  64:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+   0:	0c 94 3b 00 	jmp	0x76	; 0x76 <__ctors_end>
+   4:	0c 94 e5 02 	jmp	0x5ca	; 0x5ca <__vector_1>
+   8:	0c 94 3c 03 	jmp	0x678	; 0x678 <__vector_2>
+   c:	0c 94 58 00 	jmp	0xb0	; 0xb0 <__bad_interrupt>
+  10:	0c 94 58 00 	jmp	0xb0	; 0xb0 <__bad_interrupt>
+  14:	0c 94 58 00 	jmp	0xb0	; 0xb0 <__bad_interrupt>
+  18:	0c 94 58 00 	jmp	0xb0	; 0xb0 <__bad_interrupt>
+  1c:	0c 94 58 00 	jmp	0xb0	; 0xb0 <__bad_interrupt>
+  20:	0c 94 58 00 	jmp	0xb0	; 0xb0 <__bad_interrupt>
+  24:	0c 94 81 03 	jmp	0x702	; 0x702 <__vector_9>
+  28:	0c 94 58 00 	jmp	0xb0	; 0xb0 <__bad_interrupt>
+  2c:	0c 94 58 00 	jmp	0xb0	; 0xb0 <__bad_interrupt>
+  30:	0c 94 58 00 	jmp	0xb0	; 0xb0 <__bad_interrupt>
+  34:	0c 94 58 00 	jmp	0xb0	; 0xb0 <__bad_interrupt>
+  38:	0c 94 bc 00 	jmp	0x178	; 0x178 <__vector_14>
+  3c:	0c 94 58 00 	jmp	0xb0	; 0xb0 <__bad_interrupt>
+  40:	0c 94 58 00 	jmp	0xb0	; 0xb0 <__bad_interrupt>
+  44:	0c 94 58 00 	jmp	0xb0	; 0xb0 <__bad_interrupt>
+  48:	0c 94 58 00 	jmp	0xb0	; 0xb0 <__bad_interrupt>
+  4c:	0c 94 58 00 	jmp	0xb0	; 0xb0 <__bad_interrupt>
+  50:	0c 94 58 00 	jmp	0xb0	; 0xb0 <__bad_interrupt>
+  54:	0c 94 58 00 	jmp	0xb0	; 0xb0 <__bad_interrupt>
+  58:	0c 94 58 00 	jmp	0xb0	; 0xb0 <__bad_interrupt>
+  5c:	0c 94 58 00 	jmp	0xb0	; 0xb0 <__bad_interrupt>
+  60:	0c 94 58 00 	jmp	0xb0	; 0xb0 <__bad_interrupt>
+  64:	0c 94 58 00 	jmp	0xb0	; 0xb0 <__bad_interrupt>
+  68:	24 02       	muls	r18, r20
+  6a:	38 02       	muls	r19, r24
+  6c:	a1 02       	muls	r26, r17
+  6e:	af 02       	muls	r26, r31
+  70:	bd 02       	muls	r27, r29
+  72:	c7 02       	muls	r28, r23
+  74:	da 02       	muls	r29, r26
 
-00000068 <__ctors_end>:
-  68:	11 24       	eor	r1, r1
-  6a:	1f be       	out	0x3f, r1	; 63
-  6c:	cf ef       	ldi	r28, 0xFF	; 255
-  6e:	d8 e0       	ldi	r29, 0x08	; 8
-  70:	de bf       	out	0x3e, r29	; 62
-  72:	cd bf       	out	0x3d, r28	; 61
+00000076 <__ctors_end>:
+  76:	11 24       	eor	r1, r1
+  78:	1f be       	out	0x3f, r1	; 63
+  7a:	cf ef       	ldi	r28, 0xFF	; 255
+  7c:	d8 e0       	ldi	r29, 0x08	; 8
+  7e:	de bf       	out	0x3e, r29	; 62
+  80:	cd bf       	out	0x3d, r28	; 61
 
-00000074 <__do_copy_data>:
-  74:	11 e0       	ldi	r17, 0x01	; 1
-  76:	a0 e0       	ldi	r26, 0x00	; 0
-  78:	b1 e0       	ldi	r27, 0x01	; 1
-  7a:	ee ea       	ldi	r30, 0xAE	; 174
-  7c:	f7 e0       	ldi	r31, 0x07	; 7
-  7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
-  80:	05 90       	lpm	r0, Z+
-  82:	0d 92       	st	X+, r0
-  84:	ae 30       	cpi	r26, 0x0E	; 14
-  86:	b1 07       	cpc	r27, r17
-  88:	d9 f7       	brne	.-10     	; 0x80 <__do_copy_data+0xc>
+00000082 <__do_copy_data>:
+  82:	11 e0       	ldi	r17, 0x01	; 1
+  84:	a0 e0       	ldi	r26, 0x00	; 0
+  86:	b1 e0       	ldi	r27, 0x01	; 1
+  88:	e8 e7       	ldi	r30, 0x78	; 120
+  8a:	f8 e0       	ldi	r31, 0x08	; 8
+  8c:	02 c0       	rjmp	.+4      	; 0x92 <__do_copy_data+0x10>
+  8e:	05 90       	lpm	r0, Z+
+  90:	0d 92       	st	X+, r0
+  92:	a2 30       	cpi	r26, 0x02	; 2
+  94:	b1 07       	cpc	r27, r17
+  96:	d9 f7       	brne	.-10     	; 0x8e <__do_copy_data+0xc>
 
-0000008a <__do_clear_bss>:
-  8a:	21 e0       	ldi	r18, 0x01	; 1
-  8c:	ae e0       	ldi	r26, 0x0E	; 14
-  8e:	b1 e0       	ldi	r27, 0x01	; 1
-  90:	01 c0       	rjmp	.+2      	; 0x94 <.do_clear_bss_start>
+00000098 <__do_clear_bss>:
+  98:	21 e0       	ldi	r18, 0x01	; 1
+  9a:	a2 e0       	ldi	r26, 0x02	; 2
+  9c:	b1 e0       	ldi	r27, 0x01	; 1
+  9e:	01 c0       	rjmp	.+2      	; 0xa2 <.do_clear_bss_start>
 
-00000092 <.do_clear_bss_loop>:
-  92:	1d 92       	st	X+, r1
+000000a0 <.do_clear_bss_loop>:
+  a0:	1d 92       	st	X+, r1
 
-00000094 <.do_clear_bss_start>:
-  94:	ab 35       	cpi	r26, 0x5B	; 91
-  96:	b2 07       	cpc	r27, r18
-  98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
-  9a:	0e 94 bd 01 	call	0x37a	; 0x37a <main>
-  9e:	0c 94 d5 03 	jmp	0x7aa	; 0x7aa <_exit>
+000000a2 <.do_clear_bss_start>:
+  a2:	a0 35       	cpi	r26, 0x50	; 80
+  a4:	b2 07       	cpc	r27, r18
+  a6:	e1 f7       	brne	.-8      	; 0xa0 <.do_clear_bss_loop>
+  a8:	0e 94 d0 01 	call	0x3a0	; 0x3a0 <main>
+  ac:	0c 94 3a 04 	jmp	0x874	; 0x874 <_exit>
 
-000000a2 <__bad_interrupt>:
-  a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+000000b0 <__bad_interrupt>:
+  b0:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
-000000a6 <tx_spi>:
-	0b01010011, // ?
+000000b4 <tx_spi>:
+	0b01010011  // ?
 };
 
 static void tx_spi(uint8_t data)
 {
 	SPDR = data;
-  a6:	8e bd       	out	0x2e, r24	; 46
+  b4:	8e bd       	out	0x2e, r24	; 46
 	while(!(SPSR & (1<<SPIF)));
-  a8:	0d b4       	in	r0, 0x2d	; 45
-  aa:	07 fe       	sbrs	r0, 7
-  ac:	fd cf       	rjmp	.-6      	; 0xa8 <tx_spi+0x2>
+  b6:	0d b4       	in	r0, 0x2d	; 45
+  b8:	07 fe       	sbrs	r0, 7
+  ba:	fd cf       	rjmp	.-6      	; 0xb6 <tx_spi+0x2>
 }
-  ae:	08 95       	ret
+  bc:	08 95       	ret
 
-000000b0 <init_display>:
+000000be <init_display>:
 
 void init_display(void)
 {
 	SPI_DDR |= 1<<SCK | 1<<MOSI | 1<<CS; 
-  b0:	84 b1       	in	r24, 0x04	; 4
-  b2:	8c 62       	ori	r24, 0x2C	; 44
-  b4:	84 b9       	out	0x04, r24	; 4
+  be:	84 b1       	in	r24, 0x04	; 4
+  c0:	8c 62       	ori	r24, 0x2C	; 44
+  c2:	84 b9       	out	0x04, r24	; 4
 	SPI_PORT |= 1<<CS;                  
-  b6:	2a 9a       	sbi	0x05, 2	; 5
-	SPCR = 1<<SPE | 1<<MSTR | 1<<SPR1; // master mode, /64 prescaler
-  b8:	82 e5       	ldi	r24, 0x52	; 82
-  ba:	8c bd       	out	0x2c, r24	; 44
+  c4:	2a 9a       	sbi	0x05, 2	; 5
+	SPCR = 1<<SPE | 1<<MSTR | 1<<SPR1; // master mode, /64 prescaler	
+  c6:	82 e5       	ldi	r24, 0x52	; 82
+  c8:	8c bd       	out	0x2c, r24	; 44
 	
-	TCCR0A = 1<<WGM01;  // CTC
-  bc:	82 e0       	ldi	r24, 0x02	; 2
-  be:	84 bd       	out	0x24, r24	; 36
-	TCCR0B = 1<<CS02;	// /256 prescaler
-  c0:	94 e0       	ldi	r25, 0x04	; 4
-  c2:	95 bd       	out	0x25, r25	; 37
-	TIMSK0 = 1<<OCIE0A; // compare interrupt
-  c4:	80 93 6e 00 	sts	0x006E, r24	; 0x80006e <__TEXT_REGION_LENGTH__+0x7e006e>
-	OCR0A = 64;			// ~480Hz at 8MHz
-  c8:	80 e4       	ldi	r24, 0x40	; 64
-  ca:	87 bd       	out	0x27, r24	; 39
+	TCCR0A = 1<<WGM01;				// CTC
+  ca:	82 e0       	ldi	r24, 0x02	; 2
+  cc:	84 bd       	out	0x24, r24	; 36
+	TCCR0B = 1<<CS02;		        // /256 prescaler
+  ce:	94 e0       	ldi	r25, 0x04	; 4
+  d0:	95 bd       	out	0x25, r25	; 37
+	TIMSK0 = 1<<OCIE0A;             // compare interrupt
+  d2:	80 93 6e 00 	sts	0x006E, r24	; 0x80006e <__TEXT_REGION_LENGTH__+0x7e006e>
+	OCR0A = 64;					    // ~480Hz at 8MHz
+  d6:	80 e4       	ldi	r24, 0x40	; 64
+  d8:	87 bd       	out	0x27, r24	; 39
 	
 	PORTB &= ~(1<<CS); 
-  cc:	2a 98       	cbi	0x05, 2	; 5
+  da:	2a 98       	cbi	0x05, 2	; 5
 	tx_spi(0x0C);		// shutdown
-  ce:	8c e0       	ldi	r24, 0x0C	; 12
-  d0:	0e 94 53 00 	call	0xa6	; 0xa6 <tx_spi>
+  dc:	8c e0       	ldi	r24, 0x0C	; 12
+  de:	0e 94 5a 00 	call	0xb4	; 0xb4 <tx_spi>
 	tx_spi(0x01);		//
-  d4:	81 e0       	ldi	r24, 0x01	; 1
-  d6:	0e 94 53 00 	call	0xa6	; 0xa6 <tx_spi>
+  e2:	81 e0       	ldi	r24, 0x01	; 1
+  e4:	0e 94 5a 00 	call	0xb4	; 0xb4 <tx_spi>
 	PORTB |= 1<<CS;
-  da:	2a 9a       	sbi	0x05, 2	; 5
+  e8:	2a 9a       	sbi	0x05, 2	; 5
 	
 	PORTB &= ~(1<<CS); 
-  dc:	2a 98       	cbi	0x05, 2	; 5
+  ea:	2a 98       	cbi	0x05, 2	; 5
 	tx_spi(0x0B);		// scanmode
-  de:	8b e0       	ldi	r24, 0x0B	; 11
-  e0:	0e 94 53 00 	call	0xa6	; 0xa6 <tx_spi>
+  ec:	8b e0       	ldi	r24, 0x0B	; 11
+  ee:	0e 94 5a 00 	call	0xb4	; 0xb4 <tx_spi>
 	tx_spi(0x07);		//
-  e4:	87 e0       	ldi	r24, 0x07	; 7
-  e6:	0e 94 53 00 	call	0xa6	; 0xa6 <tx_spi>
+  f2:	87 e0       	ldi	r24, 0x07	; 7
+  f4:	0e 94 5a 00 	call	0xb4	; 0xb4 <tx_spi>
 	PORTB |= 1<<CS;
-  ea:	2a 9a       	sbi	0x05, 2	; 5
+  f8:	2a 9a       	sbi	0x05, 2	; 5
 	
 	PORTB &= ~(1<<CS); 
-  ec:	2a 98       	cbi	0x05, 2	; 5
+  fa:	2a 98       	cbi	0x05, 2	; 5
 	tx_spi(0x0A);	    // intensity
-  ee:	8a e0       	ldi	r24, 0x0A	; 10
-  f0:	0e 94 53 00 	call	0xa6	; 0xa6 <tx_spi>
+  fc:	8a e0       	ldi	r24, 0x0A	; 10
+  fe:	0e 94 5a 00 	call	0xb4	; 0xb4 <tx_spi>
 	tx_spi(0x0B);		//
-  f4:	8b e0       	ldi	r24, 0x0B	; 11
-  f6:	0e 94 53 00 	call	0xa6	; 0xa6 <tx_spi>
+ 102:	8b e0       	ldi	r24, 0x0B	; 11
+ 104:	0e 94 5a 00 	call	0xb4	; 0xb4 <tx_spi>
 	PORTB |= 1<<CS;
-  fa:	2a 9a       	sbi	0x05, 2	; 5
+ 108:	2a 9a       	sbi	0x05, 2	; 5
 	
 	PORTB &= ~(1<<CS); 
-  fc:	2a 98       	cbi	0x05, 2	; 5
+ 10a:	2a 98       	cbi	0x05, 2	; 5
 	tx_spi(0x09);		// decode
-  fe:	89 e0       	ldi	r24, 0x09	; 9
- 100:	0e 94 53 00 	call	0xa6	; 0xa6 <tx_spi>
+ 10c:	89 e0       	ldi	r24, 0x09	; 9
+ 10e:	0e 94 5a 00 	call	0xb4	; 0xb4 <tx_spi>
 	tx_spi(0xFF);		//
- 104:	8f ef       	ldi	r24, 0xFF	; 255
- 106:	0e 94 53 00 	call	0xa6	; 0xa6 <tx_spi>
+ 112:	8f ef       	ldi	r24, 0xFF	; 255
+ 114:	0e 94 5a 00 	call	0xb4	; 0xb4 <tx_spi>
 	PORTB |= 1<<CS;	
- 10a:	2a 9a       	sbi	0x05, 2	; 5
+ 118:	2a 9a       	sbi	0x05, 2	; 5
 	
 	PORTB &= ~(1<<CS); 
- 10c:	2a 98       	cbi	0x05, 2	; 5
+ 11a:	2a 98       	cbi	0x05, 2	; 5
 	tx_spi(0x0F);		// test mode
- 10e:	8f e0       	ldi	r24, 0x0F	; 15
- 110:	0e 94 53 00 	call	0xa6	; 0xa6 <tx_spi>
+ 11c:	8f e0       	ldi	r24, 0x0F	; 15
+ 11e:	0e 94 5a 00 	call	0xb4	; 0xb4 <tx_spi>
 	tx_spi(0x00);		// off
- 114:	80 e0       	ldi	r24, 0x00	; 0
- 116:	0e 94 53 00 	call	0xa6	; 0xa6 <tx_spi>
+ 122:	80 e0       	ldi	r24, 0x00	; 0
+ 124:	0e 94 5a 00 	call	0xb4	; 0xb4 <tx_spi>
 	PORTB |= 1<<CS;
- 11a:	2a 9a       	sbi	0x05, 2	; 5
- 11c:	80 e0       	ldi	r24, 0x00	; 0
- 11e:	90 e0       	ldi	r25, 0x00	; 0
+ 128:	2a 9a       	sbi	0x05, 2	; 5
+ 12a:	80 e0       	ldi	r24, 0x00	; 0
+ 12c:	90 e0       	ldi	r25, 0x00	; 0
 	
 	for (uint8_t i = 0; i < 8; i++)
 	{
 		blinkOsc[i] = 0x00;
- 120:	fc 01       	movw	r30, r24
- 122:	e7 5e       	subi	r30, 0xE7	; 231
- 124:	fe 4f       	sbci	r31, 0xFE	; 254
- 126:	10 82       	st	Z, r1
+ 12e:	fc 01       	movw	r30, r24
+ 130:	e4 5f       	subi	r30, 0xF4	; 244
+ 132:	fe 4f       	sbci	r31, 0xFE	; 254
+ 134:	10 82       	st	Z, r1
 		blinkMask[i] = 0x00;
- 128:	fc 01       	movw	r30, r24
- 12a:	ef 5e       	subi	r30, 0xEF	; 239
- 12c:	fe 4f       	sbci	r31, 0xFE	; 254
- 12e:	10 82       	st	Z, r1
- 130:	01 96       	adiw	r24, 0x01	; 1
+ 136:	fc 01       	movw	r30, r24
+ 138:	ec 5f       	subi	r30, 0xFC	; 252
+ 13a:	fe 4f       	sbci	r31, 0xFE	; 254
+ 13c:	10 82       	st	Z, r1
+ 13e:	01 96       	adiw	r24, 0x01	; 1
 	PORTB &= ~(1<<CS); 
 	tx_spi(0x0F);		// test mode
 	tx_spi(0x00);		// off
 	PORTB |= 1<<CS;
 	
 	for (uint8_t i = 0; i < 8; i++)
- 132:	88 30       	cpi	r24, 0x08	; 8
- 134:	91 05       	cpc	r25, r1
- 136:	a1 f7       	brne	.-24     	; 0x120 <init_display+0x70>
+ 140:	88 30       	cpi	r24, 0x08	; 8
+ 142:	91 05       	cpc	r25, r1
+ 144:	a1 f7       	brne	.-24     	; 0x12e <init_display+0x70>
 	{
 		blinkOsc[i] = 0x00;
 		blinkMask[i] = 0x00;
 	}
 }
- 138:	08 95       	ret
+ 146:	08 95       	ret
 
-0000013a <do_blink>:
+00000148 <do_blink>:
 
 void do_blink(void)
 {
 	blinkTimer++;
- 13a:	80 91 0f 01 	lds	r24, 0x010F	; 0x80010f <blinkTimer>
- 13e:	8f 5f       	subi	r24, 0xFF	; 255
+ 148:	80 91 14 01 	lds	r24, 0x0114	; 0x800114 <blinkTimer>
+ 14c:	8f 5f       	subi	r24, 0xFF	; 255
 	if (blinkTimer > blinkThreshold)
- 140:	89 31       	cpi	r24, 0x19	; 25
- 142:	18 f4       	brcc	.+6      	; 0x14a <do_blink+0x10>
+ 14e:	89 31       	cpi	r24, 0x19	; 25
+ 150:	18 f4       	brcc	.+6      	; 0x158 <do_blink+0x10>
 	}
 }
 
 void do_blink(void)
 {
 	blinkTimer++;
- 144:	80 93 0f 01 	sts	0x010F, r24	; 0x80010f <blinkTimer>
- 148:	08 95       	ret
+ 152:	80 93 14 01 	sts	0x0114, r24	; 0x800114 <blinkTimer>
+ 156:	08 95       	ret
 	if (blinkTimer > blinkThreshold)
 	{
 		blinkTimer = 0;
- 14a:	10 92 0f 01 	sts	0x010F, r1	; 0x80010f <blinkTimer>
- 14e:	80 e0       	ldi	r24, 0x00	; 0
- 150:	90 e0       	ldi	r25, 0x00	; 0
+ 158:	10 92 14 01 	sts	0x0114, r1	; 0x800114 <blinkTimer>
+ 15c:	80 e0       	ldi	r24, 0x00	; 0
+ 15e:	90 e0       	ldi	r25, 0x00	; 0
 		for (uint8_t i = 0; i < 8; i++)
 		{			
-			blinkOsc[i] ^= 0x7F; // exclude DP from blink?
- 152:	3f e7       	ldi	r19, 0x7F	; 127
- 154:	fc 01       	movw	r30, r24
- 156:	e7 5e       	subi	r30, 0xE7	; 231
- 158:	fe 4f       	sbci	r31, 0xFE	; 254
- 15a:	20 81       	ld	r18, Z
- 15c:	23 27       	eor	r18, r19
- 15e:	20 83       	st	Z, r18
- 160:	01 96       	adiw	r24, 0x01	; 1
+			blinkOsc[i] ^= 0x7F; // exclude DP from blink
+ 160:	3f e7       	ldi	r19, 0x7F	; 127
+ 162:	fc 01       	movw	r30, r24
+ 164:	e4 5f       	subi	r30, 0xF4	; 244
+ 166:	fe 4f       	sbci	r31, 0xFE	; 254
+ 168:	20 81       	ld	r18, Z
+ 16a:	23 27       	eor	r18, r19
+ 16c:	20 83       	st	Z, r18
+ 16e:	01 96       	adiw	r24, 0x01	; 1
 {
 	blinkTimer++;
 	if (blinkTimer > blinkThreshold)
 	{
 		blinkTimer = 0;
 		for (uint8_t i = 0; i < 8; i++)
- 162:	88 30       	cpi	r24, 0x08	; 8
- 164:	91 05       	cpc	r25, r1
- 166:	b1 f7       	brne	.-20     	; 0x154 <do_blink+0x1a>
- 168:	08 95       	ret
+ 170:	88 30       	cpi	r24, 0x08	; 8
+ 172:	91 05       	cpc	r25, r1
+ 174:	b1 f7       	brne	.-20     	; 0x162 <do_blink+0x1a>
+ 176:	08 95       	ret
 
-0000016a <__vector_14>:
+00000178 <__vector_14>:
 		}
 	}
 }
 
 ISR(TIMER0_COMPA_vect)
 {
- 16a:	1f 92       	push	r1
- 16c:	0f 92       	push	r0
- 16e:	0f b6       	in	r0, 0x3f	; 63
- 170:	0f 92       	push	r0
- 172:	11 24       	eor	r1, r1
- 174:	2f 93       	push	r18
- 176:	3f 93       	push	r19
- 178:	4f 93       	push	r20
- 17a:	5f 93       	push	r21
- 17c:	6f 93       	push	r22
- 17e:	7f 93       	push	r23
- 180:	8f 93       	push	r24
- 182:	9f 93       	push	r25
- 184:	af 93       	push	r26
- 186:	bf 93       	push	r27
- 188:	cf 93       	push	r28
- 18a:	ef 93       	push	r30
- 18c:	ff 93       	push	r31
+ 178:	1f 92       	push	r1
+ 17a:	0f 92       	push	r0
+ 17c:	0f b6       	in	r0, 0x3f	; 63
+ 17e:	0f 92       	push	r0
+ 180:	11 24       	eor	r1, r1
+ 182:	2f 93       	push	r18
+ 184:	3f 93       	push	r19
+ 186:	4f 93       	push	r20
+ 188:	5f 93       	push	r21
+ 18a:	6f 93       	push	r22
+ 18c:	7f 93       	push	r23
+ 18e:	8f 93       	push	r24
+ 190:	9f 93       	push	r25
+ 192:	af 93       	push	r26
+ 194:	bf 93       	push	r27
+ 196:	cf 93       	push	r28
+ 198:	ef 93       	push	r30
+ 19a:	ff 93       	push	r31
 	static uint8_t i;
 	
 	PORTB &= ~(1<<CS);
- 18e:	2a 98       	cbi	0x05, 2	; 5
+ 19c:	2a 98       	cbi	0x05, 2	; 5
 	tx_spi(i+1);
- 190:	c0 91 0e 01 	lds	r28, 0x010E	; 0x80010e <__data_end>
- 194:	81 e0       	ldi	r24, 0x01	; 1
- 196:	8c 0f       	add	r24, r28
- 198:	0e 94 53 00 	call	0xa6	; 0xa6 <tx_spi>
+ 19e:	c0 91 02 01 	lds	r28, 0x0102	; 0x800102 <__data_end>
+ 1a2:	81 e0       	ldi	r24, 0x01	; 1
+ 1a4:	8c 0f       	add	r24, r28
+ 1a6:	0e 94 5a 00 	call	0xb4	; 0xb4 <tx_spi>
 	//tx_spi(displayBuffer[i] & !(blinkMask[i] & blinkOsc[i])); // for SR multiplexed display
 	tx_spi(displayBuffer[i] | (blinkMask[i] & blinkOsc[i]));
- 19c:	2c 2f       	mov	r18, r28
- 19e:	30 e0       	ldi	r19, 0x00	; 0
- 1a0:	f9 01       	movw	r30, r18
- 1a2:	ef 5d       	subi	r30, 0xDF	; 223
- 1a4:	fe 4f       	sbci	r31, 0xFE	; 254
- 1a6:	40 81       	ld	r20, Z
- 1a8:	f9 01       	movw	r30, r18
- 1aa:	ef 5e       	subi	r30, 0xEF	; 239
- 1ac:	fe 4f       	sbci	r31, 0xFE	; 254
- 1ae:	80 81       	ld	r24, Z
- 1b0:	f9 01       	movw	r30, r18
- 1b2:	e7 5e       	subi	r30, 0xE7	; 231
- 1b4:	fe 4f       	sbci	r31, 0xFE	; 254
- 1b6:	90 81       	ld	r25, Z
- 1b8:	89 23       	and	r24, r25
- 1ba:	84 2b       	or	r24, r20
- 1bc:	0e 94 53 00 	call	0xa6	; 0xa6 <tx_spi>
+ 1aa:	2c 2f       	mov	r18, r28
+ 1ac:	30 e0       	ldi	r19, 0x00	; 0
+ 1ae:	f9 01       	movw	r30, r18
+ 1b0:	eb 5e       	subi	r30, 0xEB	; 235
+ 1b2:	fe 4f       	sbci	r31, 0xFE	; 254
+ 1b4:	40 81       	ld	r20, Z
+ 1b6:	f9 01       	movw	r30, r18
+ 1b8:	ec 5f       	subi	r30, 0xFC	; 252
+ 1ba:	fe 4f       	sbci	r31, 0xFE	; 254
+ 1bc:	80 81       	ld	r24, Z
+ 1be:	f9 01       	movw	r30, r18
+ 1c0:	e4 5f       	subi	r30, 0xF4	; 244
+ 1c2:	fe 4f       	sbci	r31, 0xFE	; 254
+ 1c4:	90 81       	ld	r25, Z
+ 1c6:	89 23       	and	r24, r25
+ 1c8:	84 2b       	or	r24, r20
+ 1ca:	0e 94 5a 00 	call	0xb4	; 0xb4 <tx_spi>
 	PORTB |= 1<<CS;
- 1c0:	2a 9a       	sbi	0x05, 2	; 5
-	
-	
+ 1ce:	2a 9a       	sbi	0x05, 2	; 5
+		
 	i++;
 	i &= 0x07;	
- 1c2:	80 91 0e 01 	lds	r24, 0x010E	; 0x80010e <__data_end>
- 1c6:	8f 5f       	subi	r24, 0xFF	; 255
- 1c8:	87 70       	andi	r24, 0x07	; 7
- 1ca:	80 93 0e 01 	sts	0x010E, r24	; 0x80010e <__data_end>
+ 1d0:	80 91 02 01 	lds	r24, 0x0102	; 0x800102 <__data_end>
+ 1d4:	8f 5f       	subi	r24, 0xFF	; 255
+ 1d6:	87 70       	andi	r24, 0x07	; 7
+ 1d8:	80 93 02 01 	sts	0x0102, r24	; 0x800102 <__data_end>
 }
- 1ce:	ff 91       	pop	r31
- 1d0:	ef 91       	pop	r30
- 1d2:	cf 91       	pop	r28
- 1d4:	bf 91       	pop	r27
- 1d6:	af 91       	pop	r26
- 1d8:	9f 91       	pop	r25
- 1da:	8f 91       	pop	r24
- 1dc:	7f 91       	pop	r23
- 1de:	6f 91       	pop	r22
- 1e0:	5f 91       	pop	r21
- 1e2:	4f 91       	pop	r20
- 1e4:	3f 91       	pop	r19
- 1e6:	2f 91       	pop	r18
- 1e8:	0f 90       	pop	r0
- 1ea:	0f be       	out	0x3f, r0	; 63
- 1ec:	0f 90       	pop	r0
- 1ee:	1f 90       	pop	r1
- 1f0:	18 95       	reti
+ 1dc:	ff 91       	pop	r31
+ 1de:	ef 91       	pop	r30
+ 1e0:	cf 91       	pop	r28
+ 1e2:	bf 91       	pop	r27
+ 1e4:	af 91       	pop	r26
+ 1e6:	9f 91       	pop	r25
+ 1e8:	8f 91       	pop	r24
+ 1ea:	7f 91       	pop	r23
+ 1ec:	6f 91       	pop	r22
+ 1ee:	5f 91       	pop	r21
+ 1f0:	4f 91       	pop	r20
+ 1f2:	3f 91       	pop	r19
+ 1f4:	2f 91       	pop	r18
+ 1f6:	0f 90       	pop	r0
+ 1f8:	0f be       	out	0x3f, r0	; 63
+ 1fa:	0f 90       	pop	r0
+ 1fc:	1f 90       	pop	r1
+ 1fe:	18 95       	reti
 
-000001f2 <scan_keys>:
+00000200 <scan_keys>:
 	scan_keys(); scan_keys(); // avoid detecting keypresses on startup
 }
 
 void scan_keys(void)
 {
 	lastKeyState = keyState;
- 1f2:	80 91 29 01 	lds	r24, 0x0129	; 0x800129 <keyState>
- 1f6:	80 93 2a 01 	sts	0x012A, r24	; 0x80012a <lastKeyState>
+ 200:	80 91 1d 01 	lds	r24, 0x011D	; 0x80011d <keyState>
+ 204:	80 93 1e 01 	sts	0x011E, r24	; 0x80011e <lastKeyState>
 		
 	keyState = KEY_PIN;
- 1fa:	96 b1       	in	r25, 0x06	; 6
- 1fc:	90 93 29 01 	sts	0x0129, r25	; 0x800129 <keyState>
+ 208:	96 b1       	in	r25, 0x06	; 6
+ 20a:	90 93 1d 01 	sts	0x011D, r25	; 0x80011d <keyState>
 	uint8_t keyDiff = keyState ^ lastKeyState;
- 200:	89 27       	eor	r24, r25
+ 20e:	89 27       	eor	r24, r25
 	
 	keyPressed = keyDiff & ~keyState;	
- 202:	29 2f       	mov	r18, r25
- 204:	20 95       	com	r18
- 206:	28 23       	and	r18, r24
- 208:	20 93 2b 01 	sts	0x012B, r18	; 0x80012b <keyPressed>
+ 210:	29 2f       	mov	r18, r25
+ 212:	20 95       	com	r18
+ 214:	28 23       	and	r18, r24
+ 216:	20 93 1f 01 	sts	0x011F, r18	; 0x80011f <keyPressed>
 	keyReleased = keyDiff & keyState;
- 20c:	89 23       	and	r24, r25
- 20e:	80 93 2c 01 	sts	0x012C, r24	; 0x80012c <keyReleased>
- 212:	08 95       	ret
+ 21a:	89 23       	and	r24, r25
+ 21c:	80 93 21 01 	sts	0x0121, r24	; 0x800121 <keyReleased>
+	
+	if (~keyState & START_KEY)
+ 220:	92 fd       	sbrc	r25, 2
+ 222:	08 c0       	rjmp	.+16     	; 0x234 <scan_keys+0x34>
+	{
+		if (holdTimer < holdTimerThreshold) holdTimer++;		
+ 224:	80 91 20 01 	lds	r24, 0x0120	; 0x800120 <holdTimer>
+ 228:	8c 33       	cpi	r24, 0x3C	; 60
+ 22a:	30 f4       	brcc	.+12     	; 0x238 <scan_keys+0x38>
+ 22c:	8f 5f       	subi	r24, 0xFF	; 255
+ 22e:	80 93 20 01 	sts	0x0120, r24	; 0x800120 <holdTimer>
+ 232:	08 95       	ret
+	}
+	else
+	{
+		holdTimer = 0;
+ 234:	10 92 20 01 	sts	0x0120, r1	; 0x800120 <holdTimer>
+ 238:	08 95       	ret
 
-00000214 <init_keys>:
-
-#include "keys.h"
+0000023a <init_keys>:
+uint8_t holdTimer;
+const uint8_t holdTimerThreshold=60;
 
 void init_keys(void)
 {
 	EICRA = 1<<ISC11 | 1<<ISC01; // falling edge
- 214:	8a e0       	ldi	r24, 0x0A	; 10
- 216:	80 93 69 00 	sts	0x0069, r24	; 0x800069 <__TEXT_REGION_LENGTH__+0x7e0069>
+ 23a:	8a e0       	ldi	r24, 0x0A	; 10
+ 23c:	80 93 69 00 	sts	0x0069, r24	; 0x800069 <__TEXT_REGION_LENGTH__+0x7e0069>
 	EIMSK = 1<<INT1 | 1<<INT0;   // enable INT0, INT1
- 21a:	83 e0       	ldi	r24, 0x03	; 3
- 21c:	8d bb       	out	0x1d, r24	; 29
+ 240:	83 e0       	ldi	r24, 0x03	; 3
+ 242:	8d bb       	out	0x1d, r24	; 29
 	PORTD |= 1<<PD2 | 1<<PD3;    // enable pullups
- 21e:	8b b1       	in	r24, 0x0b	; 11
- 220:	8c 60       	ori	r24, 0x0C	; 12
- 222:	8b b9       	out	0x0b, r24	; 11
+ 244:	8b b1       	in	r24, 0x0b	; 11
+ 246:	8c 60       	ori	r24, 0x0C	; 12
+ 248:	8b b9       	out	0x0b, r24	; 11
 	
 	KEY_PORT |= KEY_MASK; // enable pullups
- 224:	88 b1       	in	r24, 0x08	; 8
- 226:	8f 61       	ori	r24, 0x1F	; 31
- 228:	88 b9       	out	0x08, r24	; 8
+ 24a:	88 b1       	in	r24, 0x08	; 8
+ 24c:	8f 61       	ori	r24, 0x1F	; 31
+ 24e:	88 b9       	out	0x08, r24	; 8
 	
 	scan_keys(); scan_keys(); // avoid detecting keypresses on startup
- 22a:	0e 94 f9 00 	call	0x1f2	; 0x1f2 <scan_keys>
- 22e:	0e 94 f9 00 	call	0x1f2	; 0x1f2 <scan_keys>
- 232:	08 95       	ret
+ 250:	0e 94 00 01 	call	0x200	; 0x200 <scan_keys>
+ 254:	0e 94 00 01 	call	0x200	; 0x200 <scan_keys>
+ 258:	08 95       	ret
 
-00000234 <init_timer>:
+0000025a <init_timer>:
 
 volatile playerData playerAData, playerBData, *currentPlayerData;
 
 void init_timer(void)
 {
 	ASSR = 1<<AS2; // enable asynchronous mode
- 234:	80 e2       	ldi	r24, 0x20	; 32
- 236:	80 93 b6 00 	sts	0x00B6, r24	; 0x8000b6 <__TEXT_REGION_LENGTH__+0x7e00b6>
+ 25a:	80 e2       	ldi	r24, 0x20	; 32
+ 25c:	80 93 b6 00 	sts	0x00B6, r24	; 0x8000b6 <__TEXT_REGION_LENGTH__+0x7e00b6>
 	
 	TCCR2B |= 1<<CS20;         // /1 prescaler
- 23a:	e1 eb       	ldi	r30, 0xB1	; 177
- 23c:	f0 e0       	ldi	r31, 0x00	; 0
- 23e:	80 81       	ld	r24, Z
- 240:	81 60       	ori	r24, 0x01	; 1
- 242:	80 83       	st	Z, r24
+ 260:	e1 eb       	ldi	r30, 0xB1	; 177
+ 262:	f0 e0       	ldi	r31, 0x00	; 0
+ 264:	80 81       	ld	r24, Z
+ 266:	81 60       	ori	r24, 0x01	; 1
+ 268:	80 83       	st	Z, r24
 	while (ASSR & 1<<TCR2BUB); // wait for register update
- 244:	e6 eb       	ldi	r30, 0xB6	; 182
- 246:	f0 e0       	ldi	r31, 0x00	; 0
- 248:	80 81       	ld	r24, Z
- 24a:	80 fd       	sbrc	r24, 0
- 24c:	fd cf       	rjmp	.-6      	; 0x248 <init_timer+0x14>
+ 26a:	e6 eb       	ldi	r30, 0xB6	; 182
+ 26c:	f0 e0       	ldi	r31, 0x00	; 0
+ 26e:	80 81       	ld	r24, Z
+ 270:	80 fd       	sbrc	r24, 0
+ 272:	fd cf       	rjmp	.-6      	; 0x26e <init_timer+0x14>
 
 	TIFR2  = 1<<TOV2;   // clear interrupt flag	
- 24e:	81 e0       	ldi	r24, 0x01	; 1
- 250:	87 bb       	out	0x17, r24	; 23
- 252:	08 95       	ret
+ 274:	81 e0       	ldi	r24, 0x01	; 1
+ 276:	87 bb       	out	0x17, r24	; 23
+ 278:	08 95       	ret
 
-00000254 <add_time>:
+0000027a <add_time>:
 	//TIMSK2 = 1<<TOIE2;  // enable Timer2 overflow interrupt
 }
 
 /* increments baseTime by incTime (ignoring ticks) */
 void add_time(volatile gameTime *baseTime, gameTime incTime)
 {
- 254:	fc 01       	movw	r30, r24
- 256:	db 01       	movw	r26, r22
+ 27a:	fc 01       	movw	r30, r24
+ 27c:	db 01       	movw	r26, r22
 	(*baseTime)[SECONDS] += incTime[SECONDS];
- 258:	95 81       	ldd	r25, Z+5	; 0x05
- 25a:	15 96       	adiw	r26, 0x05	; 5
- 25c:	8c 91       	ld	r24, X
- 25e:	15 97       	sbiw	r26, 0x05	; 5
- 260:	89 0f       	add	r24, r25
- 262:	85 83       	std	Z+5, r24	; 0x05
+ 27e:	95 81       	ldd	r25, Z+5	; 0x05
+ 280:	15 96       	adiw	r26, 0x05	; 5
+ 282:	8c 91       	ld	r24, X
+ 284:	15 97       	sbiw	r26, 0x05	; 5
+ 286:	89 0f       	add	r24, r25
+ 288:	85 83       	std	Z+5, r24	; 0x05
 	if ((*baseTime)[SECONDS] > 9) 
- 264:	85 81       	ldd	r24, Z+5	; 0x05
- 266:	8a 30       	cpi	r24, 0x0A	; 10
- 268:	34 f0       	brlt	.+12     	; 0x276 <add_time+0x22>
+ 28a:	85 81       	ldd	r24, Z+5	; 0x05
+ 28c:	8a 30       	cpi	r24, 0x0A	; 10
+ 28e:	34 f0       	brlt	.+12     	; 0x29c <add_time+0x22>
 	{
 		(*baseTime)[SECONDS] -= 10;
- 26a:	85 81       	ldd	r24, Z+5	; 0x05
- 26c:	8a 50       	subi	r24, 0x0A	; 10
- 26e:	85 83       	std	Z+5, r24	; 0x05
+ 290:	85 81       	ldd	r24, Z+5	; 0x05
+ 292:	8a 50       	subi	r24, 0x0A	; 10
+ 294:	85 83       	std	Z+5, r24	; 0x05
 		(*baseTime)[TEN_SECONDS]++;
- 270:	84 81       	ldd	r24, Z+4	; 0x04
- 272:	8f 5f       	subi	r24, 0xFF	; 255
- 274:	84 83       	std	Z+4, r24	; 0x04
+ 296:	84 81       	ldd	r24, Z+4	; 0x04
+ 298:	8f 5f       	subi	r24, 0xFF	; 255
+ 29a:	84 83       	std	Z+4, r24	; 0x04
 	}
 	
 	(*baseTime)[TEN_SECONDS] += incTime[TEN_SECONDS];
- 276:	94 81       	ldd	r25, Z+4	; 0x04
- 278:	14 96       	adiw	r26, 0x04	; 4
- 27a:	8c 91       	ld	r24, X
- 27c:	14 97       	sbiw	r26, 0x04	; 4
- 27e:	89 0f       	add	r24, r25
- 280:	84 83       	std	Z+4, r24	; 0x04
+ 29c:	94 81       	ldd	r25, Z+4	; 0x04
+ 29e:	14 96       	adiw	r26, 0x04	; 4
+ 2a0:	8c 91       	ld	r24, X
+ 2a2:	14 97       	sbiw	r26, 0x04	; 4
+ 2a4:	89 0f       	add	r24, r25
+ 2a6:	84 83       	std	Z+4, r24	; 0x04
 	if ((*baseTime)[TEN_SECONDS] > 5)
- 282:	84 81       	ldd	r24, Z+4	; 0x04
- 284:	86 30       	cpi	r24, 0x06	; 6
- 286:	34 f0       	brlt	.+12     	; 0x294 <add_time+0x40>
+ 2a8:	84 81       	ldd	r24, Z+4	; 0x04
+ 2aa:	86 30       	cpi	r24, 0x06	; 6
+ 2ac:	34 f0       	brlt	.+12     	; 0x2ba <add_time+0x40>
 	{
 		(*baseTime)[TEN_SECONDS] -= 6;
- 288:	84 81       	ldd	r24, Z+4	; 0x04
- 28a:	86 50       	subi	r24, 0x06	; 6
- 28c:	84 83       	std	Z+4, r24	; 0x04
+ 2ae:	84 81       	ldd	r24, Z+4	; 0x04
+ 2b0:	86 50       	subi	r24, 0x06	; 6
+ 2b2:	84 83       	std	Z+4, r24	; 0x04
 		(*baseTime)[MINUTES]++;
- 28e:	83 81       	ldd	r24, Z+3	; 0x03
- 290:	8f 5f       	subi	r24, 0xFF	; 255
- 292:	83 83       	std	Z+3, r24	; 0x03
+ 2b4:	83 81       	ldd	r24, Z+3	; 0x03
+ 2b6:	8f 5f       	subi	r24, 0xFF	; 255
+ 2b8:	83 83       	std	Z+3, r24	; 0x03
 	}
 	
 	(*baseTime)[MINUTES] += incTime[MINUTES];
- 294:	93 81       	ldd	r25, Z+3	; 0x03
- 296:	13 96       	adiw	r26, 0x03	; 3
- 298:	8c 91       	ld	r24, X
- 29a:	13 97       	sbiw	r26, 0x03	; 3
- 29c:	89 0f       	add	r24, r25
- 29e:	83 83       	std	Z+3, r24	; 0x03
+ 2ba:	93 81       	ldd	r25, Z+3	; 0x03
+ 2bc:	13 96       	adiw	r26, 0x03	; 3
+ 2be:	8c 91       	ld	r24, X
+ 2c0:	13 97       	sbiw	r26, 0x03	; 3
+ 2c2:	89 0f       	add	r24, r25
+ 2c4:	83 83       	std	Z+3, r24	; 0x03
 	if ((*baseTime)[MINUTES] > 9)
- 2a0:	83 81       	ldd	r24, Z+3	; 0x03
- 2a2:	8a 30       	cpi	r24, 0x0A	; 10
- 2a4:	34 f0       	brlt	.+12     	; 0x2b2 <add_time+0x5e>
+ 2c6:	83 81       	ldd	r24, Z+3	; 0x03
+ 2c8:	8a 30       	cpi	r24, 0x0A	; 10
+ 2ca:	34 f0       	brlt	.+12     	; 0x2d8 <add_time+0x5e>
 	{
 		(*baseTime)[MINUTES] -= 10;
- 2a6:	83 81       	ldd	r24, Z+3	; 0x03
- 2a8:	8a 50       	subi	r24, 0x0A	; 10
- 2aa:	83 83       	std	Z+3, r24	; 0x03
+ 2cc:	83 81       	ldd	r24, Z+3	; 0x03
+ 2ce:	8a 50       	subi	r24, 0x0A	; 10
+ 2d0:	83 83       	std	Z+3, r24	; 0x03
 		(*baseTime)[TEN_MINUTES]++;
- 2ac:	82 81       	ldd	r24, Z+2	; 0x02
- 2ae:	8f 5f       	subi	r24, 0xFF	; 255
- 2b0:	82 83       	std	Z+2, r24	; 0x02
+ 2d2:	82 81       	ldd	r24, Z+2	; 0x02
+ 2d4:	8f 5f       	subi	r24, 0xFF	; 255
+ 2d6:	82 83       	std	Z+2, r24	; 0x02
 	}
 	
 	(*baseTime)[TEN_MINUTES] += incTime[TEN_MINUTES];
- 2b2:	92 81       	ldd	r25, Z+2	; 0x02
- 2b4:	12 96       	adiw	r26, 0x02	; 2
- 2b6:	8c 91       	ld	r24, X
- 2b8:	12 97       	sbiw	r26, 0x02	; 2
- 2ba:	89 0f       	add	r24, r25
- 2bc:	82 83       	std	Z+2, r24	; 0x02
+ 2d8:	92 81       	ldd	r25, Z+2	; 0x02
+ 2da:	12 96       	adiw	r26, 0x02	; 2
+ 2dc:	8c 91       	ld	r24, X
+ 2de:	12 97       	sbiw	r26, 0x02	; 2
+ 2e0:	89 0f       	add	r24, r25
+ 2e2:	82 83       	std	Z+2, r24	; 0x02
 	if ((*baseTime)[TEN_MINUTES] > 5)
- 2be:	82 81       	ldd	r24, Z+2	; 0x02
- 2c0:	86 30       	cpi	r24, 0x06	; 6
- 2c2:	34 f0       	brlt	.+12     	; 0x2d0 <add_time+0x7c>
+ 2e4:	82 81       	ldd	r24, Z+2	; 0x02
+ 2e6:	86 30       	cpi	r24, 0x06	; 6
+ 2e8:	34 f0       	brlt	.+12     	; 0x2f6 <add_time+0x7c>
 	{
 		(*baseTime)[TEN_MINUTES] -= 6;
- 2c4:	82 81       	ldd	r24, Z+2	; 0x02
- 2c6:	86 50       	subi	r24, 0x06	; 6
- 2c8:	82 83       	std	Z+2, r24	; 0x02
+ 2ea:	82 81       	ldd	r24, Z+2	; 0x02
+ 2ec:	86 50       	subi	r24, 0x06	; 6
+ 2ee:	82 83       	std	Z+2, r24	; 0x02
 		(*baseTime)[HOURS]++;
- 2ca:	81 81       	ldd	r24, Z+1	; 0x01
- 2cc:	8f 5f       	subi	r24, 0xFF	; 255
- 2ce:	81 83       	std	Z+1, r24	; 0x01
+ 2f0:	81 81       	ldd	r24, Z+1	; 0x01
+ 2f2:	8f 5f       	subi	r24, 0xFF	; 255
+ 2f4:	81 83       	std	Z+1, r24	; 0x01
 	}
 	
 	(*baseTime)[HOURS] += incTime[HOURS];
- 2d0:	91 81       	ldd	r25, Z+1	; 0x01
- 2d2:	11 96       	adiw	r26, 0x01	; 1
- 2d4:	8c 91       	ld	r24, X
- 2d6:	11 97       	sbiw	r26, 0x01	; 1
- 2d8:	89 0f       	add	r24, r25
- 2da:	81 83       	std	Z+1, r24	; 0x01
+ 2f6:	91 81       	ldd	r25, Z+1	; 0x01
+ 2f8:	11 96       	adiw	r26, 0x01	; 1
+ 2fa:	8c 91       	ld	r24, X
+ 2fc:	11 97       	sbiw	r26, 0x01	; 1
+ 2fe:	89 0f       	add	r24, r25
+ 300:	81 83       	std	Z+1, r24	; 0x01
 	if ((*baseTime)[HOURS] > 9)
- 2dc:	81 81       	ldd	r24, Z+1	; 0x01
- 2de:	8a 30       	cpi	r24, 0x0A	; 10
- 2e0:	34 f0       	brlt	.+12     	; 0x2ee <add_time+0x9a>
+ 302:	81 81       	ldd	r24, Z+1	; 0x01
+ 304:	8a 30       	cpi	r24, 0x0A	; 10
+ 306:	34 f0       	brlt	.+12     	; 0x314 <add_time+0x9a>
 	{
 		(*baseTime)[HOURS] -= 10;
- 2e2:	81 81       	ldd	r24, Z+1	; 0x01
- 2e4:	8a 50       	subi	r24, 0x0A	; 10
- 2e6:	81 83       	std	Z+1, r24	; 0x01
+ 308:	81 81       	ldd	r24, Z+1	; 0x01
+ 30a:	8a 50       	subi	r24, 0x0A	; 10
+ 30c:	81 83       	std	Z+1, r24	; 0x01
 		(*baseTime)[TEN_HOURS]++;
- 2e8:	80 81       	ld	r24, Z
- 2ea:	8f 5f       	subi	r24, 0xFF	; 255
- 2ec:	80 83       	st	Z, r24
+ 30e:	80 81       	ld	r24, Z
+ 310:	8f 5f       	subi	r24, 0xFF	; 255
+ 312:	80 83       	st	Z, r24
 	}
 	
 	(*baseTime)[TEN_HOURS] += incTime[TEN_HOURS];
- 2ee:	90 81       	ld	r25, Z
- 2f0:	8c 91       	ld	r24, X
- 2f2:	89 0f       	add	r24, r25
- 2f4:	80 83       	st	Z, r24
+ 314:	90 81       	ld	r25, Z
+ 316:	8c 91       	ld	r24, X
+ 318:	89 0f       	add	r24, r25
+ 31a:	80 83       	st	Z, r24
 	if ((*baseTime)[TEN_HOURS] > 9)
- 2f6:	80 81       	ld	r24, Z
- 2f8:	8a 30       	cpi	r24, 0x0A	; 10
- 2fa:	34 f0       	brlt	.+12     	; 0x308 <add_time+0xb4>
+ 31c:	80 81       	ld	r24, Z
+ 31e:	8a 30       	cpi	r24, 0x0A	; 10
+ 320:	34 f0       	brlt	.+12     	; 0x32e <add_time+0xb4>
 	{
 		(*baseTime)[TEN_HOURS]   = 0;
- 2fc:	10 82       	st	Z, r1
+ 322:	10 82       	st	Z, r1
 		(*baseTime)[HOURS]       = 0;
- 2fe:	11 82       	std	Z+1, r1	; 0x01
+ 324:	11 82       	std	Z+1, r1	; 0x01
 		(*baseTime)[TEN_MINUTES] = 0;
- 300:	12 82       	std	Z+2, r1	; 0x02
+ 326:	12 82       	std	Z+2, r1	; 0x02
 		(*baseTime)[MINUTES]     = 0;
- 302:	13 82       	std	Z+3, r1	; 0x03
+ 328:	13 82       	std	Z+3, r1	; 0x03
 		(*baseTime)[TEN_SECONDS] = 0;
- 304:	14 82       	std	Z+4, r1	; 0x04
+ 32a:	14 82       	std	Z+4, r1	; 0x04
 		(*baseTime)[SECONDS]     = 0;
- 306:	15 82       	std	Z+5, r1	; 0x05
- 308:	08 95       	ret
+ 32c:	15 82       	std	Z+5, r1	; 0x05
+ 32e:	08 95       	ret
 
-0000030a <reset>:
+00000330 <reset>:
 
 /* returns */
 //int8_t cmp_time()
 
 void reset(void)
 {
- 30a:	ee e4       	ldi	r30, 0x4E	; 78
- 30c:	f1 e0       	ldi	r31, 0x01	; 1
- 30e:	80 e0       	ldi	r24, 0x00	; 0
- 310:	90 e0       	ldi	r25, 0x00	; 0
+ 330:	e3 e4       	ldi	r30, 0x43	; 67
+ 332:	f1 e0       	ldi	r31, 0x01	; 1
+ 334:	80 e0       	ldi	r24, 0x00	; 0
+ 336:	90 e0       	ldi	r25, 0x00	; 0
 	/* reset time */
 	for (uint8_t i = 0; i < 6; i++)
 	{
 		playerATime[i] = gameConfig.initialTime[i];
- 312:	21 91       	ld	r18, Z+
- 314:	dc 01       	movw	r26, r24
- 316:	aa 5b       	subi	r26, 0xBA	; 186
- 318:	be 4f       	sbci	r27, 0xFE	; 254
- 31a:	2c 93       	st	X, r18
+ 338:	21 91       	ld	r18, Z+
+ 33a:	dc 01       	movw	r26, r24
+ 33c:	a5 5c       	subi	r26, 0xC5	; 197
+ 33e:	be 4f       	sbci	r27, 0xFE	; 254
+ 340:	2c 93       	st	X, r18
 		playerBTime[i] = gameConfig.initialTime[i];
- 31c:	dc 01       	movw	r26, r24
- 31e:	a8 5c       	subi	r26, 0xC8	; 200
- 320:	be 4f       	sbci	r27, 0xFE	; 254
- 322:	2c 93       	st	X, r18
- 324:	01 96       	adiw	r24, 0x01	; 1
+ 342:	dc 01       	movw	r26, r24
+ 344:	a3 5d       	subi	r26, 0xD3	; 211
+ 346:	be 4f       	sbci	r27, 0xFE	; 254
+ 348:	2c 93       	st	X, r18
+ 34a:	01 96       	adiw	r24, 0x01	; 1
 //int8_t cmp_time()
 
 void reset(void)
 {
 	/* reset time */
 	for (uint8_t i = 0; i < 6; i++)
- 326:	86 30       	cpi	r24, 0x06	; 6
- 328:	91 05       	cpc	r25, r1
- 32a:	99 f7       	brne	.-26     	; 0x312 <reset+0x8>
+ 34c:	86 30       	cpi	r24, 0x06	; 6
+ 34e:	91 05       	cpc	r25, r1
+ 350:	99 f7       	brne	.-26     	; 0x338 <reset+0x8>
 		playerATime[i] = gameConfig.initialTime[i];
 		playerBTime[i] = gameConfig.initialTime[i];
 	}
 
 	/* reset ticks */
 	playerATicks = 0;
- 32c:	10 92 3f 01 	sts	0x013F, r1	; 0x80013f <playerATicks>
+ 352:	10 92 34 01 	sts	0x0134, r1	; 0x800134 <playerATicks>
 	playerBTicks = 0;
- 330:	10 92 37 01 	sts	0x0137, r1	; 0x800137 <playerBTicks>
+ 356:	10 92 2c 01 	sts	0x012C, r1	; 0x80012c <playerBTicks>
 	
 	/* reset move counts */
 	playerAData.moves = 0;
- 334:	10 92 2e 01 	sts	0x012E, r1	; 0x80012e <playerAData+0x1>
- 338:	10 92 2d 01 	sts	0x012D, r1	; 0x80012d <playerAData>
+ 35a:	10 92 23 01 	sts	0x0123, r1	; 0x800123 <playerAData+0x1>
+ 35e:	10 92 22 01 	sts	0x0122, r1	; 0x800122 <playerAData>
 	playerBData.moves = 0;
- 33c:	10 92 31 01 	sts	0x0131, r1	; 0x800131 <playerBData+0x1>
- 340:	10 92 30 01 	sts	0x0130, r1	; 0x800130 <playerBData>
- 344:	08 95       	ret
+ 362:	10 92 26 01 	sts	0x0126, r1	; 0x800126 <playerBData+0x1>
+ 366:	10 92 25 01 	sts	0x0125, r1	; 0x800125 <playerBData>
+ 36a:	08 95       	ret
 
-00000346 <write_time>:
+0000036c <write_time>:
 }
 
 void write_time(void)
 {	
- 346:	80 e0       	ldi	r24, 0x00	; 0
- 348:	90 e0       	ldi	r25, 0x00	; 0
- 34a:	9c 01       	movw	r18, r24
- 34c:	2e 5f       	subi	r18, 0xFE	; 254
- 34e:	3f 4f       	sbci	r19, 0xFF	; 255
+ 36c:	80 e0       	ldi	r24, 0x00	; 0
+ 36e:	90 e0       	ldi	r25, 0x00	; 0
+ 370:	9c 01       	movw	r18, r24
+ 372:	2e 5f       	subi	r18, 0xFE	; 254
+ 374:	3f 4f       	sbci	r19, 0xFF	; 255
 	for (uint8_t i = 0; i < 4; i++)
 	{
 		displayBuffer[i] = playerATime[i+2];
- 350:	f9 01       	movw	r30, r18
- 352:	ea 5b       	subi	r30, 0xBA	; 186
- 354:	fe 4f       	sbci	r31, 0xFE	; 254
- 356:	40 81       	ld	r20, Z
- 358:	fc 01       	movw	r30, r24
- 35a:	ef 5d       	subi	r30, 0xDF	; 223
- 35c:	fe 4f       	sbci	r31, 0xFE	; 254
- 35e:	40 83       	st	Z, r20
+ 376:	f9 01       	movw	r30, r18
+ 378:	e5 5c       	subi	r30, 0xC5	; 197
+ 37a:	fe 4f       	sbci	r31, 0xFE	; 254
+ 37c:	40 81       	ld	r20, Z
+ 37e:	fc 01       	movw	r30, r24
+ 380:	eb 5e       	subi	r30, 0xEB	; 235
+ 382:	fe 4f       	sbci	r31, 0xFE	; 254
+ 384:	40 83       	st	Z, r20
 		displayBuffer[i+4] = playerBTime[i+2];
- 360:	f9 01       	movw	r30, r18
- 362:	e8 5c       	subi	r30, 0xC8	; 200
- 364:	fe 4f       	sbci	r31, 0xFE	; 254
- 366:	20 81       	ld	r18, Z
- 368:	fc 01       	movw	r30, r24
- 36a:	eb 5d       	subi	r30, 0xDB	; 219
- 36c:	fe 4f       	sbci	r31, 0xFE	; 254
- 36e:	20 83       	st	Z, r18
- 370:	01 96       	adiw	r24, 0x01	; 1
+ 386:	f9 01       	movw	r30, r18
+ 388:	e3 5d       	subi	r30, 0xD3	; 211
+ 38a:	fe 4f       	sbci	r31, 0xFE	; 254
+ 38c:	20 81       	ld	r18, Z
+ 38e:	fc 01       	movw	r30, r24
+ 390:	e7 5e       	subi	r30, 0xE7	; 231
+ 392:	fe 4f       	sbci	r31, 0xFE	; 254
+ 394:	20 83       	st	Z, r18
+ 396:	01 96       	adiw	r24, 0x01	; 1
 	playerBData.moves = 0;
 }
 
 void write_time(void)
 {	
 	for (uint8_t i = 0; i < 4; i++)
- 372:	84 30       	cpi	r24, 0x04	; 4
- 374:	91 05       	cpc	r25, r1
- 376:	49 f7       	brne	.-46     	; 0x34a <write_time+0x4>
+ 398:	84 30       	cpi	r24, 0x04	; 4
+ 39a:	91 05       	cpc	r25, r1
+ 39c:	49 f7       	brne	.-46     	; 0x370 <write_time+0x4>
 	{
 		displayBuffer[i] = playerATime[i+2];
 		displayBuffer[i+4] = playerBTime[i+2];
 	}
 }
- 378:	08 95       	ret
+ 39e:	08 95       	ret
 
-0000037a <main>:
+000003a0 <main>:
 
 int main(void)
 {		
 	/* default to player A as white/starting */
 	
 	currentPlayerTicks = &playerATicks;
- 37a:	8f e3       	ldi	r24, 0x3F	; 63
- 37c:	91 e0       	ldi	r25, 0x01	; 1
- 37e:	90 93 4d 01 	sts	0x014D, r25	; 0x80014d <currentPlayerTicks+0x1>
- 382:	80 93 4c 01 	sts	0x014C, r24	; 0x80014c <currentPlayerTicks>
+ 3a0:	84 e3       	ldi	r24, 0x34	; 52
+ 3a2:	91 e0       	ldi	r25, 0x01	; 1
+ 3a4:	90 93 42 01 	sts	0x0142, r25	; 0x800142 <currentPlayerTicks+0x1>
+ 3a8:	80 93 41 01 	sts	0x0141, r24	; 0x800141 <currentPlayerTicks>
 	currentPlayerTime = &playerATime;
- 386:	86 e4       	ldi	r24, 0x46	; 70
- 388:	91 e0       	ldi	r25, 0x01	; 1
- 38a:	90 93 36 01 	sts	0x0136, r25	; 0x800136 <currentPlayerTime+0x1>
- 38e:	80 93 35 01 	sts	0x0135, r24	; 0x800135 <currentPlayerTime>
+ 3ac:	8b e3       	ldi	r24, 0x3B	; 59
+ 3ae:	91 e0       	ldi	r25, 0x01	; 1
+ 3b0:	90 93 2b 01 	sts	0x012B, r25	; 0x80012b <currentPlayerTime+0x1>
+ 3b4:	80 93 2a 01 	sts	0x012A, r24	; 0x80012a <currentPlayerTime>
 	currentPlayerData = &playerAData;
- 392:	8d e2       	ldi	r24, 0x2D	; 45
- 394:	91 e0       	ldi	r25, 0x01	; 1
- 396:	90 93 34 01 	sts	0x0134, r25	; 0x800134 <currentPlayerData+0x1>
- 39a:	80 93 33 01 	sts	0x0133, r24	; 0x800133 <currentPlayerData>
+ 3b8:	82 e2       	ldi	r24, 0x22	; 34
+ 3ba:	91 e0       	ldi	r25, 0x01	; 1
+ 3bc:	90 93 29 01 	sts	0x0129, r25	; 0x800129 <currentPlayerData+0x1>
+ 3c0:	80 93 28 01 	sts	0x0128, r24	; 0x800128 <currentPlayerData>
 	
 	DDRD |= 1<<PD0 | 1<<PD1;
- 39e:	8a b1       	in	r24, 0x0a	; 10
- 3a0:	83 60       	ori	r24, 0x03	; 3
- 3a2:	8a b9       	out	0x0a, r24	; 10
+ 3c4:	8a b1       	in	r24, 0x0a	; 10
+ 3c6:	83 60       	ori	r24, 0x03	; 3
+ 3c8:	8a b9       	out	0x0a, r24	; 10
 	PORTD &= ~(1<<PD1);
- 3a4:	59 98       	cbi	0x0b, 1	; 11
+ 3ca:	59 98       	cbi	0x0b, 1	; 11
 	PORTD |= 1<<PD0;
- 3a6:	58 9a       	sbi	0x0b, 0	; 11
+ 3cc:	58 9a       	sbi	0x0b, 0	; 11
 	
-	gameConfig = blitz3plus2Config;
- 3a8:	8d e0       	ldi	r24, 0x0D	; 13
- 3aa:	e0 e0       	ldi	r30, 0x00	; 0
- 3ac:	f1 e0       	ldi	r31, 0x01	; 1
- 3ae:	ae e4       	ldi	r26, 0x4E	; 78
- 3b0:	b1 e0       	ldi	r27, 0x01	; 1
- 3b2:	01 90       	ld	r0, Z+
- 3b4:	0d 92       	st	X+, r0
- 3b6:	8a 95       	dec	r24
- 3b8:	e1 f7       	brne	.-8      	; 0x3b2 <main+0x38>
+	load_config();
+ 3ce:	0e 94 f7 03 	call	0x7ee	; 0x7ee <load_config>
+	//gameConfig = blitz3plus2Config;
 	
 	reset();
- 3ba:	0e 94 85 01 	call	0x30a	; 0x30a <reset>
+ 3d2:	0e 94 98 01 	call	0x330	; 0x330 <reset>
 	
 	init_display();
- 3be:	0e 94 58 00 	call	0xb0	; 0xb0 <init_display>
+ 3d6:	0e 94 5f 00 	call	0xbe	; 0xbe <init_display>
 	init_keys();
- 3c2:	0e 94 0a 01 	call	0x214	; 0x214 <init_keys>
-	init_sound();
- 3c6:	0e 94 ca 03 	call	0x794	; 0x794 <init_sound>
+ 3da:	0e 94 1d 01 	call	0x23a	; 0x23a <init_keys>
 	init_timer();
- 3ca:	0e 94 1a 01 	call	0x234	; 0x234 <init_timer>
-
+ 3de:	0e 94 2d 01 	call	0x25a	; 0x25a <init_timer>
+	
 	sei();
- 3ce:	78 94       	sei
+ 3e2:	78 94       	sei
 			break;
 			
+			/* Game paused */
+			/* Clock countdown for both players is paused */
 			case GAME_PAUSED:
-			if (keyPressed & START_KEY)
+			if (holdTimer >= holdTimerThreshold)
+ 3e4:	d0 90 00 01 	lds	r13, 0x0100	; 0x800100 <__data_start>
+				reset();
+				state = IDLE;	
+			}
+			else if (keyPressed & START_KEY)
 			{
 				TIMSK2 = 1<<TOIE2;
- 3d0:	c0 e7       	ldi	r28, 0x70	; 112
- 3d2:	d0 e0       	ldi	r29, 0x00	; 0
- 3d4:	ff 24       	eor	r15, r15
- 3d6:	f3 94       	inc	r15
+ 3e8:	c0 e7       	ldi	r28, 0x70	; 112
+ 3ea:	d0 e0       	ldi	r29, 0x00	; 0
+ 3ec:	ee 24       	eor	r14, r14
+ 3ee:	e3 94       	inc	r14
 				state = GAME_ACTIVE;
- 3d8:	0f 2e       	mov	r0, r31
- 3da:	f3 e0       	ldi	r31, 0x03	; 3
- 3dc:	ef 2e       	mov	r14, r31
- 3de:	f0 2d       	mov	r31, r0
-			
+ 3f0:	68 94       	set
+ 3f2:	cc 24       	eor	r12, r12
+ 3f4:	c2 f8       	bld	r12, 2
+			/* Clock is currently counting down */
 			case GAME_ACTIVE:
 			if (keyPressed & START_KEY)
 			{
 				TIMSK2 = 0x00;
 				state = GAME_PAUSED;	
- 3e0:	68 94       	set
- 3e2:	cc 24       	eor	r12, r12
- 3e4:	c2 f8       	bld	r12, 2
-				state = GAME_ACTIVE;
+ 3f6:	0f 2e       	mov	r0, r31
+ 3f8:	f5 e0       	ldi	r31, 0x05	; 5
+ 3fa:	bf 2e       	mov	r11, r31
+ 3fc:	f0 2d       	mov	r31, r0
+				state = IDLE;
 			}
-			else if (keyPressed & TIME_KEY)
+			else if (keyPressed & MODE_KEY)
 			{
-				timeEditCursor = 0;
-				blinkMask[0] = 0xFF;
- 3e6:	01 e1       	ldi	r16, 0x11	; 17
- 3e8:	11 e0       	ldi	r17, 0x01	; 1
- 3ea:	dd 24       	eor	r13, r13
- 3ec:	da 94       	dec	r13
+				
+				state = EDIT_MODE;
+ 3fe:	68 94       	set
+ 400:	99 24       	eor	r9, r9
+ 402:	91 f8       	bld	r9, 1
+				state = IDLE;
 			}
+			else if (keyPressed & MODE_KEY)
+			{
+				
+				state = EDIT_DELAY;
+ 404:	0f 2e       	mov	r0, r31
+ 406:	f3 e0       	ldi	r31, 0x03	; 3
+ 408:	af 2e       	mov	r10, r31
+ 40a:	f0 2d       	mov	r31, r0
 			else if (keyPressed & (UP_KEY | DOWN_KEY))
 			{
 				int8_t timeComponent;
 				
 				uint8_t limit = 5;                    // 9 for units, 5 for seconds
- 3ee:	0f 2e       	mov	r0, r31
- 3f0:	f5 e0       	ldi	r31, 0x05	; 5
- 3f2:	af 2e       	mov	r10, r31
- 3f4:	f0 2d       	mov	r31, r0
 				if (timeEditCursor & 0x01) limit = 9; // even = units, odd = tens
- 3f6:	0f 2e       	mov	r0, r31
- 3f8:	f9 e0       	ldi	r31, 0x09	; 9
- 3fa:	bf 2e       	mov	r11, r31
- 3fc:	f0 2d       	mov	r31, r0
-	
-	//sound_on();
-	
-    while (1) 
-    {
-		scan_keys();
- 3fe:	0e 94 f9 00 	call	0x1f2	; 0x1f2 <scan_keys>
-		
-		switch (state)
- 402:	80 91 3e 01 	lds	r24, 0x013E	; 0x80013e <state>
- 406:	82 30       	cpi	r24, 0x02	; 2
- 408:	09 f4       	brne	.+2      	; 0x40c <__LOCK_REGION_LENGTH__+0xc>
- 40a:	8f c0       	rjmp	.+286    	; 0x52a <__LOCK_REGION_LENGTH__+0x12a>
- 40c:	28 f4       	brcc	.+10     	; 0x418 <__LOCK_REGION_LENGTH__+0x18>
- 40e:	88 23       	and	r24, r24
- 410:	61 f0       	breq	.+24     	; 0x42a <__LOCK_REGION_LENGTH__+0x2a>
- 412:	81 30       	cpi	r24, 0x01	; 1
- 414:	f1 f0       	breq	.+60     	; 0x452 <__LOCK_REGION_LENGTH__+0x52>
- 416:	ae c0       	rjmp	.+348    	; 0x574 <__LOCK_REGION_LENGTH__+0x174>
- 418:	84 30       	cpi	r24, 0x04	; 4
- 41a:	09 f4       	brne	.+2      	; 0x41e <__LOCK_REGION_LENGTH__+0x1e>
- 41c:	97 c0       	rjmp	.+302    	; 0x54c <__LOCK_REGION_LENGTH__+0x14c>
- 41e:	08 f4       	brcc	.+2      	; 0x422 <__LOCK_REGION_LENGTH__+0x22>
- 420:	8b c0       	rjmp	.+278    	; 0x538 <__LOCK_REGION_LENGTH__+0x138>
- 422:	85 30       	cpi	r24, 0x05	; 5
- 424:	09 f4       	brne	.+2      	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
- 426:	9c c0       	rjmp	.+312    	; 0x560 <__LOCK_REGION_LENGTH__+0x160>
- 428:	a5 c0       	rjmp	.+330    	; 0x574 <__LOCK_REGION_LENGTH__+0x174>
-		{
-			case IDLE:
-			if (keyPressed & START_KEY)
- 42a:	80 91 2b 01 	lds	r24, 0x012B	; 0x80012b <keyPressed>
- 42e:	82 ff       	sbrs	r24, 2
- 430:	04 c0       	rjmp	.+8      	; 0x43a <__LOCK_REGION_LENGTH__+0x3a>
-			{
-				TIMSK2 = 1<<TOIE2;
- 432:	f8 82       	st	Y, r15
-				
-				state = GAME_ACTIVE;
- 434:	e0 92 3e 01 	sts	0x013E, r14	; 0x80013e <state>
- 438:	09 c0       	rjmp	.+18     	; 0x44c <__LOCK_REGION_LENGTH__+0x4c>
-			}
-			else if (keyPressed & TIME_KEY)
- 43a:	81 ff       	sbrs	r24, 1
- 43c:	07 c0       	rjmp	.+14     	; 0x44c <__LOCK_REGION_LENGTH__+0x4c>
-			{
-				timeEditCursor = 0;
- 43e:	10 92 10 01 	sts	0x0110, r1	; 0x800110 <timeEditCursor>
-				blinkMask[0] = 0xFF;
- 442:	f8 01       	movw	r30, r16
- 444:	d0 82       	st	Z, r13
-				blinkMask[4] = 0xFF;
- 446:	d4 82       	std	Z+4, r13	; 0x04
-								
-				state = EDIT_TIME;
- 448:	f0 92 3e 01 	sts	0x013E, r15	; 0x80013e <state>
-			}
-			
-			write_time();
- 44c:	0e 94 a3 01 	call	0x346	; 0x346 <write_time>
-			break;
- 450:	91 c0       	rjmp	.+290    	; 0x574 <__LOCK_REGION_LENGTH__+0x174>
-			
-			case EDIT_TIME:
-			if (keyPressed & START_KEY)
- 452:	80 91 2b 01 	lds	r24, 0x012B	; 0x80012b <keyPressed>
- 456:	82 ff       	sbrs	r24, 2
- 458:	0e c0       	rjmp	.+28     	; 0x476 <__LOCK_REGION_LENGTH__+0x76>
-			{
-				blinkMask[timeEditCursor] = 0x00;
- 45a:	80 91 10 01 	lds	r24, 0x0110	; 0x800110 <timeEditCursor>
- 45e:	90 e0       	ldi	r25, 0x00	; 0
- 460:	fc 01       	movw	r30, r24
- 462:	ef 5e       	subi	r30, 0xEF	; 239
- 464:	fe 4f       	sbci	r31, 0xFE	; 254
- 466:	10 82       	st	Z, r1
+ 40c:	0f 2e       	mov	r0, r31
+ 40e:	f9 e0       	ldi	r31, 0x09	; 9
+ 410:	8f 2e       	mov	r8, r31
+ 412:	f0 2d       	mov	r31, r0
 				blinkMask[timeEditCursor+4] = 0x00;
- 468:	fc 01       	movw	r30, r24
- 46a:	eb 5e       	subi	r30, 0xEB	; 235
- 46c:	fe 4f       	sbci	r31, 0xFE	; 254
- 46e:	10 82       	st	Z, r1
-				
-				state = IDLE;	
- 470:	10 92 3e 01 	sts	0x013E, r1	; 0x80013e <state>
- 474:	7f c0       	rjmp	.+254    	; 0x574 <__LOCK_REGION_LENGTH__+0x174>
-			}
-			else if (keyPressed & TIME_KEY)
- 476:	81 ff       	sbrs	r24, 1
- 478:	1a c0       	rjmp	.+52     	; 0x4ae <__LOCK_REGION_LENGTH__+0xae>
-			{
-				blinkMask[timeEditCursor] = 0x00;
- 47a:	80 91 10 01 	lds	r24, 0x0110	; 0x800110 <timeEditCursor>
- 47e:	28 2f       	mov	r18, r24
- 480:	30 e0       	ldi	r19, 0x00	; 0
- 482:	f9 01       	movw	r30, r18
- 484:	ef 5e       	subi	r30, 0xEF	; 239
- 486:	fe 4f       	sbci	r31, 0xFE	; 254
- 488:	10 82       	st	Z, r1
-				blinkMask[timeEditCursor+4] = 0x00;
- 48a:	f9 01       	movw	r30, r18
- 48c:	eb 5e       	subi	r30, 0xEB	; 235
- 48e:	fe 4f       	sbci	r31, 0xFE	; 254
- 490:	10 82       	st	Z, r1
 				
 				timeEditCursor++;
 				timeEditCursor &= 0x03;
- 492:	8f 5f       	subi	r24, 0xFF	; 255
- 494:	83 70       	andi	r24, 0x03	; 3
- 496:	80 93 10 01 	sts	0x0110, r24	; 0x800110 <timeEditCursor>
 				
 				blinkMask[timeEditCursor] = 0xFF;
- 49a:	90 e0       	ldi	r25, 0x00	; 0
- 49c:	fc 01       	movw	r30, r24
- 49e:	ef 5e       	subi	r30, 0xEF	; 239
- 4a0:	fe 4f       	sbci	r31, 0xFE	; 254
- 4a2:	d0 82       	st	Z, r13
-				blinkMask[timeEditCursor+4] = 0xFF;
- 4a4:	fc 01       	movw	r30, r24
- 4a6:	eb 5e       	subi	r30, 0xEB	; 235
- 4a8:	fe 4f       	sbci	r31, 0xFE	; 254
- 4aa:	d0 82       	st	Z, r13
- 4ac:	63 c0       	rjmp	.+198    	; 0x574 <__LOCK_REGION_LENGTH__+0x174>
-			}
-			else if (keyPressed & (UP_KEY | DOWN_KEY))
- 4ae:	98 2f       	mov	r25, r24
- 4b0:	98 71       	andi	r25, 0x18	; 24
- 4b2:	09 f4       	brne	.+2      	; 0x4b6 <__LOCK_REGION_LENGTH__+0xb6>
- 4b4:	5f c0       	rjmp	.+190    	; 0x574 <__LOCK_REGION_LENGTH__+0x174>
-			{
-				int8_t timeComponent;
-				
-				uint8_t limit = 5;                    // 9 for units, 5 for seconds
-				if (timeEditCursor & 0x01) limit = 9; // even = units, odd = tens
- 4b6:	90 91 10 01 	lds	r25, 0x0110	; 0x800110 <timeEditCursor>
- 4ba:	90 ff       	sbrs	r25, 0
- 4bc:	02 c0       	rjmp	.+4      	; 0x4c2 <__LOCK_REGION_LENGTH__+0xc2>
- 4be:	4b 2d       	mov	r20, r11
- 4c0:	01 c0       	rjmp	.+2      	; 0x4c4 <__LOCK_REGION_LENGTH__+0xc4>
-			}
-			else if (keyPressed & (UP_KEY | DOWN_KEY))
-			{
-				int8_t timeComponent;
-				
-				uint8_t limit = 5;                    // 9 for units, 5 for seconds
- 4c2:	4a 2d       	mov	r20, r10
-				if (timeEditCursor & 0x01) limit = 9; // even = units, odd = tens
-				
-				if (keyPressed & UP_KEY)
- 4c4:	84 ff       	sbrs	r24, 4
- 4c6:	11 c0       	rjmp	.+34     	; 0x4ea <__LOCK_REGION_LENGTH__+0xea>
-				{
-					timeComponent = ++playerATime[timeEditCursor+2];
- 4c8:	e9 2f       	mov	r30, r25
- 4ca:	f0 e0       	ldi	r31, 0x00	; 0
- 4cc:	e8 5b       	subi	r30, 0xB8	; 184
- 4ce:	fe 4f       	sbci	r31, 0xFE	; 254
- 4d0:	20 81       	ld	r18, Z
- 4d2:	2f 5f       	subi	r18, 0xFF	; 255
- 4d4:	20 83       	st	Z, r18
-					if (timeComponent > limit) timeComponent = 0;
- 4d6:	62 2f       	mov	r22, r18
- 4d8:	02 2e       	mov	r0, r18
- 4da:	00 0c       	add	r0, r0
- 4dc:	77 0b       	sbc	r23, r23
- 4de:	50 e0       	ldi	r21, 0x00	; 0
- 4e0:	46 17       	cp	r20, r22
- 4e2:	57 07       	cpc	r21, r23
- 4e4:	64 f4       	brge	.+24     	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
- 4e6:	20 e0       	ldi	r18, 0x00	; 0
- 4e8:	0a c0       	rjmp	.+20     	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
-				}
-				else
-				{
-					timeComponent = --playerATime[timeEditCursor+2];
- 4ea:	e9 2f       	mov	r30, r25
- 4ec:	f0 e0       	ldi	r31, 0x00	; 0
- 4ee:	e8 5b       	subi	r30, 0xB8	; 184
- 4f0:	fe 4f       	sbci	r31, 0xFE	; 254
- 4f2:	20 81       	ld	r18, Z
- 4f4:	21 50       	subi	r18, 0x01	; 1
- 4f6:	20 83       	st	Z, r18
-					if (timeComponent < 0) timeComponent = limit;
- 4f8:	22 23       	and	r18, r18
- 4fa:	0c f4       	brge	.+2      	; 0x4fe <__LOCK_REGION_LENGTH__+0xfe>
- 4fc:	24 2f       	mov	r18, r20
-				}
-				
-				playerATime[timeEditCursor+2] = timeComponent;
- 4fe:	89 2f       	mov	r24, r25
- 500:	90 e0       	ldi	r25, 0x00	; 0
- 502:	ac 01       	movw	r20, r24
- 504:	4e 5f       	subi	r20, 0xFE	; 254
- 506:	5f 4f       	sbci	r21, 0xFF	; 255
- 508:	fa 01       	movw	r30, r20
- 50a:	ea 5b       	subi	r30, 0xBA	; 186
- 50c:	fe 4f       	sbci	r31, 0xFE	; 254
- 50e:	20 83       	st	Z, r18
-				playerBTime[timeEditCursor+2] = timeComponent;	
- 510:	fa 01       	movw	r30, r20
- 512:	e8 5c       	subi	r30, 0xC8	; 200
- 514:	fe 4f       	sbci	r31, 0xFE	; 254
- 516:	20 83       	st	Z, r18
-				
-				displayBuffer[timeEditCursor] = timeComponent;
- 518:	fc 01       	movw	r30, r24
- 51a:	ef 5d       	subi	r30, 0xDF	; 223
- 51c:	fe 4f       	sbci	r31, 0xFE	; 254
- 51e:	20 83       	st	Z, r18
-				displayBuffer[timeEditCursor+4] = timeComponent;	
- 520:	fc 01       	movw	r30, r24
- 522:	eb 5d       	subi	r30, 0xDB	; 219
- 524:	fe 4f       	sbci	r31, 0xFE	; 254
- 526:	20 83       	st	Z, r18
- 528:	25 c0       	rjmp	.+74     	; 0x574 <__LOCK_REGION_LENGTH__+0x174>
-			}
-			break;
-			
-			case EDIT_SETTINGS:
-			if (keyPressed & START_KEY)
- 52a:	80 91 2b 01 	lds	r24, 0x012B	; 0x80012b <keyPressed>
- 52e:	82 ff       	sbrs	r24, 2
- 530:	21 c0       	rjmp	.+66     	; 0x574 <__LOCK_REGION_LENGTH__+0x174>
-			{
-				state = IDLE;
- 532:	10 92 3e 01 	sts	0x013E, r1	; 0x80013e <state>
- 536:	1e c0       	rjmp	.+60     	; 0x574 <__LOCK_REGION_LENGTH__+0x174>
-			}
-			break;
-			
-			case GAME_ACTIVE:
-			if (keyPressed & START_KEY)
- 538:	80 91 2b 01 	lds	r24, 0x012B	; 0x80012b <keyPressed>
- 53c:	82 ff       	sbrs	r24, 2
- 53e:	03 c0       	rjmp	.+6      	; 0x546 <__LOCK_REGION_LENGTH__+0x146>
-			{
-				TIMSK2 = 0x00;
- 540:	18 82       	st	Y, r1
-				state = GAME_PAUSED;	
- 542:	c0 92 3e 01 	sts	0x013E, r12	; 0x80013e <state>
-			}
-			
-			write_time();
- 546:	0e 94 a3 01 	call	0x346	; 0x346 <write_time>
-			break;
- 54a:	14 c0       	rjmp	.+40     	; 0x574 <__LOCK_REGION_LENGTH__+0x174>
-			
-			case GAME_PAUSED:
-			if (keyPressed & START_KEY)
- 54c:	80 91 2b 01 	lds	r24, 0x012B	; 0x80012b <keyPressed>
- 550:	82 ff       	sbrs	r24, 2
- 552:	03 c0       	rjmp	.+6      	; 0x55a <__LOCK_REGION_LENGTH__+0x15a>
-			{
-				TIMSK2 = 1<<TOIE2;
- 554:	f8 82       	st	Y, r15
+ 414:	ff 24       	eor	r15, r15
+ 416:	fa 94       	dec	r15
 				state = GAME_ACTIVE;
- 556:	e0 92 3e 01 	sts	0x013E, r14	; 0x80013e <state>
 			}
-			
-			write_time();
- 55a:	0e 94 a3 01 	call	0x346	; 0x346 <write_time>
-			break;
- 55e:	0a c0       	rjmp	.+20     	; 0x574 <__LOCK_REGION_LENGTH__+0x174>
-			
-			case GAME_FINISHED:
-			if (keyPressed & START_KEY)
- 560:	80 91 2b 01 	lds	r24, 0x012B	; 0x80012b <keyPressed>
- 564:	82 ff       	sbrs	r24, 2
- 566:	04 c0       	rjmp	.+8      	; 0x570 <__LOCK_REGION_LENGTH__+0x170>
+			else if (keyPressed & TIME_KEY)
 			{
-				reset();
- 568:	0e 94 85 01 	call	0x30a	; 0x30a <reset>
-				state = IDLE;
- 56c:	10 92 3e 01 	sts	0x013E, r1	; 0x80013e <state>
-			}
-			
-			write_time();
- 570:	0e 94 a3 01 	call	0x346	; 0x346 <write_time>
-			break;
-		}
-		
-		do_blink();
- 574:	0e 94 9d 00 	call	0x13a	; 0x13a <do_blink>
+				timeEditCursor = 0;
+				blinkMask[0] = 0xFF;
+ 418:	04 e0       	ldi	r16, 0x04	; 4
+ 41a:	11 e0       	ldi	r17, 0x01	; 1
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 578:	8f e2       	ldi	r24, 0x2F	; 47
- 57a:	95 e7       	ldi	r25, 0x75	; 117
- 57c:	01 97       	sbiw	r24, 0x01	; 1
- 57e:	f1 f7       	brne	.-4      	; 0x57c <__LOCK_REGION_LENGTH__+0x17c>
- 580:	00 c0       	rjmp	.+0      	; 0x582 <__LOCK_REGION_LENGTH__+0x182>
- 582:	00 00       	nop
- 584:	3c cf       	rjmp	.-392    	; 0x3fe <main+0x84>
+ 41c:	8f e2       	ldi	r24, 0x2F	; 47
+ 41e:	95 e7       	ldi	r25, 0x75	; 117
+ 420:	01 97       	sbiw	r24, 0x01	; 1
+ 422:	f1 f7       	brne	.-4      	; 0x420 <__LOCK_REGION_LENGTH__+0x20>
+ 424:	00 c0       	rjmp	.+0      	; 0x426 <__LOCK_REGION_LENGTH__+0x26>
+ 426:	00 00       	nop
+	
+    while (1) 
+    {
+		_delay_ms(15);
+		
+		scan_keys();
+ 428:	0e 94 00 01 	call	0x200	; 0x200 <scan_keys>
+		do_blink();
+ 42c:	0e 94 a4 00 	call	0x148	; 0x148 <do_blink>
+		
+		switch (state)
+ 430:	e0 91 33 01 	lds	r30, 0x0133	; 0x800133 <state>
+ 434:	8e 2f       	mov	r24, r30
+ 436:	90 e0       	ldi	r25, 0x00	; 0
+ 438:	87 30       	cpi	r24, 0x07	; 7
+ 43a:	91 05       	cpc	r25, r1
+ 43c:	78 f7       	brcc	.-34     	; 0x41c <__LOCK_REGION_LENGTH__+0x1c>
+ 43e:	fc 01       	movw	r30, r24
+ 440:	ec 5c       	subi	r30, 0xCC	; 204
+ 442:	ff 4f       	sbci	r31, 0xFF	; 255
+ 444:	0c 94 02 04 	jmp	0x804	; 0x804 <__tablejump2__>
+		{
+			/* Idle */
+			/* Ready to start a game */
+			case IDLE:
+			if (keyPressed & START_KEY)
+ 448:	80 91 1f 01 	lds	r24, 0x011F	; 0x80011f <keyPressed>
+ 44c:	82 ff       	sbrs	r24, 2
+ 44e:	04 c0       	rjmp	.+8      	; 0x458 <__LOCK_REGION_LENGTH__+0x58>
+			{
+				TIMSK2 = 1<<TOIE2;
+ 450:	e8 82       	st	Y, r14
+				
+				state = GAME_ACTIVE;
+ 452:	c0 92 33 01 	sts	0x0133, r12	; 0x800133 <state>
+ 456:	09 c0       	rjmp	.+18     	; 0x46a <__LOCK_REGION_LENGTH__+0x6a>
+			}
+			else if (keyPressed & TIME_KEY)
+ 458:	81 ff       	sbrs	r24, 1
+ 45a:	07 c0       	rjmp	.+14     	; 0x46a <__LOCK_REGION_LENGTH__+0x6a>
+			{
+				timeEditCursor = 0;
+ 45c:	10 92 03 01 	sts	0x0103, r1	; 0x800103 <timeEditCursor>
+				blinkMask[0] = 0xFF;
+ 460:	f8 01       	movw	r30, r16
+ 462:	f0 82       	st	Z, r15
+				blinkMask[4] = 0xFF;
+ 464:	f4 82       	std	Z+4, r15	; 0x04
+								
+				state = EDIT_TIME;
+ 466:	e0 92 33 01 	sts	0x0133, r14	; 0x800133 <state>
+			}
+			
+			write_time();
+ 46a:	0e 94 b6 01 	call	0x36c	; 0x36c <write_time>
+			break;
+ 46e:	d6 cf       	rjmp	.-84     	; 0x41c <__LOCK_REGION_LENGTH__+0x1c>
+			
+			/* Time edit mode */
+			/* Edit initial time for one or both players */
+			case EDIT_TIME:
+			if (keyPressed & START_KEY)
+ 470:	80 91 1f 01 	lds	r24, 0x011F	; 0x80011f <keyPressed>
+ 474:	82 ff       	sbrs	r24, 2
+ 476:	10 c0       	rjmp	.+32     	; 0x498 <__LOCK_REGION_LENGTH__+0x98>
+			{
+				/* stop blinking */
+				blinkMask[timeEditCursor] = 0x00;
+ 478:	80 91 03 01 	lds	r24, 0x0103	; 0x800103 <timeEditCursor>
+ 47c:	90 e0       	ldi	r25, 0x00	; 0
+ 47e:	fc 01       	movw	r30, r24
+ 480:	ec 5f       	subi	r30, 0xFC	; 252
+ 482:	fe 4f       	sbci	r31, 0xFE	; 254
+ 484:	10 82       	st	Z, r1
+				blinkMask[timeEditCursor+4] = 0x00;
+ 486:	fc 01       	movw	r30, r24
+ 488:	e8 5f       	subi	r30, 0xF8	; 248
+ 48a:	fe 4f       	sbci	r31, 0xFE	; 254
+ 48c:	10 82       	st	Z, r1
+				
+				/* save settings */
+				store_config();
+ 48e:	0e 94 ec 03 	call	0x7d8	; 0x7d8 <store_config>
+				
+				state = IDLE;	
+ 492:	10 92 33 01 	sts	0x0133, r1	; 0x800133 <state>
+ 496:	52 c0       	rjmp	.+164    	; 0x53c <__LOCK_REGION_LENGTH__+0x13c>
+			}
+			else if (keyPressed & TIME_KEY)
+ 498:	81 ff       	sbrs	r24, 1
+ 49a:	1a c0       	rjmp	.+52     	; 0x4d0 <__LOCK_REGION_LENGTH__+0xd0>
+			{
+				blinkMask[timeEditCursor] = 0x00;
+ 49c:	80 91 03 01 	lds	r24, 0x0103	; 0x800103 <timeEditCursor>
+ 4a0:	28 2f       	mov	r18, r24
+ 4a2:	30 e0       	ldi	r19, 0x00	; 0
+ 4a4:	f9 01       	movw	r30, r18
+ 4a6:	ec 5f       	subi	r30, 0xFC	; 252
+ 4a8:	fe 4f       	sbci	r31, 0xFE	; 254
+ 4aa:	10 82       	st	Z, r1
+				blinkMask[timeEditCursor+4] = 0x00;
+ 4ac:	f9 01       	movw	r30, r18
+ 4ae:	e8 5f       	subi	r30, 0xF8	; 248
+ 4b0:	fe 4f       	sbci	r31, 0xFE	; 254
+ 4b2:	10 82       	st	Z, r1
+				
+				timeEditCursor++;
+				timeEditCursor &= 0x03;
+ 4b4:	8f 5f       	subi	r24, 0xFF	; 255
+ 4b6:	83 70       	andi	r24, 0x03	; 3
+ 4b8:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <timeEditCursor>
+				
+				blinkMask[timeEditCursor] = 0xFF;
+ 4bc:	90 e0       	ldi	r25, 0x00	; 0
+ 4be:	fc 01       	movw	r30, r24
+ 4c0:	ec 5f       	subi	r30, 0xFC	; 252
+ 4c2:	fe 4f       	sbci	r31, 0xFE	; 254
+ 4c4:	f0 82       	st	Z, r15
+				blinkMask[timeEditCursor+4] = 0xFF;
+ 4c6:	fc 01       	movw	r30, r24
+ 4c8:	e8 5f       	subi	r30, 0xF8	; 248
+ 4ca:	fe 4f       	sbci	r31, 0xFE	; 254
+ 4cc:	f0 82       	st	Z, r15
+ 4ce:	36 c0       	rjmp	.+108    	; 0x53c <__LOCK_REGION_LENGTH__+0x13c>
+			}
+			else if (keyPressed & (UP_KEY | DOWN_KEY))
+ 4d0:	98 2f       	mov	r25, r24
+ 4d2:	98 71       	andi	r25, 0x18	; 24
+ 4d4:	99 f1       	breq	.+102    	; 0x53c <__LOCK_REGION_LENGTH__+0x13c>
+			{
+				int8_t timeComponent;
+				
+				uint8_t limit = 5;                    // 9 for units, 5 for seconds
+				if (timeEditCursor & 0x01) limit = 9; // even = units, odd = tens
+ 4d6:	90 91 03 01 	lds	r25, 0x0103	; 0x800103 <timeEditCursor>
+ 4da:	90 ff       	sbrs	r25, 0
+ 4dc:	02 c0       	rjmp	.+4      	; 0x4e2 <__LOCK_REGION_LENGTH__+0xe2>
+ 4de:	28 2d       	mov	r18, r8
+ 4e0:	01 c0       	rjmp	.+2      	; 0x4e4 <__LOCK_REGION_LENGTH__+0xe4>
+			}
+			else if (keyPressed & (UP_KEY | DOWN_KEY))
+			{
+				int8_t timeComponent;
+				
+				uint8_t limit = 5;                    // 9 for units, 5 for seconds
+ 4e2:	2b 2d       	mov	r18, r11
+				if (timeEditCursor & 0x01) limit = 9; // even = units, odd = tens
+				
+				if (keyPressed & UP_KEY)
+ 4e4:	84 ff       	sbrs	r24, 4
+ 4e6:	11 c0       	rjmp	.+34     	; 0x50a <__LOCK_REGION_LENGTH__+0x10a>
+				{
+					timeComponent = ++playerATime[timeEditCursor+2];
+ 4e8:	e9 2f       	mov	r30, r25
+ 4ea:	f0 e0       	ldi	r31, 0x00	; 0
+ 4ec:	e3 5c       	subi	r30, 0xC3	; 195
+ 4ee:	fe 4f       	sbci	r31, 0xFE	; 254
+ 4f0:	60 81       	ld	r22, Z
+ 4f2:	6f 5f       	subi	r22, 0xFF	; 255
+ 4f4:	60 83       	st	Z, r22
+					if (timeComponent > limit) timeComponent = 0;
+ 4f6:	46 2f       	mov	r20, r22
+ 4f8:	06 2e       	mov	r0, r22
+ 4fa:	00 0c       	add	r0, r0
+ 4fc:	55 0b       	sbc	r21, r21
+ 4fe:	30 e0       	ldi	r19, 0x00	; 0
+ 500:	24 17       	cp	r18, r20
+ 502:	35 07       	cpc	r19, r21
+ 504:	64 f4       	brge	.+24     	; 0x51e <__LOCK_REGION_LENGTH__+0x11e>
+ 506:	60 e0       	ldi	r22, 0x00	; 0
+ 508:	0a c0       	rjmp	.+20     	; 0x51e <__LOCK_REGION_LENGTH__+0x11e>
+				}
+				else
+				{
+					timeComponent = --playerATime[timeEditCursor+2];
+ 50a:	e9 2f       	mov	r30, r25
+ 50c:	f0 e0       	ldi	r31, 0x00	; 0
+ 50e:	e3 5c       	subi	r30, 0xC3	; 195
+ 510:	fe 4f       	sbci	r31, 0xFE	; 254
+ 512:	60 81       	ld	r22, Z
+ 514:	61 50       	subi	r22, 0x01	; 1
+ 516:	60 83       	st	Z, r22
+					if (timeComponent < 0) timeComponent = limit;
+ 518:	66 23       	and	r22, r22
+ 51a:	0c f4       	brge	.+2      	; 0x51e <__LOCK_REGION_LENGTH__+0x11e>
+ 51c:	62 2f       	mov	r22, r18
+				}
+				
+				gameConfig.initialTime[timeEditCursor+2] = timeComponent;
+ 51e:	89 2f       	mov	r24, r25
+ 520:	90 e0       	ldi	r25, 0x00	; 0
+ 522:	02 96       	adiw	r24, 0x02	; 2
+ 524:	fc 01       	movw	r30, r24
+ 526:	ed 5b       	subi	r30, 0xBD	; 189
+ 528:	fe 4f       	sbci	r31, 0xFE	; 254
+ 52a:	60 83       	st	Z, r22
+				
+				playerATime[timeEditCursor+2] = timeComponent;
+ 52c:	fc 01       	movw	r30, r24
+ 52e:	e5 5c       	subi	r30, 0xC5	; 197
+ 530:	fe 4f       	sbci	r31, 0xFE	; 254
+ 532:	60 83       	st	Z, r22
+				playerBTime[timeEditCursor+2] = timeComponent;
+ 534:	fc 01       	movw	r30, r24
+ 536:	e3 5d       	subi	r30, 0xD3	; 211
+ 538:	fe 4f       	sbci	r31, 0xFE	; 254
+ 53a:	60 83       	st	Z, r22
+								
+				//displayBuffer[timeEditCursor] = timeComponent;
+				//displayBuffer[timeEditCursor+4] = timeComponent;	
+			}
+			
+			write_time();
+ 53c:	0e 94 b6 01 	call	0x36c	; 0x36c <write_time>
+			break;
+ 540:	6d cf       	rjmp	.-294    	; 0x41c <__LOCK_REGION_LENGTH__+0x1c>
+			
+			/* Edit game mode */
+			/* Select between different clock modes */
+			case EDIT_MODE:			
+			if (keyPressed & START_KEY)
+ 542:	80 91 1f 01 	lds	r24, 0x011F	; 0x80011f <keyPressed>
+ 546:	82 ff       	sbrs	r24, 2
+ 548:	05 c0       	rjmp	.+10     	; 0x554 <__LOCK_REGION_LENGTH__+0x154>
+			{
+				/* save settings */
+				store_config();
+ 54a:	0e 94 ec 03 	call	0x7d8	; 0x7d8 <store_config>
+				
+				state = IDLE;
+ 54e:	10 92 33 01 	sts	0x0133, r1	; 0x800133 <state>
+ 552:	64 cf       	rjmp	.-312    	; 0x41c <__LOCK_REGION_LENGTH__+0x1c>
+			}
+			else if (keyPressed & MODE_KEY)
+ 554:	80 ff       	sbrs	r24, 0
+ 556:	62 cf       	rjmp	.-316    	; 0x41c <__LOCK_REGION_LENGTH__+0x1c>
+			{
+				
+				state = EDIT_DELAY;
+ 558:	a0 92 33 01 	sts	0x0133, r10	; 0x800133 <state>
+ 55c:	5f cf       	rjmp	.-322    	; 0x41c <__LOCK_REGION_LENGTH__+0x1c>
+			break;
+			
+			/* Edit time increment/delay */
+			/* Change increment or delay (simple/Bronstein modes) time */
+			case EDIT_DELAY:
+			if (keyPressed & START_KEY)
+ 55e:	80 91 1f 01 	lds	r24, 0x011F	; 0x80011f <keyPressed>
+ 562:	82 ff       	sbrs	r24, 2
+ 564:	05 c0       	rjmp	.+10     	; 0x570 <__LOCK_REGION_LENGTH__+0x170>
+			{
+				/* save settings */
+				store_config();
+ 566:	0e 94 ec 03 	call	0x7d8	; 0x7d8 <store_config>
+				
+				state = IDLE;
+ 56a:	10 92 33 01 	sts	0x0133, r1	; 0x800133 <state>
+ 56e:	56 cf       	rjmp	.-340    	; 0x41c <__LOCK_REGION_LENGTH__+0x1c>
+			}
+			else if (keyPressed & MODE_KEY)
+ 570:	80 ff       	sbrs	r24, 0
+ 572:	54 cf       	rjmp	.-344    	; 0x41c <__LOCK_REGION_LENGTH__+0x1c>
+			{
+				
+				state = EDIT_MODE;
+ 574:	90 92 33 01 	sts	0x0133, r9	; 0x800133 <state>
+ 578:	51 cf       	rjmp	.-350    	; 0x41c <__LOCK_REGION_LENGTH__+0x1c>
+			break;
+			
+			/* Game active */
+			/* Clock is currently counting down */
+			case GAME_ACTIVE:
+			if (keyPressed & START_KEY)
+ 57a:	80 91 1f 01 	lds	r24, 0x011F	; 0x80011f <keyPressed>
+ 57e:	82 ff       	sbrs	r24, 2
+ 580:	03 c0       	rjmp	.+6      	; 0x588 <__LOCK_REGION_LENGTH__+0x188>
+			{
+				TIMSK2 = 0x00;
+ 582:	18 82       	st	Y, r1
+				state = GAME_PAUSED;	
+ 584:	b0 92 33 01 	sts	0x0133, r11	; 0x800133 <state>
+			}
+			
+			write_time();
+ 588:	0e 94 b6 01 	call	0x36c	; 0x36c <write_time>
+			break;
+ 58c:	47 cf       	rjmp	.-370    	; 0x41c <__LOCK_REGION_LENGTH__+0x1c>
+			
+			/* Game paused */
+			/* Clock countdown for both players is paused */
+			case GAME_PAUSED:
+			if (holdTimer >= holdTimerThreshold)
+ 58e:	80 91 20 01 	lds	r24, 0x0120	; 0x800120 <holdTimer>
+ 592:	8d 15       	cp	r24, r13
+ 594:	28 f0       	brcs	.+10     	; 0x5a0 <__LOCK_REGION_LENGTH__+0x1a0>
+			{				
+				reset();
+ 596:	0e 94 98 01 	call	0x330	; 0x330 <reset>
+				state = IDLE;	
+ 59a:	10 92 33 01 	sts	0x0133, r1	; 0x800133 <state>
+ 59e:	07 c0       	rjmp	.+14     	; 0x5ae <__LOCK_REGION_LENGTH__+0x1ae>
+			}
+			else if (keyPressed & START_KEY)
+ 5a0:	80 91 1f 01 	lds	r24, 0x011F	; 0x80011f <keyPressed>
+ 5a4:	82 ff       	sbrs	r24, 2
+ 5a6:	03 c0       	rjmp	.+6      	; 0x5ae <__LOCK_REGION_LENGTH__+0x1ae>
+			{
+				TIMSK2 = 1<<TOIE2;
+ 5a8:	e8 82       	st	Y, r14
+				state = GAME_ACTIVE;
+ 5aa:	c0 92 33 01 	sts	0x0133, r12	; 0x800133 <state>
+			}
+			
+			write_time();
+ 5ae:	0e 94 b6 01 	call	0x36c	; 0x36c <write_time>
+			break;
+ 5b2:	34 cf       	rjmp	.-408    	; 0x41c <__LOCK_REGION_LENGTH__+0x1c>
+			
+			/* Game finished */
+			/* One player's time has run out */
+			case GAME_FINISHED:
+			if (keyPressed & START_KEY)
+ 5b4:	80 91 1f 01 	lds	r24, 0x011F	; 0x80011f <keyPressed>
+ 5b8:	82 ff       	sbrs	r24, 2
+ 5ba:	04 c0       	rjmp	.+8      	; 0x5c4 <__LOCK_REGION_LENGTH__+0x1c4>
+			{
+				reset();
+ 5bc:	0e 94 98 01 	call	0x330	; 0x330 <reset>
+				state = IDLE;
+ 5c0:	10 92 33 01 	sts	0x0133, r1	; 0x800133 <state>
+			}
+			
+			write_time();
+ 5c4:	0e 94 b6 01 	call	0x36c	; 0x36c <write_time>
+			break;
+ 5c8:	29 cf       	rjmp	.-430    	; 0x41c <__LOCK_REGION_LENGTH__+0x1c>
 
-00000586 <__vector_1>:
+000005ca <__vector_1>:
     }
 }
 
 /* Player A's button */
 ISR(INT0_vect) 
 {	
- 586:	1f 92       	push	r1
- 588:	0f 92       	push	r0
- 58a:	0f b6       	in	r0, 0x3f	; 63
- 58c:	0f 92       	push	r0
- 58e:	11 24       	eor	r1, r1
- 590:	2f 93       	push	r18
- 592:	3f 93       	push	r19
- 594:	4f 93       	push	r20
- 596:	5f 93       	push	r21
- 598:	6f 93       	push	r22
- 59a:	7f 93       	push	r23
- 59c:	8f 93       	push	r24
- 59e:	9f 93       	push	r25
- 5a0:	af 93       	push	r26
- 5a2:	bf 93       	push	r27
- 5a4:	ef 93       	push	r30
- 5a6:	ff 93       	push	r31
+ 5ca:	1f 92       	push	r1
+ 5cc:	0f 92       	push	r0
+ 5ce:	0f b6       	in	r0, 0x3f	; 63
+ 5d0:	0f 92       	push	r0
+ 5d2:	11 24       	eor	r1, r1
+ 5d4:	2f 93       	push	r18
+ 5d6:	3f 93       	push	r19
+ 5d8:	4f 93       	push	r20
+ 5da:	5f 93       	push	r21
+ 5dc:	6f 93       	push	r22
+ 5de:	7f 93       	push	r23
+ 5e0:	8f 93       	push	r24
+ 5e2:	9f 93       	push	r25
+ 5e4:	af 93       	push	r26
+ 5e6:	bf 93       	push	r27
+ 5e8:	ef 93       	push	r30
+ 5ea:	ff 93       	push	r31
 	switch (state)
- 5a8:	80 91 3e 01 	lds	r24, 0x013E	; 0x80013e <state>
- 5ac:	83 30       	cpi	r24, 0x03	; 3
- 5ae:	19 f5       	brne	.+70     	; 0x5f6 <__vector_1+0x70>
+ 5ec:	80 91 33 01 	lds	r24, 0x0133	; 0x800133 <state>
+ 5f0:	84 30       	cpi	r24, 0x04	; 4
+ 5f2:	19 f5       	brne	.+70     	; 0x63a <__vector_1+0x70>
 	{
 		case GAME_ACTIVE:
 		if (currentPlayerTime == &playerATime)
- 5b0:	80 91 35 01 	lds	r24, 0x0135	; 0x800135 <currentPlayerTime>
- 5b4:	90 91 36 01 	lds	r25, 0x0136	; 0x800136 <currentPlayerTime+0x1>
- 5b8:	86 54       	subi	r24, 0x46	; 70
- 5ba:	91 40       	sbci	r25, 0x01	; 1
- 5bc:	e1 f4       	brne	.+56     	; 0x5f6 <__vector_1+0x70>
+ 5f4:	80 91 2a 01 	lds	r24, 0x012A	; 0x80012a <currentPlayerTime>
+ 5f8:	90 91 2b 01 	lds	r25, 0x012B	; 0x80012b <currentPlayerTime+0x1>
+ 5fc:	8b 53       	subi	r24, 0x3B	; 59
+ 5fe:	91 40       	sbci	r25, 0x01	; 1
+ 600:	e1 f4       	brne	.+56     	; 0x63a <__vector_1+0x70>
 		{
 			switch (gameConfig.gameMode)
- 5be:	80 91 54 01 	lds	r24, 0x0154	; 0x800154 <gameConfig+0x6>
- 5c2:	81 30       	cpi	r24, 0x01	; 1
- 5c4:	19 f0       	breq	.+6      	; 0x5cc <__vector_1+0x46>
- 5c6:	83 30       	cpi	r24, 0x03	; 3
- 5c8:	41 f0       	breq	.+16     	; 0x5da <__vector_1+0x54>
- 5ca:	15 c0       	rjmp	.+42     	; 0x5f6 <__vector_1+0x70>
+ 602:	80 91 49 01 	lds	r24, 0x0149	; 0x800149 <gameConfig+0x6>
+ 606:	81 30       	cpi	r24, 0x01	; 1
+ 608:	19 f0       	breq	.+6      	; 0x610 <__vector_1+0x46>
+ 60a:	83 30       	cpi	r24, 0x03	; 3
+ 60c:	41 f0       	breq	.+16     	; 0x61e <__vector_1+0x54>
+ 60e:	15 c0       	rjmp	.+42     	; 0x63a <__vector_1+0x70>
 				case SIMPLE:
 				
 				break;
 				
 				case INCREMENT:
 				add_time(currentPlayerTime, gameConfig.delay);
- 5cc:	65 e5       	ldi	r22, 0x55	; 85
- 5ce:	71 e0       	ldi	r23, 0x01	; 1
- 5d0:	86 e4       	ldi	r24, 0x46	; 70
- 5d2:	91 e0       	ldi	r25, 0x01	; 1
- 5d4:	0e 94 2a 01 	call	0x254	; 0x254 <add_time>
+ 610:	6a e4       	ldi	r22, 0x4A	; 74
+ 612:	71 e0       	ldi	r23, 0x01	; 1
+ 614:	8b e3       	ldi	r24, 0x3B	; 59
+ 616:	91 e0       	ldi	r25, 0x01	; 1
+ 618:	0e 94 3d 01 	call	0x27a	; 0x27a <add_time>
 				break;
- 5d8:	0e c0       	rjmp	.+28     	; 0x5f6 <__vector_1+0x70>
+ 61c:	0e c0       	rjmp	.+28     	; 0x63a <__vector_1+0x70>
 	switch (state)
 	{
 		case GAME_ACTIVE:
 		if (currentPlayerTime == &playerATime)
 		{
 			switch (gameConfig.gameMode)
- 5da:	80 e0       	ldi	r24, 0x00	; 0
- 5dc:	90 e0       	ldi	r25, 0x00	; 0
+ 61e:	80 e0       	ldi	r24, 0x00	; 0
+ 620:	90 e0       	ldi	r25, 0x00	; 0
 				break;
 				
 				case BRONSTEIN_DELAY:
 				for (uint8_t i = 0; i < 6; i++)
 				{
 					delayTime[i] = playerBTime[i];
- 5de:	fc 01       	movw	r30, r24
- 5e0:	e8 5c       	subi	r30, 0xC8	; 200
- 5e2:	fe 4f       	sbci	r31, 0xFE	; 254
- 5e4:	20 81       	ld	r18, Z
- 5e6:	fc 01       	movw	r30, r24
- 5e8:	e0 5c       	subi	r30, 0xC0	; 192
- 5ea:	fe 4f       	sbci	r31, 0xFE	; 254
- 5ec:	20 83       	st	Z, r18
- 5ee:	01 96       	adiw	r24, 0x01	; 1
+ 622:	fc 01       	movw	r30, r24
+ 624:	e3 5d       	subi	r30, 0xD3	; 211
+ 626:	fe 4f       	sbci	r31, 0xFE	; 254
+ 628:	20 81       	ld	r18, Z
+ 62a:	fc 01       	movw	r30, r24
+ 62c:	eb 5c       	subi	r30, 0xCB	; 203
+ 62e:	fe 4f       	sbci	r31, 0xFE	; 254
+ 630:	20 83       	st	Z, r18
+ 632:	01 96       	adiw	r24, 0x01	; 1
 				case SIMPLE_DELAY:
 				
 				break;
 				
 				case BRONSTEIN_DELAY:
 				for (uint8_t i = 0; i < 6; i++)
- 5f0:	86 30       	cpi	r24, 0x06	; 6
- 5f2:	91 05       	cpc	r25, r1
- 5f4:	a1 f7       	brne	.-24     	; 0x5de <__vector_1+0x58>
+ 634:	86 30       	cpi	r24, 0x06	; 6
+ 636:	91 05       	cpc	r25, r1
+ 638:	a1 f7       	brne	.-24     	; 0x622 <__vector_1+0x58>
 		
 		default:			
 		break;
 	}
 	
 	currentPlayerTime  = &playerBTime; // start decrementing other player's time instead
- 5f6:	88 e3       	ldi	r24, 0x38	; 56
- 5f8:	91 e0       	ldi	r25, 0x01	; 1
- 5fa:	90 93 36 01 	sts	0x0136, r25	; 0x800136 <currentPlayerTime+0x1>
- 5fe:	80 93 35 01 	sts	0x0135, r24	; 0x800135 <currentPlayerTime>
+ 63a:	8d e2       	ldi	r24, 0x2D	; 45
+ 63c:	91 e0       	ldi	r25, 0x01	; 1
+ 63e:	90 93 2b 01 	sts	0x012B, r25	; 0x80012b <currentPlayerTime+0x1>
+ 642:	80 93 2a 01 	sts	0x012A, r24	; 0x80012a <currentPlayerTime>
 	currentPlayerTicks = &playerBTicks;
- 602:	87 e3       	ldi	r24, 0x37	; 55
- 604:	91 e0       	ldi	r25, 0x01	; 1
- 606:	90 93 4d 01 	sts	0x014D, r25	; 0x80014d <currentPlayerTicks+0x1>
- 60a:	80 93 4c 01 	sts	0x014C, r24	; 0x80014c <currentPlayerTicks>
+ 646:	8c e2       	ldi	r24, 0x2C	; 44
+ 648:	91 e0       	ldi	r25, 0x01	; 1
+ 64a:	90 93 42 01 	sts	0x0142, r25	; 0x800142 <currentPlayerTicks+0x1>
+ 64e:	80 93 41 01 	sts	0x0141, r24	; 0x800141 <currentPlayerTicks>
 		
 	PORTD |= 1<<PD1;
- 60e:	59 9a       	sbi	0x0b, 1	; 11
+ 652:	59 9a       	sbi	0x0b, 1	; 11
 	PORTD &= ~(1<<PD0);	
- 610:	58 98       	cbi	0x0b, 0	; 11
+ 654:	58 98       	cbi	0x0b, 0	; 11
 }
- 612:	ff 91       	pop	r31
- 614:	ef 91       	pop	r30
- 616:	bf 91       	pop	r27
- 618:	af 91       	pop	r26
- 61a:	9f 91       	pop	r25
- 61c:	8f 91       	pop	r24
- 61e:	7f 91       	pop	r23
- 620:	6f 91       	pop	r22
- 622:	5f 91       	pop	r21
- 624:	4f 91       	pop	r20
- 626:	3f 91       	pop	r19
- 628:	2f 91       	pop	r18
- 62a:	0f 90       	pop	r0
- 62c:	0f be       	out	0x3f, r0	; 63
- 62e:	0f 90       	pop	r0
- 630:	1f 90       	pop	r1
- 632:	18 95       	reti
+ 656:	ff 91       	pop	r31
+ 658:	ef 91       	pop	r30
+ 65a:	bf 91       	pop	r27
+ 65c:	af 91       	pop	r26
+ 65e:	9f 91       	pop	r25
+ 660:	8f 91       	pop	r24
+ 662:	7f 91       	pop	r23
+ 664:	6f 91       	pop	r22
+ 666:	5f 91       	pop	r21
+ 668:	4f 91       	pop	r20
+ 66a:	3f 91       	pop	r19
+ 66c:	2f 91       	pop	r18
+ 66e:	0f 90       	pop	r0
+ 670:	0f be       	out	0x3f, r0	; 63
+ 672:	0f 90       	pop	r0
+ 674:	1f 90       	pop	r1
+ 676:	18 95       	reti
 
-00000634 <__vector_2>:
+00000678 <__vector_2>:
 
 /* Player B's button */
 ISR(INT1_vect)
 {
- 634:	1f 92       	push	r1
- 636:	0f 92       	push	r0
- 638:	0f b6       	in	r0, 0x3f	; 63
- 63a:	0f 92       	push	r0
- 63c:	11 24       	eor	r1, r1
- 63e:	2f 93       	push	r18
- 640:	3f 93       	push	r19
- 642:	4f 93       	push	r20
- 644:	5f 93       	push	r21
- 646:	6f 93       	push	r22
- 648:	7f 93       	push	r23
- 64a:	8f 93       	push	r24
- 64c:	9f 93       	push	r25
- 64e:	af 93       	push	r26
- 650:	bf 93       	push	r27
- 652:	ef 93       	push	r30
- 654:	ff 93       	push	r31
+ 678:	1f 92       	push	r1
+ 67a:	0f 92       	push	r0
+ 67c:	0f b6       	in	r0, 0x3f	; 63
+ 67e:	0f 92       	push	r0
+ 680:	11 24       	eor	r1, r1
+ 682:	2f 93       	push	r18
+ 684:	3f 93       	push	r19
+ 686:	4f 93       	push	r20
+ 688:	5f 93       	push	r21
+ 68a:	6f 93       	push	r22
+ 68c:	7f 93       	push	r23
+ 68e:	8f 93       	push	r24
+ 690:	9f 93       	push	r25
+ 692:	af 93       	push	r26
+ 694:	bf 93       	push	r27
+ 696:	ef 93       	push	r30
+ 698:	ff 93       	push	r31
 	switch (state)
- 656:	80 91 3e 01 	lds	r24, 0x013E	; 0x80013e <state>
- 65a:	83 30       	cpi	r24, 0x03	; 3
- 65c:	89 f4       	brne	.+34     	; 0x680 <__vector_2+0x4c>
+ 69a:	80 91 33 01 	lds	r24, 0x0133	; 0x800133 <state>
+ 69e:	84 30       	cpi	r24, 0x04	; 4
+ 6a0:	89 f4       	brne	.+34     	; 0x6c4 <__vector_2+0x4c>
 	{		
 		case GAME_ACTIVE:
 		if (currentPlayerTime == &playerBTime)
- 65e:	80 91 35 01 	lds	r24, 0x0135	; 0x800135 <currentPlayerTime>
- 662:	90 91 36 01 	lds	r25, 0x0136	; 0x800136 <currentPlayerTime+0x1>
- 666:	88 53       	subi	r24, 0x38	; 56
- 668:	91 40       	sbci	r25, 0x01	; 1
- 66a:	51 f4       	brne	.+20     	; 0x680 <__vector_2+0x4c>
+ 6a2:	80 91 2a 01 	lds	r24, 0x012A	; 0x80012a <currentPlayerTime>
+ 6a6:	90 91 2b 01 	lds	r25, 0x012B	; 0x80012b <currentPlayerTime+0x1>
+ 6aa:	8d 52       	subi	r24, 0x2D	; 45
+ 6ac:	91 40       	sbci	r25, 0x01	; 1
+ 6ae:	51 f4       	brne	.+20     	; 0x6c4 <__vector_2+0x4c>
 		{			
 			switch (gameConfig.gameMode)
- 66c:	80 91 54 01 	lds	r24, 0x0154	; 0x800154 <gameConfig+0x6>
- 670:	81 30       	cpi	r24, 0x01	; 1
- 672:	31 f4       	brne	.+12     	; 0x680 <__vector_2+0x4c>
+ 6b0:	80 91 49 01 	lds	r24, 0x0149	; 0x800149 <gameConfig+0x6>
+ 6b4:	81 30       	cpi	r24, 0x01	; 1
+ 6b6:	31 f4       	brne	.+12     	; 0x6c4 <__vector_2+0x4c>
 				case SIMPLE:
 				
 				break;
 			
 				case INCREMENT:
 				add_time(currentPlayerTime, gameConfig.delay);
- 674:	65 e5       	ldi	r22, 0x55	; 85
- 676:	71 e0       	ldi	r23, 0x01	; 1
- 678:	88 e3       	ldi	r24, 0x38	; 56
- 67a:	91 e0       	ldi	r25, 0x01	; 1
- 67c:	0e 94 2a 01 	call	0x254	; 0x254 <add_time>
+ 6b8:	6a e4       	ldi	r22, 0x4A	; 74
+ 6ba:	71 e0       	ldi	r23, 0x01	; 1
+ 6bc:	8d e2       	ldi	r24, 0x2D	; 45
+ 6be:	91 e0       	ldi	r25, 0x01	; 1
+ 6c0:	0e 94 3d 01 	call	0x27a	; 0x27a <add_time>
 		
 		default:
 		break;
 	}
 	
 	currentPlayerTime  = &playerATime; // start decrementing other player's time instead	
- 680:	86 e4       	ldi	r24, 0x46	; 70
- 682:	91 e0       	ldi	r25, 0x01	; 1
- 684:	90 93 36 01 	sts	0x0136, r25	; 0x800136 <currentPlayerTime+0x1>
- 688:	80 93 35 01 	sts	0x0135, r24	; 0x800135 <currentPlayerTime>
+ 6c4:	8b e3       	ldi	r24, 0x3B	; 59
+ 6c6:	91 e0       	ldi	r25, 0x01	; 1
+ 6c8:	90 93 2b 01 	sts	0x012B, r25	; 0x80012b <currentPlayerTime+0x1>
+ 6cc:	80 93 2a 01 	sts	0x012A, r24	; 0x80012a <currentPlayerTime>
 	currentPlayerTicks = &playerATicks;
- 68c:	8f e3       	ldi	r24, 0x3F	; 63
- 68e:	91 e0       	ldi	r25, 0x01	; 1
- 690:	90 93 4d 01 	sts	0x014D, r25	; 0x80014d <currentPlayerTicks+0x1>
- 694:	80 93 4c 01 	sts	0x014C, r24	; 0x80014c <currentPlayerTicks>
+ 6d0:	84 e3       	ldi	r24, 0x34	; 52
+ 6d2:	91 e0       	ldi	r25, 0x01	; 1
+ 6d4:	90 93 42 01 	sts	0x0142, r25	; 0x800142 <currentPlayerTicks+0x1>
+ 6d8:	80 93 41 01 	sts	0x0141, r24	; 0x800141 <currentPlayerTicks>
 		
 	PORTD |= 1<<PD0;
- 698:	58 9a       	sbi	0x0b, 0	; 11
+ 6dc:	58 9a       	sbi	0x0b, 0	; 11
 	PORTD &= ~(1<<PD1);
- 69a:	59 98       	cbi	0x0b, 1	; 11
+ 6de:	59 98       	cbi	0x0b, 1	; 11
 }
- 69c:	ff 91       	pop	r31
- 69e:	ef 91       	pop	r30
- 6a0:	bf 91       	pop	r27
- 6a2:	af 91       	pop	r26
- 6a4:	9f 91       	pop	r25
- 6a6:	8f 91       	pop	r24
- 6a8:	7f 91       	pop	r23
- 6aa:	6f 91       	pop	r22
- 6ac:	5f 91       	pop	r21
- 6ae:	4f 91       	pop	r20
- 6b0:	3f 91       	pop	r19
- 6b2:	2f 91       	pop	r18
- 6b4:	0f 90       	pop	r0
- 6b6:	0f be       	out	0x3f, r0	; 63
- 6b8:	0f 90       	pop	r0
- 6ba:	1f 90       	pop	r1
- 6bc:	18 95       	reti
+ 6e0:	ff 91       	pop	r31
+ 6e2:	ef 91       	pop	r30
+ 6e4:	bf 91       	pop	r27
+ 6e6:	af 91       	pop	r26
+ 6e8:	9f 91       	pop	r25
+ 6ea:	8f 91       	pop	r24
+ 6ec:	7f 91       	pop	r23
+ 6ee:	6f 91       	pop	r22
+ 6f0:	5f 91       	pop	r21
+ 6f2:	4f 91       	pop	r20
+ 6f4:	3f 91       	pop	r19
+ 6f6:	2f 91       	pop	r18
+ 6f8:	0f 90       	pop	r0
+ 6fa:	0f be       	out	0x3f, r0	; 63
+ 6fc:	0f 90       	pop	r0
+ 6fe:	1f 90       	pop	r1
+ 700:	18 95       	reti
 
-000006be <__vector_9>:
+00000702 <__vector_9>:
 
 /* TODO: implement simple/Bronstein delay by decrementing delay time in addition to/as well as current player time */
 ISR(TIMER2_OVF_vect)
 {	
- 6be:	1f 92       	push	r1
- 6c0:	0f 92       	push	r0
- 6c2:	0f b6       	in	r0, 0x3f	; 63
- 6c4:	0f 92       	push	r0
- 6c6:	11 24       	eor	r1, r1
- 6c8:	8f 93       	push	r24
- 6ca:	ef 93       	push	r30
- 6cc:	ff 93       	push	r31
+ 702:	1f 92       	push	r1
+ 704:	0f 92       	push	r0
+ 706:	0f b6       	in	r0, 0x3f	; 63
+ 708:	0f 92       	push	r0
+ 70a:	11 24       	eor	r1, r1
+ 70c:	8f 93       	push	r24
+ 70e:	ef 93       	push	r30
+ 710:	ff 93       	push	r31
 	if (++(*currentPlayerTicks) > 127)
- 6ce:	e0 91 4c 01 	lds	r30, 0x014C	; 0x80014c <currentPlayerTicks>
- 6d2:	f0 91 4d 01 	lds	r31, 0x014D	; 0x80014d <currentPlayerTicks+0x1>
- 6d6:	80 81       	ld	r24, Z
- 6d8:	8f 5f       	subi	r24, 0xFF	; 255
- 6da:	80 83       	st	Z, r24
- 6dc:	88 23       	and	r24, r24
- 6de:	0c f0       	brlt	.+2      	; 0x6e2 <__vector_9+0x24>
- 6e0:	51 c0       	rjmp	.+162    	; 0x784 <__vector_9+0xc6>
+ 712:	e0 91 41 01 	lds	r30, 0x0141	; 0x800141 <currentPlayerTicks>
+ 716:	f0 91 42 01 	lds	r31, 0x0142	; 0x800142 <currentPlayerTicks+0x1>
+ 71a:	80 81       	ld	r24, Z
+ 71c:	8f 5f       	subi	r24, 0xFF	; 255
+ 71e:	80 83       	st	Z, r24
+ 720:	88 23       	and	r24, r24
+ 722:	0c f0       	brlt	.+2      	; 0x726 <__vector_9+0x24>
+ 724:	51 c0       	rjmp	.+162    	; 0x7c8 <__vector_9+0xc6>
 	{
 		*currentPlayerTicks = 0;
- 6e2:	e0 91 4c 01 	lds	r30, 0x014C	; 0x80014c <currentPlayerTicks>
- 6e6:	f0 91 4d 01 	lds	r31, 0x014D	; 0x80014d <currentPlayerTicks+0x1>
- 6ea:	10 82       	st	Z, r1
+ 726:	e0 91 41 01 	lds	r30, 0x0141	; 0x800141 <currentPlayerTicks>
+ 72a:	f0 91 42 01 	lds	r31, 0x0142	; 0x800142 <currentPlayerTicks+0x1>
+ 72e:	10 82       	st	Z, r1
 		
 		if (--(*currentPlayerTime)[SECONDS] < 0)
- 6ec:	e0 91 35 01 	lds	r30, 0x0135	; 0x800135 <currentPlayerTime>
- 6f0:	f0 91 36 01 	lds	r31, 0x0136	; 0x800136 <currentPlayerTime+0x1>
- 6f4:	85 81       	ldd	r24, Z+5	; 0x05
- 6f6:	81 50       	subi	r24, 0x01	; 1
- 6f8:	85 83       	std	Z+5, r24	; 0x05
- 6fa:	88 23       	and	r24, r24
- 6fc:	0c f0       	brlt	.+2      	; 0x700 <__vector_9+0x42>
- 6fe:	42 c0       	rjmp	.+132    	; 0x784 <__vector_9+0xc6>
+ 730:	e0 91 2a 01 	lds	r30, 0x012A	; 0x80012a <currentPlayerTime>
+ 734:	f0 91 2b 01 	lds	r31, 0x012B	; 0x80012b <currentPlayerTime+0x1>
+ 738:	85 81       	ldd	r24, Z+5	; 0x05
+ 73a:	81 50       	subi	r24, 0x01	; 1
+ 73c:	85 83       	std	Z+5, r24	; 0x05
+ 73e:	88 23       	and	r24, r24
+ 740:	0c f0       	brlt	.+2      	; 0x744 <__vector_9+0x42>
+ 742:	42 c0       	rjmp	.+132    	; 0x7c8 <__vector_9+0xc6>
 		{
 			(*currentPlayerTime)[SECONDS] = 9;
- 700:	89 e0       	ldi	r24, 0x09	; 9
- 702:	85 83       	std	Z+5, r24	; 0x05
+ 744:	89 e0       	ldi	r24, 0x09	; 9
+ 746:	85 83       	std	Z+5, r24	; 0x05
 		
 			if (--(*currentPlayerTime)[TEN_SECONDS] < 0)
- 704:	84 81       	ldd	r24, Z+4	; 0x04
- 706:	81 50       	subi	r24, 0x01	; 1
- 708:	84 83       	std	Z+4, r24	; 0x04
- 70a:	88 23       	and	r24, r24
- 70c:	dc f5       	brge	.+118    	; 0x784 <__vector_9+0xc6>
+ 748:	84 81       	ldd	r24, Z+4	; 0x04
+ 74a:	81 50       	subi	r24, 0x01	; 1
+ 74c:	84 83       	std	Z+4, r24	; 0x04
+ 74e:	88 23       	and	r24, r24
+ 750:	dc f5       	brge	.+118    	; 0x7c8 <__vector_9+0xc6>
 			{
 				(*currentPlayerTime)[TEN_SECONDS] = 5;
- 70e:	85 e0       	ldi	r24, 0x05	; 5
- 710:	84 83       	std	Z+4, r24	; 0x04
+ 752:	85 e0       	ldi	r24, 0x05	; 5
+ 754:	84 83       	std	Z+4, r24	; 0x04
 			
 				if (--(*currentPlayerTime)[MINUTES] < 0)
- 712:	83 81       	ldd	r24, Z+3	; 0x03
- 714:	81 50       	subi	r24, 0x01	; 1
- 716:	83 83       	std	Z+3, r24	; 0x03
- 718:	88 23       	and	r24, r24
- 71a:	a4 f5       	brge	.+104    	; 0x784 <__vector_9+0xc6>
+ 756:	83 81       	ldd	r24, Z+3	; 0x03
+ 758:	81 50       	subi	r24, 0x01	; 1
+ 75a:	83 83       	std	Z+3, r24	; 0x03
+ 75c:	88 23       	and	r24, r24
+ 75e:	a4 f5       	brge	.+104    	; 0x7c8 <__vector_9+0xc6>
 				{
 					(*currentPlayerTime)[MINUTES] = 9;
- 71c:	89 e0       	ldi	r24, 0x09	; 9
- 71e:	83 83       	std	Z+3, r24	; 0x03
+ 760:	89 e0       	ldi	r24, 0x09	; 9
+ 762:	83 83       	std	Z+3, r24	; 0x03
 				
 					if (--(*currentPlayerTime)[TEN_MINUTES] < 0)
- 720:	82 81       	ldd	r24, Z+2	; 0x02
- 722:	81 50       	subi	r24, 0x01	; 1
- 724:	82 83       	std	Z+2, r24	; 0x02
- 726:	88 23       	and	r24, r24
- 728:	6c f5       	brge	.+90     	; 0x784 <__vector_9+0xc6>
+ 764:	82 81       	ldd	r24, Z+2	; 0x02
+ 766:	81 50       	subi	r24, 0x01	; 1
+ 768:	82 83       	std	Z+2, r24	; 0x02
+ 76a:	88 23       	and	r24, r24
+ 76c:	6c f5       	brge	.+90     	; 0x7c8 <__vector_9+0xc6>
 					{					
 						(*currentPlayerTime)[TEN_MINUTES] = 5;
- 72a:	85 e0       	ldi	r24, 0x05	; 5
- 72c:	82 83       	std	Z+2, r24	; 0x02
+ 76e:	85 e0       	ldi	r24, 0x05	; 5
+ 770:	82 83       	std	Z+2, r24	; 0x02
 					
 						if (--(*currentPlayerTime)[HOURS] < 0)
- 72e:	81 81       	ldd	r24, Z+1	; 0x01
- 730:	81 50       	subi	r24, 0x01	; 1
- 732:	81 83       	std	Z+1, r24	; 0x01
- 734:	88 23       	and	r24, r24
- 736:	34 f5       	brge	.+76     	; 0x784 <__vector_9+0xc6>
+ 772:	81 81       	ldd	r24, Z+1	; 0x01
+ 774:	81 50       	subi	r24, 0x01	; 1
+ 776:	81 83       	std	Z+1, r24	; 0x01
+ 778:	88 23       	and	r24, r24
+ 77a:	34 f5       	brge	.+76     	; 0x7c8 <__vector_9+0xc6>
 						{
 							(*currentPlayerTime)[HOURS] = 9;
- 738:	e0 91 35 01 	lds	r30, 0x0135	; 0x800135 <currentPlayerTime>
- 73c:	f0 91 36 01 	lds	r31, 0x0136	; 0x800136 <currentPlayerTime+0x1>
- 740:	89 e0       	ldi	r24, 0x09	; 9
- 742:	81 83       	std	Z+1, r24	; 0x01
+ 77c:	e0 91 2a 01 	lds	r30, 0x012A	; 0x80012a <currentPlayerTime>
+ 780:	f0 91 2b 01 	lds	r31, 0x012B	; 0x80012b <currentPlayerTime+0x1>
+ 784:	89 e0       	ldi	r24, 0x09	; 9
+ 786:	81 83       	std	Z+1, r24	; 0x01
 						
 							if(--(*currentPlayerTime)[TEN_HOURS] < 0)
- 744:	e0 91 35 01 	lds	r30, 0x0135	; 0x800135 <currentPlayerTime>
- 748:	f0 91 36 01 	lds	r31, 0x0136	; 0x800136 <currentPlayerTime+0x1>
- 74c:	80 81       	ld	r24, Z
- 74e:	81 50       	subi	r24, 0x01	; 1
- 750:	80 83       	st	Z, r24
- 752:	88 23       	and	r24, r24
- 754:	bc f4       	brge	.+46     	; 0x784 <__vector_9+0xc6>
+ 788:	e0 91 2a 01 	lds	r30, 0x012A	; 0x80012a <currentPlayerTime>
+ 78c:	f0 91 2b 01 	lds	r31, 0x012B	; 0x80012b <currentPlayerTime+0x1>
+ 790:	80 81       	ld	r24, Z
+ 792:	81 50       	subi	r24, 0x01	; 1
+ 794:	80 83       	st	Z, r24
+ 796:	88 23       	and	r24, r24
+ 798:	bc f4       	brge	.+46     	; 0x7c8 <__vector_9+0xc6>
 							{
 								(*currentPlayerTime)[TEN_HOURS]   = 0;
- 756:	e0 91 35 01 	lds	r30, 0x0135	; 0x800135 <currentPlayerTime>
- 75a:	f0 91 36 01 	lds	r31, 0x0136	; 0x800136 <currentPlayerTime+0x1>
- 75e:	10 82       	st	Z, r1
+ 79a:	e0 91 2a 01 	lds	r30, 0x012A	; 0x80012a <currentPlayerTime>
+ 79e:	f0 91 2b 01 	lds	r31, 0x012B	; 0x80012b <currentPlayerTime+0x1>
+ 7a2:	10 82       	st	Z, r1
 								(*currentPlayerTime)[HOURS]       = 0;
- 760:	e0 91 35 01 	lds	r30, 0x0135	; 0x800135 <currentPlayerTime>
- 764:	f0 91 36 01 	lds	r31, 0x0136	; 0x800136 <currentPlayerTime+0x1>
- 768:	11 82       	std	Z+1, r1	; 0x01
+ 7a4:	e0 91 2a 01 	lds	r30, 0x012A	; 0x80012a <currentPlayerTime>
+ 7a8:	f0 91 2b 01 	lds	r31, 0x012B	; 0x80012b <currentPlayerTime+0x1>
+ 7ac:	11 82       	std	Z+1, r1	; 0x01
 								(*currentPlayerTime)[TEN_MINUTES] = 0;
- 76a:	e0 91 35 01 	lds	r30, 0x0135	; 0x800135 <currentPlayerTime>
- 76e:	f0 91 36 01 	lds	r31, 0x0136	; 0x800136 <currentPlayerTime+0x1>
- 772:	12 82       	std	Z+2, r1	; 0x02
+ 7ae:	e0 91 2a 01 	lds	r30, 0x012A	; 0x80012a <currentPlayerTime>
+ 7b2:	f0 91 2b 01 	lds	r31, 0x012B	; 0x80012b <currentPlayerTime+0x1>
+ 7b6:	12 82       	std	Z+2, r1	; 0x02
 								(*currentPlayerTime)[MINUTES]     = 0;
- 774:	13 82       	std	Z+3, r1	; 0x03
+ 7b8:	13 82       	std	Z+3, r1	; 0x03
 								(*currentPlayerTime)[TEN_SECONDS] = 0;
- 776:	14 82       	std	Z+4, r1	; 0x04
+ 7ba:	14 82       	std	Z+4, r1	; 0x04
 								(*currentPlayerTime)[SECONDS]     = 0;	
- 778:	15 82       	std	Z+5, r1	; 0x05
+ 7bc:	15 82       	std	Z+5, r1	; 0x05
 								
 								TIMSK2 = 0x00; // disable further ticks
- 77a:	10 92 70 00 	sts	0x0070, r1	; 0x800070 <__TEXT_REGION_LENGTH__+0x7e0070>
+ 7be:	10 92 70 00 	sts	0x0070, r1	; 0x800070 <__TEXT_REGION_LENGTH__+0x7e0070>
 								state = GAME_FINISHED;
- 77e:	85 e0       	ldi	r24, 0x05	; 5
- 780:	80 93 3e 01 	sts	0x013E, r24	; 0x80013e <state>
+ 7c2:	86 e0       	ldi	r24, 0x06	; 6
+ 7c4:	80 93 33 01 	sts	0x0133, r24	; 0x800133 <state>
 				}
 			}
 		}
 	}		
 	
 }
- 784:	ff 91       	pop	r31
- 786:	ef 91       	pop	r30
- 788:	8f 91       	pop	r24
- 78a:	0f 90       	pop	r0
- 78c:	0f be       	out	0x3f, r0	; 63
- 78e:	0f 90       	pop	r0
- 790:	1f 90       	pop	r1
- 792:	18 95       	reti
+ 7c8:	ff 91       	pop	r31
+ 7ca:	ef 91       	pop	r30
+ 7cc:	8f 91       	pop	r24
+ 7ce:	0f 90       	pop	r0
+ 7d0:	0f be       	out	0x3f, r0	; 63
+ 7d2:	0f 90       	pop	r0
+ 7d4:	1f 90       	pop	r1
+ 7d6:	18 95       	reti
 
-00000794 <init_sound>:
+000007d8 <store_config>:
+};
 
-#include "sound.h"
 
-void init_sound(void)
+void store_config()
 {
-	DDRB |= 1<<PB1; // OC1A
- 794:	21 9a       	sbi	0x04, 1	; 4
-	
-	TCCR1A = 1<<COM1A0 | 1<<WGM11 | 1<<WGM10; // Fast PWM, toggle, TOP = 0CR1A
- 796:	83 e4       	ldi	r24, 0x43	; 67
- 798:	80 93 80 00 	sts	0x0080, r24	; 0x800080 <__TEXT_REGION_LENGTH__+0x7e0080>
-	//TCCR1B = 1<<WGM13 | 1<<WGM12 | 1<<CS11; // /8
-	OCR1A = 999;
- 79c:	87 ee       	ldi	r24, 0xE7	; 231
- 79e:	93 e0       	ldi	r25, 0x03	; 3
- 7a0:	90 93 89 00 	sts	0x0089, r25	; 0x800089 <__TEXT_REGION_LENGTH__+0x7e0089>
- 7a4:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <__TEXT_REGION_LENGTH__+0x7e0088>
- 7a8:	08 95       	ret
+	cli();	
+ 7d8:	f8 94       	cli
+	eeprom_update_block((const void *)&gameConfig, (void *)0, sizeof(gameConfiguration));	
+ 7da:	4d e0       	ldi	r20, 0x0D	; 13
+ 7dc:	50 e0       	ldi	r21, 0x00	; 0
+ 7de:	60 e0       	ldi	r22, 0x00	; 0
+ 7e0:	70 e0       	ldi	r23, 0x00	; 0
+ 7e2:	83 e4       	ldi	r24, 0x43	; 67
+ 7e4:	91 e0       	ldi	r25, 0x01	; 1
+ 7e6:	0e 94 18 04 	call	0x830	; 0x830 <eeprom_update_block>
+	sei();	
+ 7ea:	78 94       	sei
+ 7ec:	08 95       	ret
 
-000007aa <_exit>:
- 7aa:	f8 94       	cli
+000007ee <load_config>:
+}
 
-000007ac <__stop_program>:
- 7ac:	ff cf       	rjmp	.-2      	; 0x7ac <__stop_program>
+void load_config()
+{
+	cli();	
+ 7ee:	f8 94       	cli
+	eeprom_read_block((void *)&gameConfig, (const void *)0, sizeof(gameConfiguration));	
+ 7f0:	4d e0       	ldi	r20, 0x0D	; 13
+ 7f2:	50 e0       	ldi	r21, 0x00	; 0
+ 7f4:	60 e0       	ldi	r22, 0x00	; 0
+ 7f6:	70 e0       	ldi	r23, 0x00	; 0
+ 7f8:	83 e4       	ldi	r24, 0x43	; 67
+ 7fa:	91 e0       	ldi	r25, 0x01	; 1
+ 7fc:	0e 94 08 04 	call	0x810	; 0x810 <eeprom_read_block>
+	sei();
+ 800:	78 94       	sei
+ 802:	08 95       	ret
+
+00000804 <__tablejump2__>:
+ 804:	ee 0f       	add	r30, r30
+ 806:	ff 1f       	adc	r31, r31
+ 808:	05 90       	lpm	r0, Z+
+ 80a:	f4 91       	lpm	r31, Z
+ 80c:	e0 2d       	mov	r30, r0
+ 80e:	09 94       	ijmp
+
+00000810 <eeprom_read_block>:
+ 810:	dc 01       	movw	r26, r24
+ 812:	cb 01       	movw	r24, r22
+
+00000814 <eeprom_read_blraw>:
+ 814:	fc 01       	movw	r30, r24
+ 816:	f9 99       	sbic	0x1f, 1	; 31
+ 818:	fe cf       	rjmp	.-4      	; 0x816 <eeprom_read_blraw+0x2>
+ 81a:	06 c0       	rjmp	.+12     	; 0x828 <eeprom_read_blraw+0x14>
+ 81c:	f2 bd       	out	0x22, r31	; 34
+ 81e:	e1 bd       	out	0x21, r30	; 33
+ 820:	f8 9a       	sbi	0x1f, 0	; 31
+ 822:	31 96       	adiw	r30, 0x01	; 1
+ 824:	00 b4       	in	r0, 0x20	; 32
+ 826:	0d 92       	st	X+, r0
+ 828:	41 50       	subi	r20, 0x01	; 1
+ 82a:	50 40       	sbci	r21, 0x00	; 0
+ 82c:	b8 f7       	brcc	.-18     	; 0x81c <eeprom_read_blraw+0x8>
+ 82e:	08 95       	ret
+
+00000830 <eeprom_update_block>:
+ 830:	dc 01       	movw	r26, r24
+ 832:	a4 0f       	add	r26, r20
+ 834:	b5 1f       	adc	r27, r21
+ 836:	41 50       	subi	r20, 0x01	; 1
+ 838:	50 40       	sbci	r21, 0x00	; 0
+ 83a:	48 f0       	brcs	.+18     	; 0x84e <eeprom_update_block+0x1e>
+ 83c:	cb 01       	movw	r24, r22
+ 83e:	84 0f       	add	r24, r20
+ 840:	95 1f       	adc	r25, r21
+ 842:	2e 91       	ld	r18, -X
+ 844:	0e 94 29 04 	call	0x852	; 0x852 <eeprom_update_r18>
+ 848:	41 50       	subi	r20, 0x01	; 1
+ 84a:	50 40       	sbci	r21, 0x00	; 0
+ 84c:	d0 f7       	brcc	.-12     	; 0x842 <eeprom_update_block+0x12>
+ 84e:	08 95       	ret
+
+00000850 <eeprom_update_byte>:
+ 850:	26 2f       	mov	r18, r22
+
+00000852 <eeprom_update_r18>:
+ 852:	f9 99       	sbic	0x1f, 1	; 31
+ 854:	fe cf       	rjmp	.-4      	; 0x852 <eeprom_update_r18>
+ 856:	92 bd       	out	0x22, r25	; 34
+ 858:	81 bd       	out	0x21, r24	; 33
+ 85a:	f8 9a       	sbi	0x1f, 0	; 31
+ 85c:	01 97       	sbiw	r24, 0x01	; 1
+ 85e:	00 b4       	in	r0, 0x20	; 32
+ 860:	02 16       	cp	r0, r18
+ 862:	39 f0       	breq	.+14     	; 0x872 <eeprom_update_r18+0x20>
+ 864:	1f ba       	out	0x1f, r1	; 31
+ 866:	20 bd       	out	0x20, r18	; 32
+ 868:	0f b6       	in	r0, 0x3f	; 63
+ 86a:	f8 94       	cli
+ 86c:	fa 9a       	sbi	0x1f, 2	; 31
+ 86e:	f9 9a       	sbi	0x1f, 1	; 31
+ 870:	0f be       	out	0x3f, r0	; 63
+ 872:	08 95       	ret
+
+00000874 <_exit>:
+ 874:	f8 94       	cli
+
+00000876 <__stop_program>:
+ 876:	ff cf       	rjmp	.-2      	; 0x876 <__stop_program>
