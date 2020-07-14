@@ -111,16 +111,6 @@ void reset(void)
 	playerBData.moves = 0;
 }
 
-void write_time(void)
-{	
-	for (uint8_t i = 0; i < 4; i++)
-	{
-		displayBuffer[i] = playerATime[i+2];
-		displayBuffer[i+4] = playerBTime[i+2];
-	}
-}
-
-
 int main(void)
 {		
 	/* default to player A as white/starting */

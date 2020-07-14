@@ -28,8 +28,12 @@ extern volatile uint8_t blinkMask[8];
 extern uint8_t blinkTimer;
 extern const uint8_t blinkThreshold;
 
+extern const uint8_t sevenSeg[37];
+
 void init_display(void);
 void do_blink(void);
+
+void write_time(void);
 
 
 #endif /* DISPLAY_H_ */

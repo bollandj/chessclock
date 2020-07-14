@@ -23,21 +23,21 @@ playerBData         0x3               main.o
 currentPlayerData   0x2               main.o
 blinkMask           0x8               display.o
 blinkOsc            0x8               display.o
-currentPlayerTime   0x2               main.o
-playerBTicks        0x1               main.o
-playerBTime         0x6               main.o
+currentPlayerTime   0x2               display.o
+playerBTicks        0x1               display.o
+playerBTime         0x6               display.o
 state               0x1               main.o
 keyState            0x1               keys.o
-playerATicks        0x1               main.o
+playerATicks        0x1               display.o
 blinkTimer          0x1               display.o
 lastKeyState        0x1               keys.o
 keyPressed          0x1               keys.o
-delayTime           0x6               main.o
+delayTime           0x6               display.o
 displayBuffer       0x8               display.o
-playerATime         0x6               main.o
+playerATime         0x6               display.o
 holdTimer           0x1               keys.o
-currentPlayerTicks  0x2               main.o
-gameConfig          0xd               main.o
+currentPlayerTicks  0x2               display.o
+gameConfig          0xd               display.o
 keyReleased         0x1               keys.o
 
 Discarded input sections
@@ -47,8 +47,6 @@ Discarded input sections
  .text          0x00000000        0x0 display.o
  .data          0x00000000        0x0 display.o
  .bss           0x00000000        0x0 display.o
- .rodata.sevenSeg
-                0x00000000       0x25 display.o
  .rodata.blinkThreshold
                 0x00000000        0x1 display.o
  .text          0x00000000        0x0 keys.o
@@ -291,7 +289,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x880
+.text           0x00000000      0x898
  *(.vectors)
  .vectors       0x00000000       0x68 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -383,61 +381,61 @@ END GROUP
  .text.do_blink
                 0x00000150       0x30 display.o
                 0x00000150                do_blink
- .text.__vector_14
-                0x00000180       0x88 display.o
-                0x00000180                __vector_14
- .text.scan_keys
-                0x00000208       0x3a keys.o
-                0x00000208                scan_keys
- .text.init_keys
-                0x00000242       0x20 keys.o
-                0x00000242                init_keys
- .text.init_timer
-                0x00000262       0x20 main.o
-                0x00000262                init_timer
- .text.add_time
-                0x00000282       0xb6 main.o
-                0x00000282                add_time
- .text.reset    0x00000338       0x3c main.o
-                0x00000338                reset
  .text.write_time
-                0x00000374       0x34 main.o
-                0x00000374                write_time
- .text.main     0x000003a8      0x22a main.o
-                0x000003a8                main
+                0x00000180       0x4c display.o
+                0x00000180                write_time
+ .text.__vector_14
+                0x000001cc       0x88 display.o
+                0x000001cc                __vector_14
+ .text.scan_keys
+                0x00000254       0x3a keys.o
+                0x00000254                scan_keys
+ .text.init_keys
+                0x0000028e       0x20 keys.o
+                0x0000028e                init_keys
+ .text.init_timer
+                0x000002ae       0x20 main.o
+                0x000002ae                init_timer
+ .text.add_time
+                0x000002ce       0xb6 main.o
+                0x000002ce                add_time
+ .text.reset    0x00000384       0x3c main.o
+                0x00000384                reset
+ .text.main     0x000003c0      0x22a main.o
+                0x000003c0                main
  .text.__vector_1
-                0x000005d2       0xae main.o
-                0x000005d2                __vector_1
+                0x000005ea       0xae main.o
+                0x000005ea                __vector_1
  .text.__vector_2
-                0x00000680       0x8a main.o
-                0x00000680                __vector_2
+                0x00000698       0x8a main.o
+                0x00000698                __vector_2
  .text.__vector_9
-                0x0000070a       0xd6 main.o
-                0x0000070a                __vector_9
+                0x00000722       0xd6 main.o
+                0x00000722                __vector_9
  .text.store_config
-                0x000007e0       0x16 settings.o
-                0x000007e0                store_config
+                0x000007f8       0x16 settings.o
+                0x000007f8                store_config
  .text.load_config
-                0x000007f6       0x16 settings.o
-                0x000007f6                load_config
- .text.libgcc   0x0000080c        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_tablejump2.o)
-                0x0000080c                __tablejump2__
+                0x0000080e       0x16 settings.o
+                0x0000080e                load_config
+ .text.libgcc   0x00000824        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_tablejump2.o)
+                0x00000824                __tablejump2__
  .text.avr-libc
-                0x00000818       0x20 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eerd_block.o)
-                0x00000818                eeprom_read_block
-                0x0000081c                eeprom_read_blraw
+                0x00000830       0x20 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eerd_block.o)
+                0x00000830                eeprom_read_block
+                0x00000834                eeprom_read_blraw
  .text.avr-libc
-                0x00000838       0x20 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eeupd_block.o)
-                0x00000838                eeprom_update_block
+                0x00000850       0x20 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eeupd_block.o)
+                0x00000850                eeprom_update_block
  .text.avr-libc
-                0x00000858       0x24 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eeupd_byte.o)
-                0x00000858                eeprom_update_byte
-                0x0000085a                eeprom_update_r18
-                0x0000087c                . = ALIGN (0x2)
+                0x00000870       0x24 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eeupd_byte.o)
+                0x00000870                eeprom_update_byte
+                0x00000872                eeprom_update_r18
+                0x00000894                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000087c        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x0000087c                _exit
-                0x0000087c                exit
+ .fini9         0x00000894        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x00000894                _exit
+                0x00000894                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -456,68 +454,70 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000087c        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000894        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000880                _etext = .
+                0x00000898                _etext = .
 
-.data           0x00800100        0x2 load address 0x00000880
+.data           0x00800100       0x26 load address 0x00000898
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
  *(.gnu.linkonce.d*)
  *(.rodata)
  *(.rodata*)
+ .rodata.sevenSeg
+                0x00800100       0x25 display.o
+                0x00800100                sevenSeg
  .rodata.holdTimerThreshold
-                0x00800100        0x1 keys.o
-                0x00800100                holdTimerThreshold
+                0x00800125        0x1 keys.o
+                0x00800125                holdTimerThreshold
  *(.gnu.linkonce.r*)
-                0x00800102                . = ALIGN (0x2)
- *fill*         0x00800101        0x1 
-                0x00800102                _edata = .
-                0x00800102                PROVIDE (__data_end, .)
+                0x00800126                . = ALIGN (0x2)
+                0x00800126                _edata = .
+                0x00800126                PROVIDE (__data_end, .)
 
-.bss            0x00800102       0x4e
-                0x00800102                PROVIDE (__bss_start, .)
+.bss            0x00800126       0x4e
+                0x00800126                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
- .bss.i.1800    0x00800102        0x1 display.o
+ .bss.i.1883    0x00800126        0x1 display.o
  .bss.timeEditCursor
-                0x00800103        0x1 main.o
-                0x00800103                timeEditCursor
+                0x00800127        0x1 main.o
+                0x00800127                timeEditCursor
  *(COMMON)
- COMMON         0x00800104       0x19 display.o
-                0x00800104                blinkMask
-                0x0080010c                blinkOsc
-                0x00800114                blinkTimer
-                0x00800115                displayBuffer
- COMMON         0x0080011d        0x5 keys.o
-                0x0080011d                keyState
-                0x0080011e                lastKeyState
-                0x0080011f                keyPressed
-                0x00800120                holdTimer
-                0x00800121                keyReleased
- COMMON         0x00800122       0x2e main.o
-                0x00800122                playerAData
-                0x00800125                playerBData
-                0x00800128                currentPlayerData
-                0x0080012a                currentPlayerTime
-                0x0080012c                playerBTicks
-                0x0080012d                playerBTime
-                0x00800133                state
-                0x00800134                playerATicks
-                0x00800135                delayTime
-                0x0080013b                playerATime
-                0x00800141                currentPlayerTicks
-                0x00800143                gameConfig
-                0x00800150                PROVIDE (__bss_end, .)
-                0x00000880                __data_load_start = LOADADDR (.data)
-                0x00000882                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x00800128       0x3e display.o
+                0x00800128                blinkMask
+                0x00800130                blinkOsc
+                0x00800138                currentPlayerTime
+                0x0080013a                playerBTicks
+                0x0080013b                playerBTime
+                0x00800141                playerATicks
+                0x00800142                blinkTimer
+                0x00800143                delayTime
+                0x00800149                displayBuffer
+                0x00800151                playerATime
+                0x00800157                currentPlayerTicks
+                0x00800159                gameConfig
+ COMMON         0x00800166        0x5 keys.o
+                0x00800166                keyState
+                0x00800167                lastKeyState
+                0x00800168                keyPressed
+                0x00800169                holdTimer
+                0x0080016a                keyReleased
+ COMMON         0x0080016b        0x9 main.o
+                0x0080016b                playerAData
+                0x0080016e                playerBData
+                0x00800171                currentPlayerData
+                0x00800173                state
+                0x00800174                PROVIDE (__bss_end, .)
+                0x00000898                __data_load_start = LOADADDR (.data)
+                0x000008be                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800150        0x0
+.noinit         0x00800174        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x00800150                _end = .
+                0x00800174                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
@@ -588,11 +588,11 @@ END GROUP
 .debug_aranges  0x00000000      0x140
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0x38 display.o
+                0x00000000       0x40 display.o
  .debug_aranges
-                0x00000038       0x28 keys.o
+                0x00000040       0x28 keys.o
  .debug_aranges
-                0x00000060       0x58 main.o
+                0x00000068       0x50 main.o
  .debug_aranges
                 0x000000b8       0x28 settings.o
  .debug_aranges
@@ -605,63 +605,63 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x151b
+.debug_info     0x00000000     0x1658
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_info    0x000005f4      0x2af display.o
- .debug_info    0x000008a3      0x135 keys.o
- .debug_info    0x000009d8      0x658 main.o
- .debug_info    0x00001030      0x2e3 settings.o
- .debug_info    0x00001313       0xad C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eerd_block.o)
- .debug_info    0x000013c0       0xae C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eeupd_block.o)
- .debug_info    0x0000146e       0xad C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eeupd_byte.o)
+ .debug_info    0x000005f4      0x423 display.o
+ .debug_info    0x00000a17      0x135 keys.o
+ .debug_info    0x00000b4c      0x621 main.o
+ .debug_info    0x0000116d      0x2e3 settings.o
+ .debug_info    0x00001450       0xad C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eerd_block.o)
+ .debug_info    0x000014fd       0xae C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eeupd_block.o)
+ .debug_info    0x000015ab       0xad C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eeupd_byte.o)
 
-.debug_abbrev   0x00000000      0xaab
+.debug_abbrev   0x00000000      0xaea
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x5a2 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_abbrev  0x000005a2      0x126 display.o
- .debug_abbrev  0x000006c8       0x85 keys.o
- .debug_abbrev  0x0000074d      0x238 main.o
- .debug_abbrev  0x00000985       0xea settings.o
- .debug_abbrev  0x00000a6f       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eerd_block.o)
- .debug_abbrev  0x00000a83       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eeupd_block.o)
- .debug_abbrev  0x00000a97       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eeupd_byte.o)
+ .debug_abbrev  0x000005a2      0x165 display.o
+ .debug_abbrev  0x00000707       0x85 keys.o
+ .debug_abbrev  0x0000078c      0x238 main.o
+ .debug_abbrev  0x000009c4       0xea settings.o
+ .debug_abbrev  0x00000aae       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eerd_block.o)
+ .debug_abbrev  0x00000ac2       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eeupd_block.o)
+ .debug_abbrev  0x00000ad6       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eeupd_byte.o)
 
-.debug_line     0x00000000      0xd99
+.debug_line     0x00000000      0xda8
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x133 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_line    0x00000133      0x211 display.o
- .debug_line    0x00000344      0x10f keys.o
- .debug_line    0x00000453      0x5f9 main.o
- .debug_line    0x00000a4c      0x147 settings.o
- .debug_line    0x00000b93       0xab C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eerd_block.o)
- .debug_line    0x00000c3e       0xa5 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eeupd_block.o)
- .debug_line    0x00000ce3       0xb6 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eeupd_byte.o)
+ .debug_line    0x00000133      0x25b display.o
+ .debug_line    0x0000038e      0x10f keys.o
+ .debug_line    0x0000049d      0x5be main.o
+ .debug_line    0x00000a5b      0x147 settings.o
+ .debug_line    0x00000ba2       0xab C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eerd_block.o)
+ .debug_line    0x00000c4d       0xa5 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eeupd_block.o)
+ .debug_line    0x00000cf2       0xb6 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5\libatmega328p.a(eeupd_byte.o)
 
 .debug_frame    0x00000000      0x248
  *(.debug_frame)
- .debug_frame   0x00000000       0xa0 display.o
- .debug_frame   0x000000a0       0x34 keys.o
- .debug_frame   0x000000d4      0x140 main.o
+ .debug_frame   0x00000000       0xb0 display.o
+ .debug_frame   0x000000b0       0x34 keys.o
+ .debug_frame   0x000000e4      0x130 main.o
  .debug_frame   0x00000214       0x34 settings.o
 
 .debug_str      0x00000000      0x718
  *(.debug_str)
  .debug_str     0x00000000      0x208 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .debug_str     0x00000208      0x1ac display.o
-                                0x1e0 (size before relaxing)
- .debug_str     0x000003b4       0x72 keys.o
+ .debug_str     0x00000208      0x291 display.o
+                                0x2d5 (size before relaxing)
+ .debug_str     0x00000499       0x72 keys.o
                                 0x1c8 (size before relaxing)
- .debug_str     0x00000426      0x266 main.o
-                                0x467 (size before relaxing)
+ .debug_str     0x0000050b      0x181 main.o
+                                0x459 (size before relaxing)
  .debug_str     0x0000068c       0x8c settings.o
                                 0x2f3 (size before relaxing)
 
 .debug_loc      0x00000000      0x4a1
  *(.debug_loc)
- .debug_loc     0x00000000      0x146 display.o
- .debug_loc     0x00000146       0x28 keys.o
- .debug_loc     0x0000016e      0x333 main.o
+ .debug_loc     0x00000000      0x17d display.o
+ .debug_loc     0x0000017d       0x28 keys.o
+ .debug_loc     0x000001a5      0x2fc main.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -683,9 +683,9 @@ END GROUP
 
 .debug_ranges   0x00000000       0xb8
  *(.debug_ranges)
- .debug_ranges  0x00000000       0x28 display.o
- .debug_ranges  0x00000028       0x18 keys.o
- .debug_ranges  0x00000040       0x60 main.o
+ .debug_ranges  0x00000000       0x30 display.o
+ .debug_ranges  0x00000030       0x18 keys.o
+ .debug_ranges  0x00000048       0x58 main.o
  .debug_ranges  0x000000a0       0x18 settings.o
 
 .debug_macro
