@@ -66,12 +66,15 @@ void init_display(void)
 {
 	SPI_DDR |= 1<<SCK | 1<<MOSI | 1<<CS; 
 	SPI_PORT |= 1<<CS;                  
-	SPCR = 1<<SPE | 1<<MSTR | 1<<SPR1; // master mode, /64 prescaler	
+	SPCR = 1<<SPE | 1<<MSTR | 1<<SPR1; // master mode, /64 prescaler
 	
-	TCCR0A = 1<<WGM01;				// CTC
-	TCCR0B = 1<<CS02;		        // /256 prescaler
-	TIMSK0 = 1<<OCIE0A;             // compare interrupt
-	OCR0A = 64;					    // ~480Hz at 8MHz
+	DDRD |= 1<<PD5; // OC0B	
+	
+	TCCR0A = 1<<COM0B1 | 1<<WGM01 | 1<<WGM00; // Fast PWM, TOP = OCR0A
+	TCCR0B = 1<<WGM02 | 1<<CS02;              // /256 prescaler
+	TIMSK0 = 1<<OCIE0A;                       // compare interrupt
+	OCR0A = 48;					              // ~640Hz at 8MHz
+	OCR0B = 10;                               // Display brightness PWM
 	
 	PORTB &= ~(1<<CS); 
 	tx_spi(0x0C);		// shutdown

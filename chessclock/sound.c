@@ -9,7 +9,7 @@
 
 void init_sound(void)
 {
-	DDRD |= 1<<PD5;
+	DDRB |= 1<<PB1;
 }
 
 void sound_on(void)
