@@ -18,7 +18,10 @@
 
 #define SCK  PB5
 #define MOSI PB3
-#define CS   PB2
+#define SS   PB2
+#define CS   PB0
+
+extern uint8_t hmms;
 
 extern volatile uint8_t displayBuffer[8];
 
@@ -28,12 +31,15 @@ extern volatile uint8_t blinkMask[8];
 extern uint8_t blinkTimer;
 extern const uint8_t blinkThreshold;
 
-extern const uint8_t sevenSeg[37];
+extern const uint8_t sevenSeg[38];
 
 void init_display(void);
 void do_blink(void);
 
-void write_time(void);
+void write_time(uint8_t edit);
+void write_char(uint8_t chr, uint8_t pos);
+void write_string(const char *str, uint8_t start, uint8_t end);
+void write_number_8(uint8_t num, uint8_t ab);
 
 
 #endif /* DISPLAY_H_ */

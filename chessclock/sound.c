@@ -9,7 +9,11 @@
 
 void init_sound(void)
 {
-	DDRB |= 1<<PB1;
+	DDRB |= 1<<PB1 | 1<<PB2;
+	
+	TCCR1A = 	
+	OCR1A = 
+	OCR1B = 
 }
 
 void sound_on(void)

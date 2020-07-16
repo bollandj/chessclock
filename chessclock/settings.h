@@ -14,20 +14,16 @@
 #include <avr/pgmspace.h>
 #include <avr/eeprom.h>
 
-#define NUM_MODES 2
-typedef enum _gameType {SIMPLE, INCREMENT, SIMPLE_DELAY, BRONSTEIN_DELAY} gameType;
-extern const char *gameTypeNames[NUM_MODES];
+#define NUM_SETTINGS 4
+#define NUM_MODES 4
 
-// typedef struct
-// {
-// 	uint8_t ticks;
-// 	int8_t  seconds;
-// 	int8_t  tenSeconds;
-// 	int8_t  minutes;
-// 	int8_t  tenMinutes;
-// 	int8_t  hours;
-// 	int8_t  tenHours;
-// } gameTime;
+typedef enum _gameType {SIMPLE, INCREMENT, SIMPLE_DELAY, BRONSTEIN_DELAY} gameType;
+	
+extern const char settingsMenuNames[NUM_SETTINGS][5];
+//extern char settingsMenuString[5];
+
+extern const char gameTypeNames[NUM_MODES][5];
+//extern char gameTypeString[5];
 
 #define TEN_HOURS 0
 #define HOURS 1
@@ -49,6 +45,14 @@ typedef struct
 } gameConfiguration;
 
 gameConfiguration gameConfig; 
+
+typedef struct
+{
+	uint8_t displayBrightness; // display PWM value
+	uint8_t soundOn;           // make sound?
+} deviceConfiguration;
+
+deviceConfiguration deviceConfig;
 
 extern const gameConfiguration blitz3plus0Config;
 extern const gameConfiguration blitz3plus2Config;

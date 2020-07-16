@@ -19,7 +19,8 @@
 
 uint8_t timeEditCursor=0;
 
-enum _state {IDLE, EDIT_TIME, EDIT_MODE, EDIT_DELAY, GAME_ACTIVE, GAME_PAUSED, GAME_FINISHED} state;
+/* Editing modes go first to make retrieving strings simpler */
+enum _state {EDIT_MODE, EDIT_DELAY, EDIT_BRIGHTNESS, EDIT_SOUND, EDIT_TIME, IDLE, GAME_ACTIVE, GAME_PAUSED, GAME_FINISHED} state;
 
 typedef struct 
 {
@@ -94,7 +95,7 @@ void add_time(volatile gameTime *baseTime, gameTime incTime)
 //int8_t cmp_time()
 
 void reset(void)
-{
+{	
 	/* reset time */
 	for (uint8_t i = 0; i < 6; i++)
 	{
@@ -119,18 +120,20 @@ int main(void)
 	currentPlayerTime = &playerATime;
 	currentPlayerData = &playerAData;
 	
-	DDRD |= 1<<PD0 | 1<<PD1;
-	PORTD &= ~(1<<PD1);
-	PORTD |= 1<<PD0;
+	state = IDLE;
+	
+	DDRD |= 1<<PD6 | 1<<PD7;
+	PORTD &= ~(1<<PD7);
+	PORTD |= 1<<PD6;
 	
 	load_config();
-	//gameConfig = blitz3plus2Config;
 	
 	reset();
 	
 	init_display();
 	init_keys();
 	init_timer();
+	init_sound();
 	
 	sei();
 	
@@ -152,6 +155,10 @@ int main(void)
 				
 				state = GAME_ACTIVE;
 			}
+			else if (keyPressed & MODE_KEY)
+			{				
+				state = EDIT_MODE;
+			}
 			else if (keyPressed & TIME_KEY)
 			{
 				timeEditCursor = 0;
@@ -159,9 +166,8 @@ int main(void)
 				blinkMask[4] = 0xFF;
 								
 				state = EDIT_TIME;
-			}
-			
-			write_time();
+			}			
+			write_time(0);
 			break;
 			
 			/* Time edit mode */
@@ -211,12 +217,9 @@ int main(void)
 				
 				playerATime[timeEditCursor+2] = timeComponent;
 				playerBTime[timeEditCursor+2] = timeComponent;
-								
-				//displayBuffer[timeEditCursor] = timeComponent;
-				//displayBuffer[timeEditCursor+4] = timeComponent;	
 			}
 			
-			write_time();
+			write_time(1);
 			break;
 			
 			/* Edit game mode */
@@ -230,10 +233,25 @@ int main(void)
 				state = IDLE;
 			}
 			else if (keyPressed & MODE_KEY)
-			{
-				
-				state = EDIT_DELAY;
-			}
+			{			
+				state++;
+			}					
+			else if (keyPressed & (UP_KEY | DOWN_KEY))
+			{	
+				if (keyPressed & UP_KEY)
+				{
+					gameConfig.gameMode++;
+					if (gameConfig.gameMode > NUM_MODES) gameConfig.gameMode = 0;
+				}
+				else
+				{
+					gameConfig.gameMode--;
+					if (gameConfig.gameMode < 0) gameConfig.gameMode = NUM_MODES;
+				}
+			}		
+			
+			write_string(settingsMenuNames[state], 0, 4);		
+			write_string(gameTypeNames[gameConfig.gameMode], 4, 8);
 			break;
 			
 			/* Edit time increment/delay */
@@ -247,10 +265,47 @@ int main(void)
 				state = IDLE;
 			}
 			else if (keyPressed & MODE_KEY)
-			{
-				
-				state = EDIT_MODE;
+			{		
+				state++;
 			}
+			
+			write_string(settingsMenuNames[state], 0, 4);
+			break;
+			
+			/* Edit display brightness */
+			/* Change PWM value */
+			case EDIT_BRIGHTNESS:
+			if (keyPressed & START_KEY)
+			{
+				/* save settings */
+				store_config();
+				
+				state = IDLE;
+			}
+			else if (keyPressed & MODE_KEY)
+			{				
+				state++;
+			}
+			
+			write_string(settingsMenuNames[state], 0, 4);
+			break;
+			
+			/* Edit sound */
+			/* Turn sound on or off */
+			case EDIT_SOUND:
+			if (keyPressed & START_KEY)
+			{
+				/* save settings */
+				store_config();
+				
+				state = IDLE;
+			}
+			else if (keyPressed & MODE_KEY)
+			{				
+				state = EDIT_MODE; // wrap around after last setting in list
+			}
+			
+			write_string(settingsMenuNames[state], 0, 4);
 			break;
 			
 			/* Game active */
@@ -262,7 +317,7 @@ int main(void)
 				state = GAME_PAUSED;	
 			}
 			
-			write_time();
+			write_time(0);
 			break;
 			
 			/* Game paused */
@@ -279,7 +334,7 @@ int main(void)
 				state = GAME_ACTIVE;
 			}
 			
-			write_time();
+			write_time(0);
 			break;
 			
 			/* Game finished */
@@ -291,7 +346,7 @@ int main(void)
 				state = IDLE;
 			}
 			
-			write_time();
+			write_time(0);
 			break;
 		}				
     }
@@ -320,11 +375,7 @@ ISR(INT0_vect)
 				break;
 				
 				case BRONSTEIN_DELAY:
-				for (uint8_t i = 0; i < 6; i++)
-				{
-					delayTime[i] = playerBTime[i];
-					
-				}
+				
 				break;
 			}				
 		}
@@ -337,8 +388,8 @@ ISR(INT0_vect)
 	currentPlayerTime  = &playerBTime; // start decrementing other player's time instead
 	currentPlayerTicks = &playerBTicks;
 		
-	PORTD |= 1<<PD1;
-	PORTD &= ~(1<<PD0);	
+	PORTD |= 1<<PD7;
+	PORTD &= ~(1<<PD6);	
 }
 
 /* Player B's button */
@@ -377,8 +428,8 @@ ISR(INT1_vect)
 	currentPlayerTime  = &playerATime; // start decrementing other player's time instead	
 	currentPlayerTicks = &playerATicks;
 		
-	PORTD |= 1<<PD0;
-	PORTD &= ~(1<<PD1);
+	PORTD |= 1<<PD6;
+	PORTD &= ~(1<<PD7);
 }
 
 /* TODO: implement simple/Bronstein delay by decrementing delay time in addition to/as well as current player time */

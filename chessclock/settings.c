@@ -7,7 +7,11 @@
 
 #include "settings.h"
 
-const char *gameTypeNames[NUM_MODES] = {"SMPL", "INCR"};
+const char settingsMenuNames[NUM_SETTINGS][5] = {"MODE", "DEL ", "BRT ", "SND "};
+//char settingsMenuString[5];
+
+const char gameTypeNames[NUM_MODES][5] = {"SIMP", "INCR", "DEL ", "BRON"};
+//char gameTypeString[5];
 
 const gameConfiguration blitz3plus0Config =
 {
@@ -41,7 +45,8 @@ const gameConfiguration blitz5plus3Config =
 void store_config()
 {
 	cli();	
-	eeprom_update_block((const void *)&gameConfig, (void *)0, sizeof(gameConfiguration));	
+	eeprom_update_block((const void *)&gameConfig, (void *)0, sizeof(gameConfiguration));
+	eeprom_update_block((const void *)&deviceConfig, (void *)256, sizeof(deviceConfiguration));	
 	sei();	
 }
 
@@ -49,5 +54,6 @@ void load_config()
 {
 	cli();	
 	eeprom_read_block((void *)&gameConfig, (const void *)0, sizeof(gameConfiguration));	
+	eeprom_read_block((void *)&deviceConfig, (const void *)256, sizeof(deviceConfiguration));
 	sei();
 }

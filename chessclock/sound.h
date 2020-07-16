@@ -10,6 +10,7 @@
 #define SOUND_H_
 
 #include <avr/io.h>
+#include <avr/pgmspace.h>
 
 void init_sound(void);
 
