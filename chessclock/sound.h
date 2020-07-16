@@ -12,6 +12,8 @@
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 
+extern const uint8_t dutyCycle;
+
 void init_sound(void);
 
 void sound_on(void);
