@@ -58,8 +58,8 @@ const uint8_t blinkThreshold=20;
 // 	0b01001001, // X
 // 	0b01101110, // y
 // 	0b00011011, // Z
-// 	0b01010011,  // ?
-//  0b00000000, // blank
+// 	0b01010011, // ?
+//  0b00000000, // space
 // };
 
 /* |d.p.|a|b|c|d|e|f|g| */
@@ -111,19 +111,21 @@ static void tx_spi(uint8_t data)
 	while(!(SPSR & (1<<SPIF)));
 }
 
-void init_display(void)
+void init_display(uint8_t brightness)
 {
+	/* SS must be set as output for master mode */
+	/* but CS is used as the actual select pin  */
 	SPI_DDR |= 1<<SCK | 1<<MOSI | 1<<SS | 1<<CS; 
 	SPI_PORT |= 1<<CS;                  
-	SPCR = 1<<SPE | 1<<MSTR | 1<<SPR1; // master mode, /64 prescaler
+	SPCR = 1<<SPE | 1<<MSTR | 1<<SPR1; // master mode, /64 prescaler (125kHz)
 	
 	DDRD |= 1<<PD5; // OC0B	
 	
-	TCCR0A = 1<<COM0B1 | 1<<WGM01 | 1<<WGM00; // Fast PWM, TOP = OCR0A
-	TCCR0B = 1<<WGM02 | 1<<CS02;              // /256 prescaler
-	TIMSK0 = 1<<OCIE0A;                       // compare interrupt
-	OCR0A = 48;					              // ~640Hz at 8MHz
-	OCR0B = 10;                               // Display brightness PWM
+	TCCR0A = 1<<COM0B1 | 1<<COM0B0 | 1<<WGM01 | 1<<WGM00; // Fast PWM, TOP = OCR0A
+	TCCR0B = 1<<WGM02 | 1<<CS02;                          // /256 prescaler
+	TIMSK0 = 1<<OCIE0A;                                   // compare interrupt
+	OCR0A = 48;					                          // ~640Hz at 8MHz
+	OCR0B = brightness << 2;                              // Display brightness PWM: 1-10 is mapped to 4-40
 	
 	PORTB &= ~(1<<CS); 
 	tx_spi(0x0C);		// shutdown
@@ -137,7 +139,7 @@ void init_display(void)
 	
 	PORTB &= ~(1<<CS); 
 	tx_spi(0x0A);	    // intensity
-	tx_spi(0x0B);		//
+	tx_spi(0x0F);		//
 	PORTB |= 1<<CS;
 	
 	PORTB &= ~(1<<CS); 
@@ -157,7 +159,7 @@ void init_display(void)
 	}
 }
 
-void do_blink(void)
+void update_blink(void)
 {
 	blinkTimer++;
 	if (blinkTimer > blinkThreshold)
@@ -220,34 +222,26 @@ void write_string(const char *str, uint8_t start, uint8_t end)
 		displayBuffer[i] = 0x00;
 }
 
-void write_number_8(uint8_t num, uint8_t ab)
+void write_number_8(uint8_t num, uint8_t start)
 {
 	const uint8_t factors[3] = {100, 10, 1};
 	uint8_t z = 0;
 	
-	if (ab) ab = 4;
+	displayBuffer[start] = 0x00;
 	
-	displayBuffer[ab] = 0x00;
-	
-	for (uint8_t i = 0; i < 3; i++)
+	for (uint8_t i = 1; i < 4; i++)
 	{
-		uint8_t q = num / factors[i];
+		uint8_t q = num / factors[i-1];
 		
 		if (q == 0)
 		{
-			if (z)
-			{
-				displayBuffer[i+ab+1] = sevenSeg[0];	
-			}
-			else
-			{
-				displayBuffer[i+ab+1] = 0x00;		
-			}
+			if (z || (i == 3)) displayBuffer[start+i] = sevenSeg[0];	
+			else   displayBuffer[start+i] = 0x00;		
 		}
 		else
 		{
-			displayBuffer[i+ab+1] = sevenSeg[q];
-			num -= q*factors[i];
+			displayBuffer[start+i] = sevenSeg[q];
+			num -= q*factors[i-1];
 			z = 1;	
 		}			
 	}	

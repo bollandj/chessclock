@@ -33,13 +33,13 @@ extern const uint8_t blinkThreshold;
 
 extern const uint8_t sevenSeg[38];
 
-void init_display(void);
-void do_blink(void);
+void init_display(uint8_t brightness);
+void update_blink(void);
 
 void write_time(uint8_t edit);
 void write_char(uint8_t chr, uint8_t pos);
 void write_string(const char *str, uint8_t start, uint8_t end);
-void write_number_8(uint8_t num, uint8_t ab);
+void write_number_8(uint8_t num, uint8_t start);
 
 
 #endif /* DISPLAY_H_ */

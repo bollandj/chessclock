@@ -25,6 +25,8 @@ extern const char settingsMenuNames[NUM_SETTINGS][5];
 extern const char gameTypeNames[NUM_MODES][5];
 //extern char gameTypeString[5];
 
+extern const char offOnStrings[2][5];
+
 #define TEN_HOURS 0
 #define HOURS 1
 #define TEN_MINUTES 2
@@ -41,15 +43,15 @@ typedef struct
 {
 	gameTime initialTime; // time each player starts with 
 	gameType gameMode;    // timing mode
-	gameTime delay;	      // increment or delay time
+	uint8_t delay;	      // increment or delay time (seconds)
 } gameConfiguration;
 
 gameConfiguration gameConfig; 
 
 typedef struct
 {
-	uint8_t displayBrightness; // display PWM value
-	uint8_t soundOn;           // make sound?
+	uint8_t brightness; // display PWM value
+	uint8_t soundOn;    // make sound?
 } deviceConfiguration;
 
 deviceConfiguration deviceConfig;

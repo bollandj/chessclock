@@ -42,52 +42,48 @@ void init_timer(void)
 }
 
 /* increments baseTime by incTime (ignoring ticks) */
-void add_time(volatile gameTime *baseTime, gameTime incTime)
+void add_time(volatile gameTime *baseTime, uint8_t incTime)
 {
-	(*baseTime)[SECONDS] += incTime[SECONDS];
-	if ((*baseTime)[SECONDS] > 9) 
+	(*baseTime)[SECONDS] += incTime;
+	
+	while ((*baseTime)[SECONDS] > 9) 
 	{
 		(*baseTime)[SECONDS] -= 10;
 		(*baseTime)[TEN_SECONDS]++;
 	}
 	
-	(*baseTime)[TEN_SECONDS] += incTime[TEN_SECONDS];
-	if ((*baseTime)[TEN_SECONDS] > 5)
+	while ((*baseTime)[TEN_SECONDS] > 5)
 	{
 		(*baseTime)[TEN_SECONDS] -= 6;
 		(*baseTime)[MINUTES]++;
 	}
 	
-	(*baseTime)[MINUTES] += incTime[MINUTES];
-	if ((*baseTime)[MINUTES] > 9)
+	while ((*baseTime)[MINUTES] > 9)
 	{
 		(*baseTime)[MINUTES] -= 10;
 		(*baseTime)[TEN_MINUTES]++;
 	}
 	
-	(*baseTime)[TEN_MINUTES] += incTime[TEN_MINUTES];
-	if ((*baseTime)[TEN_MINUTES] > 5)
+	while ((*baseTime)[TEN_MINUTES] > 5)
 	{
 		(*baseTime)[TEN_MINUTES] -= 6;
 		(*baseTime)[HOURS]++;
 	}
 	
-	(*baseTime)[HOURS] += incTime[HOURS];
-	if ((*baseTime)[HOURS] > 9)
+	while ((*baseTime)[HOURS] > 9)
 	{
 		(*baseTime)[HOURS] -= 10;
 		(*baseTime)[TEN_HOURS]++;
 	}
 	
-	(*baseTime)[TEN_HOURS] += incTime[TEN_HOURS];
 	if ((*baseTime)[TEN_HOURS] > 9)
 	{
-		(*baseTime)[TEN_HOURS]   = 0;
-		(*baseTime)[HOURS]       = 0;
-		(*baseTime)[TEN_MINUTES] = 0;
-		(*baseTime)[MINUTES]     = 0;
-		(*baseTime)[TEN_SECONDS] = 0;
-		(*baseTime)[SECONDS]     = 0;
+		(*baseTime)[TEN_HOURS]   = 9;
+		(*baseTime)[HOURS]       = 9;
+		(*baseTime)[TEN_MINUTES] = 9;
+		(*baseTime)[MINUTES]     = 9;
+		(*baseTime)[TEN_SECONDS] = 9;
+		(*baseTime)[SECONDS]     = 9;
 	}
 }
 
@@ -130,7 +126,7 @@ int main(void)
 	
 	reset();
 	
-	init_display();
+	init_display(deviceConfig.brightness);
 	init_keys();
 	init_timer();
 	init_sound();
@@ -138,11 +134,9 @@ int main(void)
 	sei();
 	
     while (1) 
-    {
-		_delay_ms(15);
-		
-		scan_keys();
-		do_blink();
+    {					
+		scan_keys();		
+		if ((keyPressed & KEY_MASK) && deviceConfig.soundOn) beep(0);
 		
 		switch (state)
 		{
@@ -156,7 +150,7 @@ int main(void)
 				state = GAME_ACTIVE;
 			}
 			else if (keyPressed & MODE_KEY)
-			{				
+			{								
 				state = EDIT_MODE;
 			}
 			else if (keyPressed & TIME_KEY)
@@ -235,21 +229,18 @@ int main(void)
 			else if (keyPressed & MODE_KEY)
 			{			
 				state++;
-			}					
-			else if (keyPressed & (UP_KEY | DOWN_KEY))
-			{	
-				if (keyPressed & UP_KEY)
-				{
-					gameConfig.gameMode++;
-					if (gameConfig.gameMode > NUM_MODES) gameConfig.gameMode = 0;
-				}
-				else
-				{
-					gameConfig.gameMode--;
-					if (gameConfig.gameMode < 0) gameConfig.gameMode = NUM_MODES;
-				}
-			}		
-			
+			}						
+			else if (keyPressed & UP_KEY)
+			{
+				gameConfig.gameMode++;
+				if (gameConfig.gameMode > NUM_MODES-1) gameConfig.gameMode = 0;
+			}
+			else if (keyPressed & DOWN_KEY)
+			{
+				gameConfig.gameMode--;
+				if (gameConfig.gameMode < 0) gameConfig.gameMode = NUM_MODES-1;
+			}
+				
 			write_string(settingsMenuNames[state], 0, 4);		
 			write_string(gameTypeNames[gameConfig.gameMode], 4, 8);
 			break;
@@ -268,8 +259,23 @@ int main(void)
 			{		
 				state++;
 			}
-			
+			else if (keyPressed & UP_KEY)
+			{
+				if      (gameConfig.delay < 20)  gameConfig.delay++;
+				else if (gameConfig.delay < 45)  gameConfig.delay += 5;
+				else if (gameConfig.delay < 60)  gameConfig.delay += 15; 
+				else if (gameConfig.delay < 180) gameConfig.delay += 30; 	
+			}
+			else if (keyPressed & DOWN_KEY)
+			{
+				if      (gameConfig.delay > 60) gameConfig.delay -= 30;
+				else if (gameConfig.delay > 45) gameConfig.delay -= 15;
+				else if (gameConfig.delay > 20) gameConfig.delay -= 5;
+				else if (gameConfig.delay > 0)  gameConfig.delay -= 1; 	
+			}
+						
 			write_string(settingsMenuNames[state], 0, 4);
+			write_number_8(gameConfig.delay, 4);
 			break;
 			
 			/* Edit display brightness */
@@ -286,8 +292,19 @@ int main(void)
 			{				
 				state++;
 			}
+			else if (keyPressed & UP_KEY)
+			{
+				if (deviceConfig.brightness < 10) deviceConfig.brightness++;
+				OCR0B = deviceConfig.brightness << 2;	
+			}
+			else if (keyPressed & DOWN_KEY)
+			{
+				if (deviceConfig.brightness > 1) deviceConfig.brightness--;
+				OCR0B = deviceConfig.brightness << 2;	
+			}
 			
 			write_string(settingsMenuNames[state], 0, 4);
+			write_number_8(deviceConfig.brightness, 4);
 			break;
 			
 			/* Edit sound */
@@ -304,8 +321,15 @@ int main(void)
 			{				
 				state = EDIT_MODE; // wrap around after last setting in list
 			}
+			else if (keyPressed & (UP_KEY | DOWN_KEY))
+			{
+				deviceConfig.soundOn++;	
+				deviceConfig.soundOn &= 0x01;
+				beep();	
+			}
 			
 			write_string(settingsMenuNames[state], 0, 4);
+			write_string(offOnStrings[deviceConfig.soundOn], 4, 8);
 			break;
 			
 			/* Game active */
@@ -326,6 +350,7 @@ int main(void)
 			if (holdTimer >= holdTimerThreshold)
 			{				
 				reset();
+				beep(3);
 				state = IDLE;	
 			}
 			else if (keyPressed & START_KEY)
@@ -343,12 +368,18 @@ int main(void)
 			if (keyPressed & START_KEY)
 			{
 				reset();
+				beep(3);
 				state = IDLE;
 			}
 			
 			write_time(0);
 			break;
-		}				
+		}
+							
+		update_blink();
+		update_beep();
+		
+		_delay_ms(15);				
     }
 }
 

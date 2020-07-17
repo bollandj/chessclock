@@ -10,35 +10,37 @@
 const char settingsMenuNames[NUM_SETTINGS][5] = {"MODE", "DEL ", "BRT ", "SND "};
 //char settingsMenuString[5];
 
-const char gameTypeNames[NUM_MODES][5] = {"SIMP", "INCR", "DEL ", "BRON"};
+const char gameTypeNames[NUM_MODES][5] = {"SMPL", "INCR", "DEL ", "BRON"};
 //char gameTypeString[5];
+
+const char offOnStrings[2][5] = {" OFF", "  ON"};
 
 const gameConfiguration blitz3plus0Config =
 {
 	{0, 0, 0, 3, 0, 0},
 	SIMPLE,
-	{0, 0, 0, 0, 0, 0}
+	0
 };
 
 const gameConfiguration blitz3plus2Config =
 {
 	{0, 0, 0, 3, 0, 0},
 	INCREMENT,
-	{0, 0, 0, 0, 0, 2}
+	2
 };
 
 const gameConfiguration blitz5plus0Config =
 {
 	{0, 0, 0, 5, 0, 0},
 	SIMPLE,
-	{0, 0, 0, 0, 0, 0}
+	0
 };
 
 const gameConfiguration blitz5plus3Config =
 {
 	{0, 0, 0, 5, 0, 0},
 	INCREMENT,
-	{0, 0, 0, 0, 0, 3}
+	3
 };
 
 
