@@ -34,10 +34,15 @@ extern const char offOnStrings[2][5];
 #define TEN_SECONDS 4
 #define SECONDS 5
 
+#define PLAYER_A 0
+#define PLAYER_B 1
+
 typedef int8_t gameTime[6];
 
-volatile gameTime playerATime, playerBTime, delayTime, *currentPlayerTime;
-volatile uint8_t playerATicks, playerBTicks, *currentPlayerTicks;
+volatile gameTime playerTime[2];
+volatile uint8_t playerTicks[2];
+
+uint8_t currentPlayer;
 
 typedef struct
 {

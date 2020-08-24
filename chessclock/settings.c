@@ -43,6 +43,7 @@ const gameConfiguration blitz5plus3Config =
 	3
 };
 
+/* Run first time only to initialise EEPROM */
 void init_config()
 {
 	gameConfig = blitz3plus2Config;

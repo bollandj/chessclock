@@ -151,6 +151,12 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="modes.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="modes.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="settings.c">
       <SubType>compile</SubType>
     </Compile>

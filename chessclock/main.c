@@ -14,21 +14,11 @@
 
 #include "display.h"
 #include "keys.h"
+#include "modes.h"
 #include "settings.h"
 #include "sound.h"
 
 uint8_t timeEditCursor=0;
-
-/* Editing modes go first to make retrieving strings simpler */
-enum _state {EDIT_MODE, EDIT_DELAY, EDIT_BRIGHTNESS, EDIT_SOUND, EDIT_TIME, IDLE, GAME_ACTIVE, GAME_PAUSED, GAME_FINISHED} state;
-
-typedef struct 
-{
-	uint16_t moves;
-	uint8_t isWhite;
-} playerData;
-
-volatile playerData playerAData, playerBData, *currentPlayerData;
 
 void init_timer(void)
 {
@@ -41,79 +31,25 @@ void init_timer(void)
 	//TIMSK2 = 1<<TOIE2;  // enable Timer2 overflow interrupt
 }
 
-/* increments baseTime by incTime (ignoring ticks) */
-void add_time(volatile gameTime *baseTime, uint8_t incTime)
-{
-	(*baseTime)[SECONDS] += incTime;
-	
-	while ((*baseTime)[SECONDS] > 9) 
-	{
-		(*baseTime)[SECONDS] -= 10;
-		(*baseTime)[TEN_SECONDS]++;
-	}
-	
-	while ((*baseTime)[TEN_SECONDS] > 5)
-	{
-		(*baseTime)[TEN_SECONDS] -= 6;
-		(*baseTime)[MINUTES]++;
-	}
-	
-	while ((*baseTime)[MINUTES] > 9)
-	{
-		(*baseTime)[MINUTES] -= 10;
-		(*baseTime)[TEN_MINUTES]++;
-	}
-	
-	while ((*baseTime)[TEN_MINUTES] > 5)
-	{
-		(*baseTime)[TEN_MINUTES] -= 6;
-		(*baseTime)[HOURS]++;
-	}
-	
-	while ((*baseTime)[HOURS] > 9)
-	{
-		(*baseTime)[HOURS] -= 10;
-		(*baseTime)[TEN_HOURS]++;
-	}
-	
-	if ((*baseTime)[TEN_HOURS] > 9)
-	{
-		(*baseTime)[TEN_HOURS]   = 9;
-		(*baseTime)[HOURS]       = 9;
-		(*baseTime)[TEN_MINUTES] = 9;
-		(*baseTime)[MINUTES]     = 9;
-		(*baseTime)[TEN_SECONDS] = 9;
-		(*baseTime)[SECONDS]     = 9;
-	}
-}
-
 void reset(void)
 {	
 	/* reset time */
 	for (uint8_t i = 0; i < 6; i++)
 	{
-		playerATime[i] = gameConfig.initialTime[i];
-		playerBTime[i] = gameConfig.initialTime[i];
+		playerTime[PLAYER_A][i] = gameConfig.initialTime[i];
+		playerTime[PLAYER_B][i] = gameConfig.initialTime[i];
 	}
 
 	/* reset ticks */
-	playerATicks = 0;
-	playerBTicks = 0;
-	
-	/* reset move counts */
-	playerAData.moves = 0;
-	playerBData.moves = 0;
+	playerTicks[PLAYER_A] = 0;
+	playerTicks[PLAYER_B] = 0;
 }
 
 int main(void)
-{	
-	init_config();
-		
+{			
 	/* default to player A as white/starting */
 	
-	currentPlayerTicks = &playerATicks;
-	currentPlayerTime = &playerATime;
-	currentPlayerData = &playerAData;
+	currentPlayer = PLAYER_A;
 	
 	state = IDLE;
 	
@@ -205,19 +141,19 @@ int main(void)
 				
 				if (keyPressed & UP_KEY)
 				{
-					timeComponent = ++playerATime[timeEditCursor+2];
+					timeComponent = ++playerTime[PLAYER_A][timeEditCursor+2];
 					if (timeComponent > limit) timeComponent = 0;
 				}
 				else
 				{
-					timeComponent = --playerATime[timeEditCursor+2];
+					timeComponent = --playerTime[PLAYER_A][timeEditCursor+2];
 					if (timeComponent < 0) timeComponent = limit;
 				}
 				
 				gameConfig.initialTime[timeEditCursor+2] = timeComponent;
 				
-				playerATime[timeEditCursor+2] = timeComponent;
-				playerBTime[timeEditCursor+2] = timeComponent;
+				playerTime[PLAYER_A][timeEditCursor+2] = timeComponent;
+				playerTime[PLAYER_B][timeEditCursor+2] = timeComponent;
 			}
 			
 			COLON_ON();	
@@ -413,128 +349,18 @@ int main(void)
 /* Player A's button */
 ISR(INT0_vect) 
 {	
-	switch (state)
-	{
-		case GAME_ACTIVE:
-		if (currentPlayerTime == &playerATime)
-		{
-			switch (gameConfig.gameMode)
-			{
-				case SIMPLE:
-				
-				break;
-				
-				case INCREMENT:
-				add_time(currentPlayerTime, gameConfig.delay);
-				break;
-				
-				case SIMPLE_DELAY:
-				
-				break;
-				
-				case BRONSTEIN_DELAY:
-				
-				break;
-			}				
-		}
-		break;
-		
-		default:			
-		break;
-	}
-	
-	currentPlayerTime  = &playerBTime; // start decrementing other player's time instead
-	currentPlayerTicks = &playerBTicks;
-		
-	PORTD |= 1<<PD7;
-	PORTD &= ~(1<<PD6);	
+	on_switch_interrupt(PLAYER_A, PLAYER_B, PD6, PD7);	
 }
 
 /* Player B's button */
 ISR(INT1_vect)
 {
-	switch (state)
-	{		
-		case GAME_ACTIVE:
-		if (currentPlayerTime == &playerBTime)
-		{			
-			switch (gameConfig.gameMode)
-			{
-				case SIMPLE:
-				
-				break;
-			
-				case INCREMENT:
-				add_time(currentPlayerTime, gameConfig.delay);
-				break;
-			
-				case SIMPLE_DELAY:
-			
-				break;
-			
-				case BRONSTEIN_DELAY:
-					
-				break;
-			}			
-		}
-		break;
-		
-		default:
-		break;
-	}
-	
-	currentPlayerTime  = &playerATime; // start decrementing other player's time instead	
-	currentPlayerTicks = &playerATicks;
-		
-	PORTD |= 1<<PD6;
-	PORTD &= ~(1<<PD7);
+	on_switch_interrupt(PLAYER_B, PLAYER_A, PD7, PD6);
 }
 
 /* TODO: implement simple/Bronstein delay by decrementing delay time in addition to/as well as current player time */
 ISR(TIMER2_OVF_vect)
 {	
-	if (++(*currentPlayerTicks) > 127)
-	{
-		*currentPlayerTicks = 0;
-		
-		if (--(*currentPlayerTime)[SECONDS] < 0)
-		{
-			(*currentPlayerTime)[SECONDS] = 9;
-		
-			if (--(*currentPlayerTime)[TEN_SECONDS] < 0)
-			{
-				(*currentPlayerTime)[TEN_SECONDS] = 5;
-			
-				if (--(*currentPlayerTime)[MINUTES] < 0)
-				{
-					(*currentPlayerTime)[MINUTES] = 9;
-				
-					if (--(*currentPlayerTime)[TEN_MINUTES] < 0)
-					{					
-						(*currentPlayerTime)[TEN_MINUTES] = 5;
-					
-						if (--(*currentPlayerTime)[HOURS] < 0)
-						{
-							(*currentPlayerTime)[HOURS] = 9;
-						
-							if(--(*currentPlayerTime)[TEN_HOURS] < 0)
-							{
-								(*currentPlayerTime)[TEN_HOURS]   = 0;
-								(*currentPlayerTime)[HOURS]       = 0;
-								(*currentPlayerTime)[TEN_MINUTES] = 0;
-								(*currentPlayerTime)[MINUTES]     = 0;
-								(*currentPlayerTime)[TEN_SECONDS] = 0;
-								(*currentPlayerTime)[SECONDS]     = 0;	
-								
-								TIMSK2 = 0x00; // disable further ticks
-								state = GAME_FINISHED;
-							}			
-						}				
-					}
-				}
-			}
-		}
-	}		
-	
+	tick_callbacks[gameConfig.gameMode]();				
 }
 

@@ -20,7 +20,7 @@ uint8_t blinkTimer;
 const uint8_t blinkThreshold=20;
 
 /* |d.p.|g|f|e|d|c|b|a| */
-const uint8_t sevenSeg[38] = // TODO: PROGMEM
+const uint8_t sevenSeg[38] = // TODO: PROGMEM?
 {
 	0b00111111, // 0
 	0b00000110, // 1
@@ -178,11 +178,11 @@ void write_time(uint8_t edit)
 {
 	if (hmms) hmms = 2;
 	
-	if (playerATime[hmms] || edit) displayBuffer[0] = sevenSeg[playerATime[hmms]];
-	else                           displayBuffer[0] = 0x00;
+	if (playerTime[PLAYER_A][hmms] || edit) displayBuffer[0] = sevenSeg[playerTime[PLAYER_A][hmms]];
+	else                                    displayBuffer[0] = 0x00;
 	
-	if (playerBTime[hmms] || edit) displayBuffer[4] = sevenSeg[playerBTime[hmms]];
-	else                           displayBuffer[4] = 0x00;
+	if (playerTime[PLAYER_B][hmms] || edit) displayBuffer[4] = sevenSeg[playerTime[PLAYER_B][hmms]];
+	else                                    displayBuffer[4] = 0x00;
 
 /* put this loop back later */	
 // 	for (uint8_t i = 1; i < 4; i++)
@@ -191,13 +191,13 @@ void write_time(uint8_t edit)
 // 		displayBuffer[i+4] = sevenSeg[playerBTime[i+hmms]];
 // 	}
 
-	displayBuffer[1] = sevenSeg[playerATime[1+hmms]] | 0x80; // dp
-	displayBuffer[2] = sevenSeg[playerATime[2+hmms]];
-	displayBuffer[3] = sevenSeg[playerATime[3+hmms]];
+	displayBuffer[1] = sevenSeg[playerTime[PLAYER_A][1+hmms]] | 0x80; // dp
+	displayBuffer[2] = sevenSeg[playerTime[PLAYER_A][2+hmms]];
+	displayBuffer[3] = sevenSeg[playerTime[PLAYER_A][3+hmms]];
 	
-	displayBuffer[5] = sevenSeg[playerBTime[1+hmms]] | 0x80; // dp
-	displayBuffer[6] = sevenSeg[playerBTime[2+hmms]];
-	displayBuffer[7] = sevenSeg[playerBTime[3+hmms]];
+	displayBuffer[5] = sevenSeg[playerTime[PLAYER_B][1+hmms]] | 0x80; // dp
+	displayBuffer[6] = sevenSeg[playerTime[PLAYER_B][2+hmms]];
+	displayBuffer[7] = sevenSeg[playerTime[PLAYER_B][3+hmms]];
 }
 
 void write_char(uint8_t chr, uint8_t pos)
