@@ -21,6 +21,9 @@
 #define SS   PB2
 #define CS   PB0
 
+inline void COLON_ON()  {PORTD |= 1<<PD4;}
+inline void COLON_OFF() {PORTD &= ~(1<<PD4);}
+
 extern uint8_t hmms;
 
 extern volatile uint8_t displayBuffer[8];

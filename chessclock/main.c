@@ -87,9 +87,6 @@ void add_time(volatile gameTime *baseTime, uint8_t incTime)
 	}
 }
 
-/* returns */
-//int8_t cmp_time()
-
 void reset(void)
 {	
 	/* reset time */
@@ -109,7 +106,9 @@ void reset(void)
 }
 
 int main(void)
-{		
+{	
+	init_config();
+		
 	/* default to player A as white/starting */
 	
 	currentPlayerTicks = &playerATicks;
@@ -133,10 +132,12 @@ int main(void)
 	
 	sei();
 	
+	COLON_ON();
+	
     while (1) 
     {					
 		scan_keys();		
-		if ((keyPressed & KEY_MASK) && deviceConfig.soundOn) beep(0);
+		if ((keyPressed & KEY_MASK) && deviceConfig.soundOn) beep(2);
 		
 		switch (state)
 		{
@@ -148,10 +149,12 @@ int main(void)
 				TIMSK2 = 1<<TOIE2;
 				
 				state = GAME_ACTIVE;
+				break;
 			}
 			else if (keyPressed & MODE_KEY)
 			{								
 				state = EDIT_MODE;
+				break;
 			}
 			else if (keyPressed & TIME_KEY)
 			{
@@ -160,7 +163,10 @@ int main(void)
 				blinkMask[4] = 0xFF;
 								
 				state = EDIT_TIME;
-			}			
+				break;
+			}
+				
+			COLON_ON();		
 			write_time(0);
 			break;
 			
@@ -176,7 +182,8 @@ int main(void)
 				/* save settings */
 				store_config();
 				
-				state = IDLE;	
+				state = IDLE;
+				break;	
 			}
 			else if (keyPressed & TIME_KEY)
 			{
@@ -213,6 +220,7 @@ int main(void)
 				playerBTime[timeEditCursor+2] = timeComponent;
 			}
 			
+			COLON_ON();	
 			write_time(1);
 			break;
 			
@@ -225,10 +233,12 @@ int main(void)
 				store_config();
 				
 				state = IDLE;
+				break;
 			}
 			else if (keyPressed & MODE_KEY)
 			{			
 				state++;
+				break;
 			}						
 			else if (keyPressed & UP_KEY)
 			{
@@ -241,6 +251,7 @@ int main(void)
 				if (gameConfig.gameMode < 0) gameConfig.gameMode = NUM_MODES-1;
 			}
 				
+			COLON_OFF();		
 			write_string(settingsMenuNames[state], 0, 4);		
 			write_string(gameTypeNames[gameConfig.gameMode], 4, 8);
 			break;
@@ -254,10 +265,12 @@ int main(void)
 				store_config();
 				
 				state = IDLE;
+				break;
 			}
 			else if (keyPressed & MODE_KEY)
 			{		
 				state++;
+				break;
 			}
 			else if (keyPressed & UP_KEY)
 			{
@@ -273,7 +286,8 @@ int main(void)
 				else if (gameConfig.delay > 20) gameConfig.delay -= 5;
 				else if (gameConfig.delay > 0)  gameConfig.delay -= 1; 	
 			}
-						
+				
+			COLON_OFF();		
 			write_string(settingsMenuNames[state], 0, 4);
 			write_number_8(gameConfig.delay, 4);
 			break;
@@ -287,10 +301,12 @@ int main(void)
 				store_config();
 				
 				state = IDLE;
+				break;
 			}
 			else if (keyPressed & MODE_KEY)
 			{				
 				state++;
+				break;
 			}
 			else if (keyPressed & UP_KEY)
 			{
@@ -303,6 +319,7 @@ int main(void)
 				OCR0B = deviceConfig.brightness << 2;	
 			}
 			
+			COLON_OFF();
 			write_string(settingsMenuNames[state], 0, 4);
 			write_number_8(deviceConfig.brightness, 4);
 			break;
@@ -316,18 +333,21 @@ int main(void)
 				store_config();
 				
 				state = IDLE;
+				break;
 			}
 			else if (keyPressed & MODE_KEY)
 			{				
 				state = EDIT_MODE; // wrap around after last setting in list
+				break;
 			}
 			else if (keyPressed & (UP_KEY | DOWN_KEY))
 			{
 				deviceConfig.soundOn++;	
 				deviceConfig.soundOn &= 0x01;
-				beep();	
+				beep(2); // extra beep required here as sound was disabled at top of loop	
 			}
 			
+			COLON_OFF();
 			write_string(settingsMenuNames[state], 0, 4);
 			write_string(offOnStrings[deviceConfig.soundOn], 4, 8);
 			break;
@@ -338,9 +358,11 @@ int main(void)
 			if (keyPressed & START_KEY)
 			{
 				TIMSK2 = 0x00;
-				state = GAME_PAUSED;	
+				state = GAME_PAUSED;
+				break;	
 			}
 			
+			COLON_ON();
 			write_time(0);
 			break;
 			
@@ -350,15 +372,18 @@ int main(void)
 			if (holdTimer >= holdTimerThreshold)
 			{				
 				reset();
-				beep(3);
-				state = IDLE;	
+				beep(12);
+				state = IDLE;
+				break;	
 			}
 			else if (keyPressed & START_KEY)
 			{
 				TIMSK2 = 1<<TOIE2;
 				state = GAME_ACTIVE;
+				break;
 			}
 			
+			COLON_ON();
 			write_time(0);
 			break;
 			
@@ -368,10 +393,12 @@ int main(void)
 			if (keyPressed & START_KEY)
 			{
 				reset();
-				beep(3);
+				beep(12);
 				state = IDLE;
+				break;
 			}
 			
+			COLON_ON();
 			write_time(0);
 			break;
 		}

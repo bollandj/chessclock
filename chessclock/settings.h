@@ -61,8 +61,8 @@ extern const gameConfiguration blitz3plus2Config;
 extern const gameConfiguration blitz5plus0Config;
 extern const gameConfiguration blitz5plus3Config;
 
+void init_config();
 void store_config(); // 512 bytes of EEPROM space
-
 void load_config();
 
 #endif /* SETTINGS_H_ */

@@ -43,6 +43,17 @@ const gameConfiguration blitz5plus3Config =
 	3
 };
 
+void init_config()
+{
+	gameConfig = blitz3plus2Config;
+	deviceConfiguration dc = {5, 1};
+	deviceConfig = dc;
+	
+	cli();
+	eeprom_update_block((const void *)&gameConfig, (void *)0, sizeof(gameConfiguration));
+	eeprom_update_block((const void *)&deviceConfig, (void *)256, sizeof(deviceConfiguration));
+	sei();
+}
 
 void store_config()
 {

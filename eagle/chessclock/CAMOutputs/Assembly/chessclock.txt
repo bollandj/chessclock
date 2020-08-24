@@ -1,0 +1,36 @@
+Partlist exported from C:/Users/Joshua/Documents/EAGLE/projects/chessclock/chessclock/chessclock.sch at 27/07/2020 14:40
+
+Qty Value              Device                           Package            Parts                          Description                         TP_SIGNAL_NAME
+2                      RESISTOR0603                     R_0603             R9, R10                                                                          
+1                      XTAL_32768HZ2X6                  XTAL_2X6MM         X1                                                                               
+5   100n               CAPACITOR0603                    C_0603             C3, C4, C5, C6, C7                                                               
+2   100u               CAPACITOR_POLARISEDTH_FLAT_L_5MM C_E_TH_FLAT_L_5MM  C9, C10                        Polarised electrolytic capacitors                 
+1   10k                RESISTOR0603                     R_0603             R12                                                                              
+1   1k                 RESISTOR0603                     R_0603             R11                                                                              
+8   220R               RESISTOR0603                     R_0603             R1, R2, R3, R4, R5, R6, R7, R8                                                   
+2   22p                CAPACITOR0603                    C_0603             C1, C2                                                                           
+2   74HC595            74HC595                          SOIC16             U1, U2                                                                           
+1   AD                 CON_PIN                          CON_PIN            P17                                                                              
+1   AVRISPVERT         AVRISPVERT                       AVRISP             J1                             AVR ISP-6 Serial Programming Header               
+1   BAS316             BAS316                           SOD323             D1                                                                               
+1   DMP2305U           DMP2305U                         SOT23              Q2                                                                               
+1   DOWN               SPST_6X6MM                       SPST_6X6MM         S4                                                                               
+2   GND                CON_PIN                          CON_PIN            P13, P16                                                                         
+5   GND                CON_PIN_2MM                      CON_PIN_2MM        P2, P4, P6, P8, P9                                                               
+1   LDA                CON_PIN_2MM                      CON_PIN_2MM        P3                                                                               
+1   LDB                CON_PIN_2MM                      CON_PIN_2MM        P7                                                                               
+1   MEGA48/88/168      MEGA48/88/168                    TQFP32-08          U3                                                                               
+1   MMBT4403           MMBT4403LT1                      SOT23              Q1                             PNP Transistor                                    
+1   MODE               SPST_6X6MM                       SPST_6X6MM         S1                                                                               
+1   RX                 CON_PIN                          CON_PIN            P14                                                                              
+1   S+                 CON_PIN_2MM                      CON_PIN_2MM        P11                                                                              
+1   S-                 CON_PIN_2MM                      CON_PIN_2MM        P12                                                                              
+2   SLR0564FR1C4BD-3.5 SLR0564FR1C4BD-3.5               SLR0564FR1C4BD-3.5 DS1, DS2                                                                         
+1   START              SPST_6X6MM                       SPST_6X6MM         S3                                                                               
+1   SWA                CON_PIN_2MM                      CON_PIN_2MM        P1                                                                               
+1   SWB                CON_PIN_2MM                      CON_PIN_2MM        P5                                                                               
+1   TIME               SPST_6X6MM                       SPST_6X6MM         S2                                                                               
+2   TPTP15R            TPTP15R                          TP15R              TP1, TP2                       Test pad                                          
+1   TX                 CON_PIN                          CON_PIN            P15                                                                              
+1   UP                 SPST_6X6MM                       SPST_6X6MM         S5                                                                               
+1   VBAT               CON_PIN_2MM                      CON_PIN_2MM        P10                                                                              

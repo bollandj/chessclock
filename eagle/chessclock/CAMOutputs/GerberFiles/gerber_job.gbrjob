@@ -1,0 +1,24 @@
+{
+    "Header": {
+        "Comment": "All values are metric (mm)",
+        "CreationDate": "2020-07-27T13:40:44Z",
+        "GenerationSoftware": {
+            "Application": "EAGLE",
+            "Vendor": "Autodesk",
+            "Version": "9.6.0"
+        },
+        "Part": "Single"
+    },
+    "Overall": {
+        "BoardThickness": 1.57,
+        "LayerNumber": 2,
+        "Name": {
+            "ProjectId": "chessclock"
+        },
+        "Owner": "Joshua Bolland <jlb2g17@soton.ac.uk>",
+        "Size": {
+            "X": 136,
+            "Y": 40
+        }
+    }
+}

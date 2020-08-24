@@ -14,11 +14,11 @@
 #define KEY_PORT PORTC
 #define KEY_PIN  PINC
 
-#define MODE_KEY  1<<PC0
-#define TIME_KEY  1<<PC1
+#define MODE_KEY  1<<PC4
+#define TIME_KEY  1<<PC3
 #define START_KEY 1<<PC2
-#define DOWN_KEY  1<<PC3
-#define UP_KEY    1<<PC4
+#define DOWN_KEY  1<<PC1
+#define UP_KEY    1<<PC0
 
 #define KEY_MASK (MODE_KEY | TIME_KEY | START_KEY | DOWN_KEY | UP_KEY)
 
