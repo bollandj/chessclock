@@ -17,14 +17,33 @@
 extern uint8_t beepTimer;
 extern uint16_t beepFreq;
 
-extern const uint16_t notes[128] PROGMEM;
+extern const uint16_t scale[12] PROGMEM;
 
-void init_sound(void);
+extern const uint8_t abc[270] PROGMEM;
 
-void update_beep(void);
+extern uint16_t abcPtr;
+extern uint8_t unitNoteLength;
+extern uint8_t key;
 
-void beep(uint8_t length);
+extern uint8_t duration;
+extern uint16_t divisor;
 
-void tune();
+#define IS_DIGIT(x) (((x) >= '0') && ((x) <= '9'))
+#define IS_ALPHA(x) ((((x) >= 'A') && ((x) <= 'Z')) || (((x) >= 'a') && ((x) <= 'z')))
+#define IS_UPPER(x) (((x) >= 'A') && ((x) <= 'Z'))
+#define IS_LOWER(x) (((x) >= 'a') && ((x) <= 'z'))
+
+extern uint8_t int_log(uint8_t n);
+extern int8_t skip_to(char t);
+extern char get_char();
+extern uint8_t get_int();
+
+extern void read_header();
+extern void read_notes();
+
+extern void init_sound(void);
+extern void update_beep(void);
+extern void beep(uint8_t length);
+extern void tune();
 
 #endif /* SOUND_H_ */

@@ -18,8 +18,6 @@
 #include "settings.h"
 #include "sound.h"
 
-uint8_t timeEditCursor=0;
-
 void init_timer(void)
 {
 	ASSR = 1<<AS2; // enable asynchronous mode
@@ -41,8 +39,8 @@ void reset(void)
 	}
 
 	/* reset ticks */
-	playerTicks[PLAYER_A] = 0;
-	playerTicks[PLAYER_B] = 0;
+	playerTicks[PLAYER_A] = 127;
+	playerTicks[PLAYER_B] = 127;
 }
 
 int main(void)
@@ -68,11 +66,10 @@ int main(void)
 	
 	sei();
 	
-	COLON_ON();
-	
     while (1) 
     {					
 		scan_keys();		
+		
 		if ((keyPressed & KEY_MASK) && deviceConfig.soundOn) beep(2);
 		
 		switch (state)
@@ -82,8 +79,9 @@ int main(void)
 			case IDLE:
 			if (keyPressed & START_KEY)
 			{
-				TIMSK2 = 1<<TOIE2;
-				
+				start_callbacks[gameConfig.gameMode](); // gamemode-specific initialisation
+				/* Start counting */
+				TIMSK2 = 1<<TOIE2;			
 				state = GAME_ACTIVE;
 				break;
 			}
@@ -177,14 +175,15 @@ int main(void)
 				break;
 			}						
 			else if (keyPressed & UP_KEY)
-			{
-				gameConfig.gameMode++;
-				if (gameConfig.gameMode > NUM_MODES-1) gameConfig.gameMode = 0;
+			{			
+				if (gameConfig.gameMode == NUM_MODES-1) gameConfig.gameMode = 0;
+				else gameConfig.gameMode++;
 			}
 			else if (keyPressed & DOWN_KEY)
 			{
-				gameConfig.gameMode--;
-				if (gameConfig.gameMode < 0) gameConfig.gameMode = NUM_MODES-1;
+				
+				if (gameConfig.gameMode == 0) gameConfig.gameMode = NUM_MODES-1;
+				else gameConfig.gameMode--;
 			}
 				
 			COLON_OFF();		
@@ -213,14 +212,14 @@ int main(void)
 				if      (gameConfig.delay < 20)  gameConfig.delay++;
 				else if (gameConfig.delay < 45)  gameConfig.delay += 5;
 				else if (gameConfig.delay < 60)  gameConfig.delay += 15; 
-				else if (gameConfig.delay < 180) gameConfig.delay += 30; 	
+				else if (gameConfig.delay < 120) gameConfig.delay += 30; 	
 			}
 			else if (keyPressed & DOWN_KEY)
 			{
 				if      (gameConfig.delay > 60) gameConfig.delay -= 30;
 				else if (gameConfig.delay > 45) gameConfig.delay -= 15;
 				else if (gameConfig.delay > 20) gameConfig.delay -= 5;
-				else if (gameConfig.delay > 0)  gameConfig.delay -= 1; 	
+				else if (gameConfig.delay > 0)  gameConfig.delay--; 	
 			}
 				
 			COLON_OFF();		
@@ -358,7 +357,6 @@ ISR(INT1_vect)
 	on_switch_interrupt(PLAYER_B, PLAYER_A, PD7, PD6);
 }
 
-/* TODO: implement simple/Bronstein delay by decrementing delay time in addition to/as well as current player time */
 ISR(TIMER2_OVF_vect)
 {	
 	tick_callbacks[gameConfig.gameMode]();				

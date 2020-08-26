@@ -14,6 +14,9 @@
 #include <avr/pgmspace.h>
 #include <avr/eeprom.h>
 
+#define PLAYER_A 0
+#define PLAYER_B 1
+
 #define NUM_SETTINGS 4
 #define NUM_MODES 4
 
@@ -27,6 +30,8 @@ extern const char gameTypeNames[NUM_MODES][5];
 
 extern const char offOnStrings[2][5];
 
+extern uint8_t timeEditCursor;
+
 #define TEN_HOURS 0
 #define HOURS 1
 #define TEN_MINUTES 2
@@ -34,21 +39,13 @@ extern const char offOnStrings[2][5];
 #define TEN_SECONDS 4
 #define SECONDS 5
 
-#define PLAYER_A 0
-#define PLAYER_B 1
-
 typedef int8_t gameTime[6];
-
-volatile gameTime playerTime[2];
-volatile uint8_t playerTicks[2];
-
-uint8_t currentPlayer;
 
 typedef struct
 {
 	gameTime initialTime; // time each player starts with 
 	gameType gameMode;    // timing mode
-	uint8_t delay;	      // increment or delay time (seconds)
+	int8_t   delay;	      // increment or delay time (seconds)
 } gameConfiguration;
 
 gameConfiguration gameConfig; 

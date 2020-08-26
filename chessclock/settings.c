@@ -14,6 +14,10 @@ const char gameTypeNames[NUM_MODES][5] = {"SMPL", "INCR", "DEL ", "BRON"};
 //char gameTypeString[5];
 
 const char offOnStrings[2][5] = {" OFF", "  ON"};
+	
+uint8_t timeEditCursor=0;
+
+
 
 const gameConfiguration blitz3plus0Config =
 {

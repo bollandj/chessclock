@@ -10,17 +10,206 @@
 uint8_t beepTimer;
 uint16_t beepFreq;
 
-uint16_t const notes[128] PROGMEM =
+// notes C0 to B0 (right shift for higher octaves)
+uint16_t const scale[12] PROGMEM = 
 {
-	65535,65535,65535,65535,65535,65535,65535,65535,65535,65535,65535,64792,61155,57723,54483,51425,
-	48539,45814,43243,40816,38525,36363,34322,32395,30577,28861,27241,25712,24269,22907,21621,20407,
-	19262,18181,17160,16197,15288,14430,13620,12855,12134,11453,10810,10203,9630,9090,8580,8098,
-	7644,7214,6809,6427,6066,5726,5404,5101,4815,4544,4289,4049,3821,3607,3404,3213,
-	3033,2862,2702,2550,2407,2272,2144,2024,1910,1803,1702,1606,1516,1431,1350,1275,
-	1203,1135,1072,1011,955,901,850,803,757,715,675,637,601,567,535,505,
-	477,450,425,401,378,357,337,318,300,283,267,252,238,224,212,200,
-	189,178,168,158,149,141,133,126,118,112,105,99,94,88,83,79
+	// 64792,
+	61155,
+	57723,
+	54483,
+	51425,
+	48539,
+	45814,
+	43243,
+	40816,
+	38525,
+	36363,
+	34322,
+	32395
+	// 30577
 };
+
+const uint8_t abc[270] PROGMEM = 
+{
+	0x58, 0x3a, 0x31, 0x0d, 0x0a, 0x54, 0x3a, 0x50, 0x61, 0x64, 0x64, 0x79,
+	0x20, 0x4f, 0x27, 0x52, 0x61, 0x66, 0x66, 0x65, 0x72, 0x74, 0x79, 0x0d,
+	0x0a, 0x43, 0x3a, 0x54, 0x72, 0x61, 0x64, 0x2e, 0x0d, 0x0a, 0x4d, 0x3a,
+	0x36, 0x2f, 0x38, 0x0d, 0x0a, 0x4b, 0x3a, 0x44, 0x0d, 0x0a, 0x64, 0x66,
+	0x66, 0x20, 0x63, 0x65, 0x65, 0x7c, 0x64, 0x65, 0x66, 0x20, 0x67, 0x66,
+	0x65, 0x7c, 0x64, 0x66, 0x66, 0x20, 0x63, 0x65, 0x65, 0x7c, 0x64, 0x66,
+	0x65, 0x20, 0x64, 0x42, 0x41, 0x7c, 0x64, 0x66, 0x66, 0x20, 0x63, 0x65,
+	0x65, 0x7c, 0x64, 0x65, 0x66, 0x20, 0x67, 0x66, 0x65, 0x7c, 0x66, 0x61,
+	0x66, 0x20, 0x67, 0x66, 0x65, 0x7c, 0x31, 0x20, 0x64, 0x66, 0x65, 0x20,
+	0x64, 0x42, 0x41, 0x3a, 0x7c, 0x32, 0x20, 0x64, 0x66, 0x65, 0x20, 0x64,
+	0x63, 0x42, 0x7c, 0x5d, 0x0d, 0x0a, 0x7e, 0x41, 0x33, 0x20, 0x42, 0x33,
+	0x7c, 0x67, 0x66, 0x65, 0x20, 0x66, 0x64, 0x42, 0x7c, 0x41, 0x46, 0x41,
+	0x20, 0x42, 0x32, 0x63, 0x7c, 0x64, 0x66, 0x65, 0x20, 0x64, 0x63, 0x42,
+	0x7c, 0x7e, 0x41, 0x33, 0x20, 0x7e, 0x42, 0x33, 0x7c, 0x65, 0x66, 0x65,
+	0x20, 0x65, 0x66, 0x67, 0x7c, 0x66, 0x61, 0x66, 0x20, 0x67, 0x66, 0x65,
+	0x7c, 0x31, 0x20, 0x64, 0x66, 0x65, 0x20, 0x64, 0x63, 0x42, 0x3a, 0x7c,
+	0x32, 0x20, 0x64, 0x66, 0x65, 0x20, 0x64, 0x42, 0x41, 0x7c, 0x5d, 0x0d,
+	0x0a, 0x66, 0x41, 0x41, 0x20, 0x65, 0x41, 0x41, 0x7c, 0x64, 0x65, 0x66,
+	0x20, 0x67, 0x66, 0x65, 0x7c, 0x66, 0x41, 0x41, 0x20, 0x65, 0x41, 0x41,
+	0x7c, 0x64, 0x66, 0x65, 0x20, 0x64, 0x42, 0x41, 0x7c, 0x66, 0x41, 0x41,
+	0x20, 0x65, 0x41, 0x41, 0x7c, 0x64, 0x65, 0x66, 0x20, 0x67, 0x66, 0x65,
+	0x7c, 0x66, 0x61, 0x66, 0x20, 0x67, 0x66, 0x65, 0x7c, 0x64, 0x66, 0x65,
+	0x20, 0x64, 0x42, 0x41, 0x3a, 0x7c
+};
+
+uint16_t abcPtr;
+uint8_t unitNoteLength;
+uint8_t key;
+
+uint8_t duration;
+uint16_t divisor;
+
+// returns integer log 2, rounded down (i.e. highest bit set)
+uint8_t int_log(uint8_t n)
+{
+	uint8_t r = 0;
+	while (n >>= 1) r++;
+	
+	return r;		
+}
+
+// find next occurrence of c in file (ignoring spaces) and place pointer immediately after
+// returns 0 if c found, -1 otherwise
+int8_t skip_to(char t)
+{
+	char c;
+	do 
+	{
+		c = get_char();
+		
+		if (c == t) return 0;
+		else if (c == '\n') return -1; // only search up to end of line
+				
+	} while (c);
+	
+	return -1; // EOF reached
+}
+
+// get next character in file
+char get_char()
+{
+	return pgm_read_byte(&abc[abcPtr++]);
+}
+
+// parse an integer (0<=n<=255)
+uint8_t get_int()
+{
+	char c;
+	uint8_t n, i;
+	for (n = 0, i = 0; IS_DIGIT(c = get_char()) && i < 3; i++)
+	{
+		n *= 10;
+		n += (c - '0');	
+	}
+	
+	return n;
+}
+
+void read_header()
+{
+	unitNoteLength = 0;
+	key = 0;
+	
+	abcPtr = 0;
+	
+	char c;
+	for (; IS_ALPHA(c = get_char()); skip_to('\n')) // detect colon instead of alpha char
+	{
+		switch (c)
+		{
+			case 'L':
+			case 'l':
+			if(!skip_to(':')) // expected colon found
+			{
+				if(!skip_to('/')) // expected slash found
+				{
+					unitNoteLength = get_int(); // get unit note length
+				}
+			}
+			break;
+			
+			case 'K':
+			case 'k':
+			if(!skip_to(':'))
+			{
+				
+			}
+			break;
+			
+			default:
+			break;
+		}
+	}
+	
+	abcPtr--; // rewind pointer to start of line
+}
+
+void read_notes()
+{
+	char c;
+	while ((c = get_char()))
+	{
+		uint8_t octave = 4;
+		
+		switch (c)
+		{
+			case ',':
+			// octave--;
+			break;
+			
+			case '\'':
+			// octave++;
+			break;
+			
+			case '_':
+			break;
+			
+			case '=':
+			break;
+			
+			case '^':
+			break;
+			
+			case 'z':
+			break;
+			
+			default:
+			if (IS_LOWER(c))
+			{
+				uint8_t noteIndex = ((c - 'a') - 3) % 12;
+				divisor = scale[noteIndex] >> octave;
+				
+				ICR1 = divisor;
+				OCR1A = OCR1B = ICR1 >> 2;
+				
+				TCCR1B = 1<<WGM13 | 1<<WGM12 | 1<<CS11;
+				_delay_ms(200);
+				TCCR1B = 0x00;
+				_delay_ms(25);
+			}
+			else if (IS_UPPER(c))
+			{
+				octave++;
+				uint8_t noteIndex = ((c - 'A') - 3) % 12;
+				divisor = scale[noteIndex] >> octave;
+				
+				ICR1 = divisor;
+				OCR1A = OCR1B = ICR1 >> 2;
+				
+				TCCR1B = 1<<WGM13 | 1<<WGM12 | 1<<CS11;
+				_delay_ms(200);
+				TCCR1B = 0x00;
+				_delay_ms(25);
+			}
+			break;
+		}		
+	}
+}
+
 
 void init_sound(void)
 {
@@ -30,7 +219,7 @@ void init_sound(void)
 	TCCR1B = 1<<WGM13 | 1<<WGM12 | 1<<CS11;	               // /8 prescaler		
 		
 	beepTimer = 0;
-	beepFreq = pgm_read_word(&notes[72]); 
+	beepFreq = pgm_read_word(&scale[9]) >> 4; // A4
 }
 
 void update_beep(void)
@@ -48,17 +237,18 @@ void beep(uint8_t length)
 }
 
 void tune()
-{
-	uint8_t n[8] = {60, 62, 64, 65, 67, 69, 71, 72};
-	uint8_t d[8] = {250, 250, 250, 250, 250, 250, 250, 250};
-	
+{		
 	for (uint8_t i = 0; i < 8; i++)
-	{
-		ICR1 = pgm_read_word(&notes[n[i]]);              
-		OCR1A = OCR1B = ICR1 >> 2;
+	{		
+		divisor = scale[9] >> 5;
+		
+		ICR1 = divisor;
+		OCR1A = divisor >> 1;
+		OCR1B = divisor >> 1;
 		
 		TCCR1B = 1<<WGM13 | 1<<WGM12 | 1<<CS11;
-		for (uint8_t j = 0; j < d[i]; j++) _delay_ms(1);
+		_delay_ms(200);
 		TCCR1B = 0x00;
+		_delay_ms(25);
 	}
 }

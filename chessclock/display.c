@@ -6,7 +6,7 @@
  */ 
 
 #include "display.h"
-#include "settings.h"
+#include "modes.h"
 
 /* 0 = hr/min, 1 = min/sec */
 uint8_t hmms=1;
