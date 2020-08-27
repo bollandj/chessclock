@@ -18,15 +18,13 @@
 #define PLAYER_B 1
 
 #define NUM_SETTINGS 4
-#define NUM_MODES 4
+#define NUM_MODES 6
 
-typedef enum _gameType {SIMPLE, INCREMENT, SIMPLE_DELAY, BRONSTEIN_DELAY} gameType;
+typedef enum _gameType {SIMPLE, INCREMENT, SIMPLE_DELAY, BRONSTEIN_DELAY, HOURGLASS, COUNT_UP} gameType;
 	
 extern const char settingsMenuNames[NUM_SETTINGS][5];
-//extern char settingsMenuString[5];
 
 extern const char gameTypeNames[NUM_MODES][5];
-//extern char gameTypeString[5];
 
 extern const char offOnStrings[2][5];
 
@@ -64,7 +62,7 @@ extern const gameConfiguration blitz5plus0Config;
 extern const gameConfiguration blitz5plus3Config;
 
 void init_config();
-void store_config(); // 512 bytes of EEPROM space
+void store_config();
 void load_config();
 
 #endif /* SETTINGS_H_ */

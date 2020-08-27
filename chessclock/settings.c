@@ -8,10 +8,8 @@
 #include "settings.h"
 
 const char settingsMenuNames[NUM_SETTINGS][5] = {"MODE", "DEL ", "BRT ", "SND "};
-//char settingsMenuString[5];
 
-const char gameTypeNames[NUM_MODES][5] = {"SMPL", "INCR", "DEL ", "BRON"};
-//char gameTypeString[5];
+const char gameTypeNames[NUM_MODES][5] = {"SMPL", "INCR", "DEL ", "BRON", "HRGL", "CTUP"};
 
 const char offOnStrings[2][5] = {" OFF", "  ON"};
 	

@@ -325,7 +325,7 @@ int main(void)
 			/* Game finished */
 			/* One player's time has run out */
 			case GAME_FINISHED:
-			if (keyPressed & START_KEY)
+			if (holdTimer >= holdTimerThreshold)
 			{
 				reset();
 				beep(12);
@@ -348,13 +348,13 @@ int main(void)
 /* Player A's button */
 ISR(INT0_vect) 
 {	
-	on_switch_interrupt(PLAYER_A, PLAYER_B, PD6, PD7);	
+	on_switch_interrupt(PLAYER_A);	
 }
 
 /* Player B's button */
 ISR(INT1_vect)
 {
-	on_switch_interrupt(PLAYER_B, PLAYER_A, PD7, PD6);
+	on_switch_interrupt(PLAYER_B);
 }
 
 ISR(TIMER2_OVF_vect)

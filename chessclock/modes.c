@@ -13,10 +13,39 @@ volatile uint8_t playerTicks[2];
 volatile uint8_t currentPlayer;
 
 volatile int8_t delay;
+volatile uint8_t delayTicks;
+volatile uint8_t delayPassed;
 
-callback_t start_callbacks[NUM_MODES] = {empty_start_callback, empty_start_callback, delay_start_callback, bronstein_start_callback};
-callback_t switch_callbacks[NUM_MODES] = {empty_switch_callback, increment_switch_callback, empty_switch_callback, empty_switch_callback};
-callback_t tick_callbacks[NUM_MODES] = {simple_tick_callback, simple_tick_callback, delay_tick_callback, bronstein_tick_callback};
+volatile gameTime startTime;
+volatile uint8_t startTicks;
+
+callback_t start_callbacks[NUM_MODES] = 
+{
+	empty_start_callback, 
+	empty_start_callback, 
+	delay_start_callback, 
+	bronstein_start_callback, 
+	hourglass_start_callback, 
+	countup_start_callback
+};
+callback_t switch_callbacks[NUM_MODES] = 
+{
+	empty_switch_callback, 
+	increment_switch_callback, 
+	delay_switch_callback,
+	bronstein_switch_callback, 
+	hourglass_switch_callback, 
+	countup_switch_callback
+};
+callback_t tick_callbacks[NUM_MODES] = 
+{
+	simple_tick_callback, 
+	simple_tick_callback, 
+	delay_tick_callback, 
+	bronstein_tick_callback, 
+	hourglass_tick_callback, 
+	countup_tick_callback
+};
 	
 /* increments baseTime by incTime (ignoring ticks) */
 void add_time(volatile gameTime baseTime, uint8_t incTime)
@@ -64,20 +93,62 @@ void add_time(volatile gameTime baseTime, uint8_t incTime)
 	}
 }
 
-void on_switch_interrupt(uint8_t player, uint8_t otherPlayer, uint8_t playerLEDPin, uint8_t otherPlayerLEDPin)
+void on_switch_interrupt(uint8_t player)
 {
-	switch (state)
+	if (player == currentPlayer) // player change
 	{
-		case GAME_ACTIVE:
-		if (player == currentPlayer) switch_callbacks[gameConfig.gameMode](); // only called on player change
-		// fallthrough
-		default:
-		currentPlayer = otherPlayer;
+		if (state == GAME_ACTIVE) switch_callbacks[gameConfig.gameMode](); // only called on player change during active game
 		
-		PORTD |= 1<<otherPlayerLEDPin;
-		PORTD &= ~(1<<playerLEDPin);
-		break;
-	}	
+		currentPlayer = player ^ 0x01; // switch players
+		
+		PORTD |= 1<<(PD6+player);
+		PORTD &= ~(1<<(PD7-player));	
+	}
+}
+
+void on_tick()
+{
+	if (++playerTicks[currentPlayer] > 127)
+	{
+		playerTicks[currentPlayer] = 0;
+		
+		if (--playerTime[currentPlayer][SECONDS] < 0)
+		{
+			playerTime[currentPlayer][SECONDS] = 9;
+			
+			if (--playerTime[currentPlayer][TEN_SECONDS] < 0)
+			{
+				playerTime[currentPlayer][TEN_SECONDS] = 5;
+				
+				if (--playerTime[currentPlayer][MINUTES] < 0)
+				{
+					playerTime[currentPlayer][MINUTES] = 9;
+					
+					if (--playerTime[currentPlayer][TEN_MINUTES] < 0)
+					{
+						playerTime[currentPlayer][TEN_MINUTES] = 5;
+						
+						if (--playerTime[currentPlayer][HOURS] < 0)
+						{
+							playerTime[currentPlayer][HOURS] = 9;
+							
+							if(--playerTime[currentPlayer][TEN_HOURS] < 0)
+							{
+								playerTime[currentPlayer][TEN_HOURS]   = 0;
+								playerTime[currentPlayer][HOURS]       = 0;
+								playerTime[currentPlayer][TEN_MINUTES] = 0;
+								playerTime[currentPlayer][MINUTES]     = 0;
+								playerTime[currentPlayer][TEN_SECONDS] = 0;
+								playerTime[currentPlayer][SECONDS]     = 0;
+								
+								on_game_end();
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 void on_game_end()
@@ -87,197 +158,151 @@ void on_game_end()
 	beep(24);		
 }
 
-/* Placeholder callback for simple and increment modes */
+/* Placeholder callback for simple and increment modes (no additional behaviour required on game start) */
 void empty_start_callback()
 {
 	
 }
 
-
-/* callback */
+/* Simple delay start callback */
 void delay_start_callback()
 {
-	delay = gameConfig.delay; // reset delay counter		
+	delay = gameConfig.delay; // reset delay counter
+	delayTicks = 127;
+	delayPassed = 0;		
 }
 
-/* callback */	
+/* Bronstein delay start callback */	
 void bronstein_start_callback()
+{
+	for (uint8_t i = 0; i < 6; i++) startTime[i] = gameConfig.initialTime[i];
+	startTicks = 127;
+	
+	delay = gameConfig.delay; 
+	delayTicks = 127;
+	delayPassed = 0;	
+}
+
+/* Hourglass start callback */
+void hourglass_start_callback()
 {
 	
 }
 
-/* Placeholder callback */
+/* Count up start callback */
+void countup_start_callback()
+{
+
+}
+
+/* Placeholder switch callback */
 void empty_switch_callback()
 {
 	
 }
 
-/* Callback for increment mode */	
+/* Increment switch callback */	
 void increment_switch_callback()
 {
 	add_time(playerTime[currentPlayer], gameConfig.delay);		
 }
 
-/* callback */
+/* Simple delay switch callback */
 void delay_switch_callback()
 {
-	delay = gameConfig.delay; // reset delay counter	
+	delay = gameConfig.delay; 
+	delayTicks = 127;	
+	delayPassed = 0;
 }
 
-/* callback */
+/* Bronstein delay switch callback */
 void bronstein_switch_callback()
+{
+	if (delayPassed)
+	{
+		add_time(playerTime[currentPlayer], gameConfig.delay);	
+		delayPassed = 0;	
+	}
+	else
+	{
+		for (uint8_t i = 0; i < 6; i++) playerTime[currentPlayer][i] = startTime[i];
+		playerTicks[currentPlayer] = startTicks;		
+	}
+	
+	for (uint8_t i = 0; i < 6; i++) startTime[i] = playerTime[currentPlayer ^ 0x01][i];
+	startTicks = playerTicks[currentPlayer ^ 0x01];
+	
+	delay = gameConfig.delay; 
+	delayTicks = 127;	
+	
+}
+
+/* Hourglass switch callback */
+void hourglass_switch_callback()
 {
 	
 }
 
-/* Placeholder callback */
+/* Count up switch callback */
+void countup_switch_callback()
+{
+
+}
+
+/* Placeholder tick callback */
 void empty_tick_callback()
 {
 	
 }
 
-/* Callback for simple and increment modes */
+/* Tick callback for simple and increment modes */
 void simple_tick_callback()
 {
-	if (++playerTicks[currentPlayer] > 127)
-	{
-		playerTicks[currentPlayer] = 0;
-		
-		if (--playerTime[currentPlayer][SECONDS] < 0)
-		{
-			playerTime[currentPlayer][SECONDS] = 9;
-			
-			if (--playerTime[currentPlayer][TEN_SECONDS] < 0)
-			{
-				playerTime[currentPlayer][TEN_SECONDS] = 5;
-				
-				if (--playerTime[currentPlayer][MINUTES] < 0)
-				{
-					playerTime[currentPlayer][MINUTES] = 9;
-					
-					if (--playerTime[currentPlayer][TEN_MINUTES] < 0)
-					{
-						playerTime[currentPlayer][TEN_MINUTES] = 5;
-						
-						if (--playerTime[currentPlayer][HOURS] < 0)
-						{
-							playerTime[currentPlayer][HOURS] = 9;
-							
-							if(--playerTime[currentPlayer][TEN_HOURS] < 0)
-							{
-								playerTime[currentPlayer][TEN_HOURS]   = 0;
-								playerTime[currentPlayer][HOURS]       = 0;
-								playerTime[currentPlayer][TEN_MINUTES] = 0;
-								playerTime[currentPlayer][MINUTES]     = 0;
-								playerTime[currentPlayer][TEN_SECONDS] = 0;
-								playerTime[currentPlayer][SECONDS]     = 0;
-														
-								on_game_end();
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+	on_tick();
 }
 
-/* callback */
+/* Simple delay tick callback */
 void delay_tick_callback()
 {
-	if (++playerTicks[currentPlayer] > 127)
+	if (delayPassed) // proceed as normal if delay period has elapsed
 	{
-		playerTicks[currentPlayer] = 0;
-		
-		if (delay < 0)
+		on_tick();	
+	}
+	else
+	{		
+		if (++delayTicks > 127)
 		{
-			if (--playerTime[currentPlayer][SECONDS] < 0)
-			{
-				playerTime[currentPlayer][SECONDS] = 9;
-				
-				if (--playerTime[currentPlayer][TEN_SECONDS] < 0)
-				{
-					playerTime[currentPlayer][TEN_SECONDS] = 5;
-					
-					if (--playerTime[currentPlayer][MINUTES] < 0)
-					{
-						playerTime[currentPlayer][MINUTES] = 9;
-						
-						if (--playerTime[currentPlayer][TEN_MINUTES] < 0)
-						{
-							playerTime[currentPlayer][TEN_MINUTES] = 5;
-							
-							if (--playerTime[currentPlayer][HOURS] < 0)
-							{
-								playerTime[currentPlayer][HOURS] = 9;
-								
-								if(--playerTime[currentPlayer][TEN_HOURS] < 0)
-								{
-									playerTime[currentPlayer][TEN_HOURS]   = 0;
-									playerTime[currentPlayer][HOURS]       = 0;
-									playerTime[currentPlayer][TEN_MINUTES] = 0;
-									playerTime[currentPlayer][MINUTES]     = 0;
-									playerTime[currentPlayer][TEN_SECONDS] = 0;
-									playerTime[currentPlayer][SECONDS]     = 0;
-									
-									on_game_end();
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		else
-		{
-			delay--;
-		}
-	}	
+			delayTicks = 0;		
+			
+			if (--delay < 0) delayPassed = 1;	
+		}		
+	}
 }
 
-/* callback */
+/* Bronstein delay tick callback */
 void bronstein_tick_callback()
 {
-	if (++playerTicks[currentPlayer] > 127)
+	if (!delayPassed)
 	{
-		playerTicks[currentPlayer] = 0;
-		
-		if (--playerTime[currentPlayer][SECONDS] < 0)
+		if (++delayTicks > 127)
 		{
-			playerTime[currentPlayer][SECONDS] = 9;
-			
-			if (--playerTime[currentPlayer][TEN_SECONDS] < 0)
-			{
-				playerTime[currentPlayer][TEN_SECONDS] = 5;
+			delayTicks = 0;	
 				
-				if (--playerTime[currentPlayer][MINUTES] < 0)
-				{
-					playerTime[currentPlayer][MINUTES] = 9;
-					
-					if (--playerTime[currentPlayer][TEN_MINUTES] < 0)
-					{
-						playerTime[currentPlayer][TEN_MINUTES] = 5;
-						
-						if (--playerTime[currentPlayer][HOURS] < 0)
-						{
-							playerTime[currentPlayer][HOURS] = 9;
-							
-							if(--playerTime[currentPlayer][TEN_HOURS] < 0)
-							{
-								playerTime[currentPlayer][TEN_HOURS]   = 0;
-								playerTime[currentPlayer][HOURS]       = 0;
-								playerTime[currentPlayer][TEN_MINUTES] = 0;
-								playerTime[currentPlayer][MINUTES]     = 0;
-								playerTime[currentPlayer][TEN_SECONDS] = 0;
-								playerTime[currentPlayer][SECONDS]     = 0;
-								
-								on_game_end();
-							}
-						}
-					}
-				}
-			}
-		}
+			if (--delay < 0) delayPassed = 1;
+		}	
 	}
+	
+	on_tick();
+}
+
+/* Hourglass tick callback */
+void hourglass_tick_callback()
+{
+	
+}
+
+/* Count up tick callback */
+void countup_tick_callback()
+{
 	
 }
