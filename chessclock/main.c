@@ -22,11 +22,12 @@ void init_timer(void)
 {
 	ASSR = 1<<AS2; // enable asynchronous mode
 	
-	TCCR2B |= 1<<CS20;         // /1 prescaler
-	while (ASSR & 1<<TCR2BUB); // wait for register update
+	TCCR2B |= 1<<CS20;  // /1 prescaler
+	while (ASSR & 1<<TCR2BUB);     // wait for register update
 
-	TIFR2  = 1<<TOV2;   // clear interrupt flag	
-	//TIMSK2 = 1<<TOIE2;  // enable Timer2 overflow interrupt
+	
+
+	// TIFR2 = 1<<OCF2A;              // clear interrupt flag	
 }
 
 void reset(void)

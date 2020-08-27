@@ -25,7 +25,7 @@ callback_t start_callbacks[NUM_MODES] =
 	empty_start_callback, 
 	delay_start_callback, 
 	bronstein_start_callback, 
-	hourglass_start_callback, 
+	empty_start_callback, 
 	countup_start_callback
 };
 callback_t switch_callbacks[NUM_MODES] = 
@@ -34,8 +34,8 @@ callback_t switch_callbacks[NUM_MODES] =
 	increment_switch_callback, 
 	delay_switch_callback,
 	bronstein_switch_callback, 
-	hourglass_switch_callback, 
-	countup_switch_callback
+	empty_switch_callback, 
+	empty_switch_callback
 };
 callback_t tick_callbacks[NUM_MODES] = 
 {
@@ -106,51 +106,6 @@ void on_switch_interrupt(uint8_t player)
 	}
 }
 
-void on_tick()
-{
-	if (++playerTicks[currentPlayer] > 127)
-	{
-		playerTicks[currentPlayer] = 0;
-		
-		if (--playerTime[currentPlayer][SECONDS] < 0)
-		{
-			playerTime[currentPlayer][SECONDS] = 9;
-			
-			if (--playerTime[currentPlayer][TEN_SECONDS] < 0)
-			{
-				playerTime[currentPlayer][TEN_SECONDS] = 5;
-				
-				if (--playerTime[currentPlayer][MINUTES] < 0)
-				{
-					playerTime[currentPlayer][MINUTES] = 9;
-					
-					if (--playerTime[currentPlayer][TEN_MINUTES] < 0)
-					{
-						playerTime[currentPlayer][TEN_MINUTES] = 5;
-						
-						if (--playerTime[currentPlayer][HOURS] < 0)
-						{
-							playerTime[currentPlayer][HOURS] = 9;
-							
-							if(--playerTime[currentPlayer][TEN_HOURS] < 0)
-							{
-								playerTime[currentPlayer][TEN_HOURS]   = 0;
-								playerTime[currentPlayer][HOURS]       = 0;
-								playerTime[currentPlayer][TEN_MINUTES] = 0;
-								playerTime[currentPlayer][MINUTES]     = 0;
-								playerTime[currentPlayer][TEN_SECONDS] = 0;
-								playerTime[currentPlayer][SECONDS]     = 0;
-								
-								on_game_end();
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
 void on_game_end()
 {
 	TIMSK2 = 0x00; // disable further ticks
@@ -158,10 +113,10 @@ void on_game_end()
 	beep(24);		
 }
 
-/* Placeholder callback for simple and increment modes (no additional behaviour required on game start) */
+/* Placeholder start callback for many modes (no additional behaviour required on game start) */
 void empty_start_callback()
 {
-	
+		
 }
 
 /* Simple delay start callback */
@@ -183,16 +138,14 @@ void bronstein_start_callback()
 	delayPassed = 0;	
 }
 
-/* Hourglass start callback */
-void hourglass_start_callback()
-{
-	
-}
-
 /* Count up start callback */
 void countup_start_callback()
 {
-
+	for (uint8_t i = 0; i < 6; i++)
+	{
+		playerTime[PLAYER_A][i] = 0;
+		playerTime[PLAYER_B][i] = 0;
+	}	
 }
 
 /* Placeholder switch callback */
@@ -217,7 +170,7 @@ void delay_switch_callback()
 
 /* Bronstein delay switch callback */
 void bronstein_switch_callback()
-{
+{	
 	if (delayPassed)
 	{
 		add_time(playerTime[currentPlayer], gameConfig.delay);	
@@ -229,24 +182,105 @@ void bronstein_switch_callback()
 		playerTicks[currentPlayer] = startTicks;		
 	}
 	
-	for (uint8_t i = 0; i < 6; i++) startTime[i] = playerTime[currentPlayer ^ 0x01][i];
-	startTicks = playerTicks[currentPlayer ^ 0x01];
+	uint8_t otherPlayer = currentPlayer ^ 0x01;	
+	
+	for (uint8_t i = 0; i < 6; i++) startTime[i] = playerTime[otherPlayer][i];
+	startTicks = playerTicks[otherPlayer];
 	
 	delay = gameConfig.delay; 
 	delayTicks = 127;	
 	
 }
 
-/* Hourglass switch callback */
-void hourglass_switch_callback()
+void tick_down(uint8_t player)
 {
-	
+	if (++playerTicks[player] > 127)
+	{
+		playerTicks[player] = 0;
+		
+		if (--playerTime[player][SECONDS] < 0)
+		{
+			playerTime[player][SECONDS] = 9;
+			
+			if (--playerTime[player][TEN_SECONDS] < 0)
+			{
+				playerTime[player][TEN_SECONDS] = 5;
+				
+				if (--playerTime[player][MINUTES] < 0)
+				{
+					playerTime[player][MINUTES] = 9;
+					
+					if (--playerTime[player][TEN_MINUTES] < 0)
+					{
+						playerTime[player][TEN_MINUTES] = 5;
+						
+						if (--playerTime[player][HOURS] < 0)
+						{
+							playerTime[player][HOURS] = 9;
+							
+							if(--playerTime[player][TEN_HOURS] < 0)
+							{
+								playerTime[player][TEN_HOURS]   = 0;
+								playerTime[player][HOURS]       = 0;
+								playerTime[player][TEN_MINUTES] = 0;
+								playerTime[player][MINUTES]     = 0;
+								playerTime[player][TEN_SECONDS] = 0;
+								playerTime[player][SECONDS]     = 0;
+								
+								on_game_end();
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
-/* Count up switch callback */
-void countup_switch_callback()
+void tick_up(uint8_t player)
 {
-
+	if (playerTicks[player] == 0)
+	{
+		playerTicks[player] = 127;
+		
+		if (++playerTime[player][SECONDS] > 9)
+		{
+			playerTime[player][SECONDS] = 0;
+			
+			if (++playerTime[player][TEN_SECONDS] > 5)
+			{
+				playerTime[player][TEN_SECONDS] = 0;
+				
+				if (++playerTime[player][MINUTES] > 9)
+				{
+					playerTime[player][MINUTES] = 0;
+					
+					if (++playerTime[player][TEN_MINUTES] > 5)
+					{
+						playerTime[player][TEN_MINUTES] = 0;
+						
+						if (++playerTime[player][HOURS] > 9)
+						{
+							playerTime[player][HOURS] = 0;
+							
+							if(++playerTime[player][TEN_HOURS] > 9)
+							{
+								playerTime[player][TEN_HOURS]   = 0;
+								playerTime[player][HOURS]       = 0;
+								playerTime[player][TEN_MINUTES] = 0;
+								playerTime[player][MINUTES]     = 0;
+								playerTime[player][TEN_SECONDS] = 0;
+								playerTime[player][SECONDS]     = 0;
+								
+								on_game_end();
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	else playerTicks[player]--;
 }
 
 /* Placeholder tick callback */
@@ -258,7 +292,7 @@ void empty_tick_callback()
 /* Tick callback for simple and increment modes */
 void simple_tick_callback()
 {
-	on_tick();
+	tick_down(currentPlayer);
 }
 
 /* Simple delay tick callback */
@@ -266,7 +300,7 @@ void delay_tick_callback()
 {
 	if (delayPassed) // proceed as normal if delay period has elapsed
 	{
-		on_tick();	
+		tick_down(currentPlayer);	
 	}
 	else
 	{		
@@ -292,17 +326,20 @@ void bronstein_tick_callback()
 		}	
 	}
 	
-	on_tick();
+	tick_down(currentPlayer);
 }
 
 /* Hourglass tick callback */
 void hourglass_tick_callback()
 {
+	uint8_t otherPlayer = currentPlayer ^ 0x01;
 	
+	tick_down(currentPlayer);
+	tick_up(otherPlayer);			
 }
 
 /* Count up tick callback */
 void countup_tick_callback()
-{
-	
+{	
+	tick_up(currentPlayer);	
 }

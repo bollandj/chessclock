@@ -38,8 +38,7 @@ extern callback_t tick_callbacks[NUM_MODES];
 extern void add_time(volatile gameTime baseTime, uint8_t incTime);
 
 extern void on_switch_interrupt(uint8_t player);
-extern void on_tick(); // integral to most timing modes
-extern void on_game_end(); // integral to most timing modes
+extern void on_game_end();
 
 /* Callback functions for any necessary initialisation before counting starts */
 extern void empty_start_callback();
@@ -55,6 +54,9 @@ extern void delay_switch_callback();
 extern void bronstein_switch_callback();
 extern void hourglass_switch_callback();
 extern void countup_switch_callback();
+
+extern void tick_down(uint8_t player); // integral to most timing modes
+extern void tick_up(uint8_t player);
 
 /* Callback functions called on each tick */
 extern void empty_tick_callback();
